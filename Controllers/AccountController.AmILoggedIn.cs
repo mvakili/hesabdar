@@ -16,12 +16,11 @@ namespace api.Controllers
        [HttpPost]
         public ApiResult<bool> AmILoggedIn()
         {
-
             return new Job<bool>
             {
                 Do = result =>
                 {
-                    result.Data = true;
+                    result = Services.AccountService.AmILoggedIn();
                 },
                 Authorized = false
             }.Run();
