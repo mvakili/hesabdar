@@ -34,8 +34,7 @@ namespace api
                     .AllowCredentials() );
             });
 
-            services.AddDbContext<HesabdarContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<HesabdarContext>();
             // Add framework services.
             services.AddMvc();
         }
