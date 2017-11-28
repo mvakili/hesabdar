@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using api.DataContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Session;
 
 namespace api
 {
@@ -31,9 +32,11 @@ namespace api
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials() );
+                    .AllowCredentials());
             });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddDbContext<HesabdarContext>();
             // Add framework services.
             services.AddMvc();
@@ -46,6 +49,7 @@ namespace api
             loggerFactory.AddDebug();
 
             app.UseCors("CorsPolicy");
+            app.UseSession();
             app.UseMvc();
         }
     }
