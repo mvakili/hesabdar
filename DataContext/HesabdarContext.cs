@@ -1,4 +1,4 @@
-using api.Models.Account;
+using api.Models.Data.Account;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.DataContext
