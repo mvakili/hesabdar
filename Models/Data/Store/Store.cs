@@ -3,16 +3,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using api.Models.Data.Account;
 
-namespace api.Models.Data.Material
+namespace api.Models.Data.Store
 {
-    public class Material: IEntityModel {
+    public class Store : IEntityModel
+    {
         [Key]
-        public int Id {get; set;}
+        public int Id { get ; set ; }
         public string Name {get; set;}
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]
         public int? CreatorId { get ; set ; }
         public User Creator { get ; set ; }
-        public bool Deleted {get; set;}
+        public bool Deleted { get ; set ; }
     }
 }
