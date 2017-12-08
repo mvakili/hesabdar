@@ -12,7 +12,7 @@ namespace api.Models.Data.Account {
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]
         public int? CreatorId { get ; set ; }
-        public User Creator { get ; set ; }
+        public virtual User Creator { get ; set ; }
         public bool Deleted {get; set;}
     }
 }

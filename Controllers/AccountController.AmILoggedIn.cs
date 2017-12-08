@@ -20,9 +20,10 @@ namespace api.Controllers
             {
                 Do = result =>
                 {
-                    result = Services.AccountService.AmILoggedIn();
+                    result = new Services.AccountService(HttpContext.Session).AmILoggedIn();
                 },
-                Authorized = false
+                Authorized = false,
+                Session = HttpContext.Session
             }.Run();
 
         }
