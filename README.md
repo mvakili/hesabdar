@@ -14,6 +14,13 @@
 - دریافت و پرداخت 
 - گزارش های شفاف
 
+![](screenshots/electron.png)
+![](screenshots/npm.png) 
+![](screenshots/vuejs.png)
+![](screenshots/dotnetcore.png)
+
+
+
 ![](screenshots/preview.jpg)
 
 # فروشندگان چه مشکلاتی دارند؟
@@ -39,12 +46,14 @@ Frontend:
 - NPM >= v3
 - Webpack v2
 - Vuejs >= v2
+- BulmaJs v3
+- Electron v1
 
 Backend:
 
-- dotnetcore v2.0.3
-- Microsoft.EntityFrameworkCore.SqlServer v2.0.1
-- Microsoft.AspNetCore.All v2.0.3
+- dotnetcore v2
+- Microsoft.EntityFrameworkCore.SqlServer v2
+- Microsoft.AspNetCore.All v2
 
 ## شروع استفاده - Backend
 
