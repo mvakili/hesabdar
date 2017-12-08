@@ -25,7 +25,6 @@
 
 </div>
 
-![](screenshots/preview.jpg)
 
 
 ## Features
