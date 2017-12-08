@@ -49,17 +49,17 @@ Backend:
 ## شروع استفاده - Backend
 
 ```
-$ cd api/
+$ cd back-end/
 $ dotnet restore
 $ dotnet run
 ```
 ## شروع استفاده - Frontend
 
 ```
-$ cd vue
+$ cd front-end/
 $ yarn 
 // or $ npm update
 
-yarn run dev
+$ yarn run dev
 // or $ npm run dev
 ```
