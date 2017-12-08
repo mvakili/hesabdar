@@ -62,16 +62,16 @@ Backend:
 
 ### شروع استفاده - Backend
 
-```shell
-> cd .\backend\
+```bash
+> cd backend/
 > dotnet restore
 > dotnet run
 ```
 
 ### شروع استفاده - Frontend
 
-```shell
-> cd .\frontend\
+```bash
+> cd frontend/
 > yarn
 // or > npm update
 
