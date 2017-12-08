@@ -6,7 +6,7 @@
   </sub>
 </p>
 
-حسابدار ابزاری  برای مدیریت ساده ی مالی فروشگاه های کوچک می باشد، به اندازه ای ساده که هر فروشنده ای بتواند با یک آموزش ساده، کار های روزمره ی خود را منظم کند
+حسابدار ابزاری  برای مدیریت ساده ی مالی فروشگاه های کوچک می باشد، به اندازه ای ساده که هر فروشنده ای بتواند با یک آموزش 5 دقیقه ای، فعالیت های مالی روزمره ی خود را با این ابزار منظم کند
 
   - خرید و فروش کالا
   - دریافت و پرداخت 
@@ -36,9 +36,10 @@ Frontend:
 - Node >= v5
 - NPM >= v3
 - Webpack v2
+- Vuejs >= v2
 
 Backend:
 
-- dotnetcore 2.0.3
-- Microsoft.EntityFrameworkCore.SqlServer 2.0.1
-- Microsoft.AspNetCore.All 2.0.3
+- dotnetcore v2.0.3
+- Microsoft.EntityFrameworkCore.SqlServer v2.0.1
+- Microsoft.AspNetCore.All v2.0.3
