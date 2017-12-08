@@ -14,10 +14,6 @@
 - دریافت و پرداخت 
 - گزارش های شفاف
 
-![](screenshots/electron.png)
-![](screenshots/npm.png) 
-![](screenshots/vuejs.png)
-![](screenshots/dotnetcore.png)
 
 
 
@@ -38,6 +34,13 @@
 حسابدار ساخته شده تا یک فروشنده، بدون نیاز به مفاهیم و اصطلاحات تخصصی حسابداری فعالیت های مالی خود را به صورت منظم در آورد.
 
 # برای توسعه دهنده
+
+## تکنولوژی های استفاده شده
+
+![](screenshots/electron.png)
+![](screenshots/npm.png) 
+![](screenshots/vuejs.png)
+![](screenshots/dotnetcore.png)
 
 ## پیش نیاز ها
 Frontend:
