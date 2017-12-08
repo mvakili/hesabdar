@@ -9,9 +9,10 @@
 حسابدار ابزاری  برای مدیریت ساده ی مالی فروشگاه های کوچک می باشد، به اندازه ای ساده که هر فروشنده ای بتواند با یک آموزش 5 دقیقه ای، فعالیت های مالی روزمره ی خود را با این ابزار منظم کند
 
 # حسابدار چه امکاناتی دارد؟
-  - خرید و فروش کالا
-  - دریافت و پرداخت 
-  - گزارش های شفاف
+
+- خرید و فروش کالا
+- دریافت و پرداخت 
+- گزارش های شفاف
 
 ![](screenshots/preview.jpg)
 
@@ -44,3 +45,21 @@ Backend:
 - dotnetcore v2.0.3
 - Microsoft.EntityFrameworkCore.SqlServer v2.0.1
 - Microsoft.AspNetCore.All v2.0.3
+
+## شروع استفاده - Backend
+
+```
+$ cd api/
+$ dotnet restore
+$ dotnet run
+```
+## شروع استفاده - Frontend
+
+```
+$ cd vue
+$ yarn 
+// or $ npm update
+
+yarn run dev
+// or $ npm run dev
+```
