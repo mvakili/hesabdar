@@ -8,7 +8,6 @@ namespace api.DataContext
 {
     public class HesabdarContext : DbContext
     {
-
         public DbSet<User> Users {get; set;}
         public DbSet<Shop> Shops {get; set;}
         public DbSet<Material> Materials {get; set;}

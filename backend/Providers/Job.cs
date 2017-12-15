@@ -3,23 +3,21 @@ using api.Models;
 using api.Controllers;
 using api.DataContext;
 using Microsoft.AspNetCore.Http;
+using api.Services;
 
 namespace api.Providers
 {
-    public class Job<T>
+    public class Job<T> : BaseJob
     {
         public delegate void Work(ApiResult<T> result);
-        public Work Do { get; set; }
-        public bool Authorized { get; set; } = true;
-        public ISession Session {get; set;}
-        public  ApiResult<T> Run()
+        public  ApiResult<T> Run(Work Do)
         {
             var result = new ApiResult<T> { ResultStatus = ResultStatus.Successful };
             try
             {
                 if (Authorized)
                 {
-                    var res = new Services.AccountService(Session).AmILoggedIn();
+                    var res = new Services.AccountService(Controller.ModuleContainer).AmILoggedIn();
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
                     if (res.ResultStatus == ResultStatus.Successful && !res.Data)
@@ -39,21 +37,18 @@ namespace api.Providers
         }
     }
 
-    public class Job
+
+    public class Job : BaseJob
     {
         public delegate void Work(ApiResult result);
-        public Work Do { get; set; }
-        public bool Authorized { get; set; } = true;
-        public ISession Session {get; set;}
-            
-        public ApiResult Run()
+        public ApiResult Run(Work Do)
         {
             var result = new ApiResult { ResultStatus = ResultStatus.Successful };
             try
             {
                 if (Authorized)
                 {
-                    var res = new Services.AccountService(Session).AmILoggedIn();
+                    var res = new Services.AccountService(this.Controller.ModuleContainer).AmILoggedIn();
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
                     if (res.ResultStatus == ResultStatus.Successful && !res.Data)
@@ -72,21 +67,17 @@ namespace api.Providers
             return result;
         }
     }
-    public class DataJob<T>
+    public class DataJob<T> : BaseJob
     {
         public delegate void Work(HesabdarContext context, ApiResult<T> result);
-        public Work Do { get; set; }
-        public bool Authorized { get; set; } = true;
-        public ISession Session {get; set;}
-        
-        public ApiResult<T> Run()
+        public ApiResult<T> Run(Work Do)
         {
             var result = new ApiResult<T> { ResultStatus = ResultStatus.Successful };
             try
             {
                 if (Authorized)
                 {
-                    var res = new Services.AccountService(Session).AmILoggedIn();                    
+                    var res = new Services.AccountService(this.Controller.ModuleContainer).AmILoggedIn();                    
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
                     if (res.ResultStatus == ResultStatus.Successful && !res.Data)
@@ -96,14 +87,12 @@ namespace api.Providers
                     }
                 }
 
-                using(var context = new HesabdarContext())
+                using (var transaction = Controller.ModuleContainer.DbContext.Database.BeginTransaction())
                 {
-                    using (var transaction = context.Database.BeginTransaction())
-                    {
-                        Do(context, result);
-                        transaction.Commit();
-                    }
+                    Do(Controller.ModuleContainer.DbContext, result);
+                    transaction.Commit();
                 }
+
             }
             catch (Exception)
             {
@@ -115,21 +104,17 @@ namespace api.Providers
         }
     }
 
-    public class DataJob
+    public class DataJob : BaseJob
     {
         public delegate void Work(HesabdarContext context, ApiResult result);
-
-        public Work Do { get; set; }
-        public bool Authorized { get; set; } = true;
-        public ISession Session {get; set;}
-        public ApiResult Run()
+        public ApiResult Run(Work Do)
         {
             var result = new ApiResult { ResultStatus = ResultStatus.Successful };
             try
             {
                 if (Authorized)
                 {
-                    var res = new Services.AccountService(Session).AmILoggedIn();                    
+                    var res = new Services.AccountService(Controller.ModuleContainer).AmILoggedIn();                    
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
                     if (res.ResultStatus == ResultStatus.Successful && !res.Data)
@@ -139,13 +124,10 @@ namespace api.Providers
                     }
                 }
 
-                using(var context = new HesabdarContext())
+                using (var transaction = Controller.ModuleContainer.DbContext.Database.BeginTransaction())
                 {
-                    using (var transaction = context.Database.BeginTransaction())
-                    {
-                        Do(context, result);
-                        transaction.Commit();
-                    }
+                    Do(Controller.ModuleContainer.DbContext, result);
+                    transaction.Commit();
                 }
             }
             catch (Exception)
@@ -158,5 +140,17 @@ namespace api.Providers
         }
     }
 
+    public class BaseJob
+    {
+        public bool Authorized { get; set; } = true;
+        public HesabdarController Controller {get; set;}
+        public T UseService<T> () where T:BaseService {
 
+            var result = (T)Activator.CreateInstance(typeof(T));
+
+            result.Modules = Controller.ModuleContainer;
+
+            return result;
+        }
+    }
 }

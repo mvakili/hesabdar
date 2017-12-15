@@ -26,5 +26,7 @@ namespace api.Models.Data.Transaction
         public int? CreatorId { get ; set ; }
         public virtual User Creator { get ; set ; }
         public bool Deleted { get ; set ; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

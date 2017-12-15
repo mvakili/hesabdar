@@ -9,7 +9,7 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
-    public partial class AccountController : Controller
+    public partial class AccountController : HesabdarController
     {
        
     }

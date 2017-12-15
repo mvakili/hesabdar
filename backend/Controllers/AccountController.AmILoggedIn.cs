@@ -4,28 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
 using api.Providers;
+using api.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
     [Route("api/[controller]")]
-    public partial class AccountController : Controller
+    public partial class AccountController : HesabdarController
     {
        
        [HttpPost]
         public ApiResult<bool> AmILoggedIn()
         {
-            return new Job<bool>
+            var result =  new Job<bool>
             {
-                Do = result =>
-                {
-                    result = new Services.AccountService(HttpContext.Session).AmILoggedIn();
-                },
                 Authorized = false,
-                Session = HttpContext.Session
-            }.Run();
+                Controller = this
+            };
 
+            return result.Run(
+            res =>
+            {
+                res = result.UseService<AccountService>().AmILoggedIn();
+            }
+            );
         }
     }
 }

@@ -14,5 +14,7 @@ namespace api.Models.Data.Materials {
         public int? CreatorId { get ; set ; }
         public virtual User Creator { get ; set ; }
         public bool Deleted {get; set;}
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

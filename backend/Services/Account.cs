@@ -3,17 +3,14 @@ using System.Linq;
 using api.DataContext;
 using api.Models;
 using api.Models.Data.Account;
+using api.Providers;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Services {
-    public class AccountService {
-        private ISession Session {get; set;}
-        public AccountService(ISession session)
-        {
-            this.Session = session;
-        }
+    public class AccountService : BaseService {
+        public AccountService(ModuleContainer container) : base(container) {}
         public ApiResult<bool> AmILoggedIn()
         {
             var result = new ApiResult<bool>();
@@ -23,12 +20,12 @@ namespace api.Services {
             return result;
         }
 
-        public ApiResult<bool> AddUser(HesabdarContext context, string username, string password)
+        public ApiResult<bool> AddUser(string username, string password)
         {
             var result = new ApiResult<bool>();
 
 
-            var data = context.Users
+            var data = this.Modules.DbContext.Users
             .Any(u => u.Username == username);
 
             if (data)
@@ -44,8 +41,8 @@ namespace api.Services {
                     CreatorId = currentUserId
                 };
 
-                context.Users.Add(user);
-                context.SaveChanges();
+                this.Modules.DbContext.Users.Add(user);
+                this.Modules.DbContext.SaveChanges();
                 result.Data = true;
                 result.Messages.Add("کاربر با موفقیت ایجاد شد");
                 
@@ -64,7 +61,7 @@ namespace api.Services {
             .FirstOrDefault();
             if (data != 0)
             {
-                Session.SetInt32("UserId", data);
+                this.Modules.Session.SetInt32("UserId", data);
                 result.Data = true;
                 result.Messages.Add("با موفقیت وارد شدید");
             } else {
@@ -80,7 +77,7 @@ namespace api.Services {
         {
             var result = new ApiResult();
 
-            Session.Remove("UserId");
+            this.Modules.Session.Remove("UserId");
 
             return result;
         }
@@ -89,7 +86,7 @@ namespace api.Services {
         {
             try
             {
-                return Int32.Parse(Session.GetString("UserId"));
+                return Int32.Parse(this.Modules.Session.GetString("UserId"));
             }
             catch (System.Exception)
             {

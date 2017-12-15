@@ -10,5 +10,6 @@ namespace api.Models.Data
         int? CreatorId {get; set;}
         User Creator {get; set;}
         bool Deleted {get; set;}
+        byte[] RowVersion { get; set; }
     }
 }

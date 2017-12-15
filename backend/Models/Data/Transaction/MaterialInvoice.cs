@@ -9,20 +9,19 @@ namespace api.Models.Data.Transaction
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("From")]
-        public int? FromId {get; set;}
-        public virtual Shop From { get ; set ; }
-        [ForeignKey("To")]
+        public int? FromId {get; set;} 
+
         public int? ToId {get; set;}
-        public virtual Shop To { get ; set ; }
-        [ForeignKey("FinancialInvoice")]
         public int? FinancialInvoiceId {get; set;}
+        [ForeignKey("FinancialInvoiceId")]
         public FinancialInvoice FinancialInvoice {get;set;}
         public DateTime CreationTime { get; set; }
         [ForeignKey("Creator")]
         public int? CreatorId { get; set; }
         public virtual User Creator { get; set; }
         public bool Deleted { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
     }
 }

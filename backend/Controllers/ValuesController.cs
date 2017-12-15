@@ -9,7 +9,7 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [EnableCors("CorsPolicy")]
-    public class ValuesController : Controller
+    public class ValuesController : HesabdarController
     {
         // GET api/values
         [HttpGet]
