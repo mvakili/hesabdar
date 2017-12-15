@@ -14,19 +14,20 @@ namespace api.Controllers
     [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
-       
+
        [HttpPost]
-        public ApiResult<PermissionLevel> GetPermissionLevel()
+        public ApiResult Logout()
         {
-            var result =  new Job<PermissionLevel>
+            var result =  new Job
             {
+                Permission = PermissionLevel.Spectrator,
                 Controller = this
             };
 
             return result.Run(
             res =>
             {
-                res = result.UseService<AccountService>().GetPermissionLevel();
+                res = result.UseService<AccountService>().LogOut();
             }
             );
         }

@@ -10,17 +10,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Services {
     public partial class AccountService : BaseService {
-        public AccountService(ModuleContainer container) : base(container) {}
-
-
-
-
-
-
-    
         
+        public ApiResult<PermissionLevel> GetPermissionLevel()
+        {
+            var result = new ApiResult<PermissionLevel>();
 
+            result.Data = PermissionLevel.Administrator;
 
-
+            return result;
+        }
     }
 }

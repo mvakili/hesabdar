@@ -10,17 +10,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Services {
     public partial class AccountService : BaseService {
-        public AccountService(ModuleContainer container) : base(container) {}
-
-
-
-
-
-
-    
         
+        public ApiResult LogOut()
+        {
+            var result = new ApiResult();
 
+            this.Modules.Session.Remove("UserId");
 
-
+            return result;
+        }
     }
 }

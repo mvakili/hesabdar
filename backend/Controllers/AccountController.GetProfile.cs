@@ -8,25 +8,30 @@ using api.Providers;
 using api.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using static api.Services.AccountService;
 
 namespace api.Controllers
 {
     [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
-       
+        public class GetProfileInput {
+           public string Username { get; set; }
+       }
+
        [HttpPost]
-        public ApiResult<PermissionLevel> GetPermissionLevel()
+        public ApiResult<ProfileResult> GetProfile([FromBody] GetProfileInput input)
         {
-            var result =  new Job<PermissionLevel>
+            var result =  new Job<ProfileResult>
             {
+                Permission = PermissionLevel.Spectrator,
                 Controller = this
             };
 
             return result.Run(
             res =>
             {
-                res = result.UseService<AccountService>().GetPermissionLevel();
+                res = result.UseService<AccountService>().GetProfile(input.Username);
             }
             );
         }

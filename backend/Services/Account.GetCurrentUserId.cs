@@ -10,17 +10,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Services {
     public partial class AccountService : BaseService {
-        public AccountService(ModuleContainer container) : base(container) {}
-
-
-
-
-
-
-    
         
-
-
-
+        public int? GetCurrentUserId()
+        {
+            try
+            {
+                return Int32.Parse(this.Modules.Session.GetString("UserId"));
+            }
+            catch (System.Exception)
+            {
+                return null;
+            }
+        }
     }
 }
