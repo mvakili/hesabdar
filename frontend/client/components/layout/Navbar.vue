@@ -16,8 +16,8 @@
           </a>
         </div>
         <div class="nav-right is-flex">
-          <router-link v-if="!$auth.check()" to="/login" class="nav-item">ورود</router-link>
-          <a v-if="$auth.check()" @click="logout" class="nav-item">خروج</a>
+          <!-- <router-link v-if="!$auth.check()" to="/login" class="nav-item">ورود</router-link>
+          <a v-if="$auth.check()" @click="logout" class="nav-item">خروج</a> -->
         </div>
       </nav>
     </div>
