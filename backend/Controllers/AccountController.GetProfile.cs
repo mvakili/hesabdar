@@ -12,14 +12,14 @@ using static api.Services.AccountService;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
         public class GetProfileInput {
            public string Username { get; set; }
-       }
+        }
 
-       [HttpPost]
+        [HttpPost]
+        [Route("[action]")]
         public ApiResult<ProfileResult> GetProfile([FromBody] GetProfileInput input)
         {
             var result =  new Job<ProfileResult>

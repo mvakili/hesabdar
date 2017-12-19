@@ -3,6 +3,7 @@ using api.Providers;
 namespace api.Services 
 {
     public abstract class BaseService {
+        public BaseService () {}
         public BaseService (ModuleContainer container)
         {
             this.Modules = container;

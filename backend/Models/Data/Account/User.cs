@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace api.Models.Data.Account {
     public class User: IEntityModel {
@@ -8,6 +10,7 @@ namespace api.Models.Data.Account {
         public int Id {get; set; }
         public string Username {get; set;}
         public string Password {get; set;}
+        [JsonConverter(typeof(StringEnumConverter))]
         public PermissionLevel Permission {get; set;}
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]

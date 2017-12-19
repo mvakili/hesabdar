@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
 
-       [HttpPost]
+        [HttpPost]
+        [Route("[action]")]
         public ApiResult Logout()
         {
             var result =  new Job

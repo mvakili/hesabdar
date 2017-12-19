@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
        public class LoginInput {
@@ -18,7 +17,8 @@ namespace api.Controllers
            public string Password {get; set;}
        }
 
-       [HttpPost]
+        [HttpPost]
+        [Route("[action]")]
         public ApiResult<bool> Login([FromBody] LoginInput input)
         {
             var result =  new Job<bool>

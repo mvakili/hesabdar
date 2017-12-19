@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Services {
     public partial class AccountService : BaseService {
+        public AccountService() {}
         public AccountService(ModuleContainer container) : base(container) {}
 
 

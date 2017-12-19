@@ -29,7 +29,7 @@ namespace api.Providers
                 }
                 Do(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.Messages.Clear();
                 result.ResultStatus = ResultStatus.Thrown;

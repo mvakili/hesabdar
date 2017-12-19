@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
-    [Route("api/[controller]")]
     public partial class AccountController : HesabdarController
     {
        
        [HttpPost]
+       [Route("[action]")]
         public ApiResult<PermissionLevel> GetPermissionLevel()
         {
             var result =  new Job<PermissionLevel>
