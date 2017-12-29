@@ -24,7 +24,7 @@ namespace api.Controllers
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult<PermissionLevel> res) =>
             {
                 res = result.UseService<AccountService>().GetPermissionLevel();
             }

@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Services {
     public partial class AccountService : BaseService {
         
-        public ApiResult<bool> Login(string username, string password)
+        public ApiResult Login(string username, string password)
         {
-            var result = new ApiResult<bool>();
+            var result = new ApiResult();
             
             var data = this.Modules.DbContext.ActiveUsers
             .Where(u => u.Username == username && u.Password == password)
@@ -22,10 +22,9 @@ namespace api.Services {
             if (data != 0)
             {
                 this.Modules.Session.SetInt32("UserId", data);
-                result.Data = true;
                 result.Messages.Add("با موفقیت وارد شدید");
             } else {
-                result.Data = false;
+                result.ResultStatus = ResultStatus.Failed;
                 result.Messages.Add("کاربری با مشخصات وارد شده پیدا نشد");
                 
             }

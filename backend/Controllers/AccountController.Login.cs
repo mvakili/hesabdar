@@ -19,15 +19,15 @@ namespace api.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public ApiResult<bool> Login([FromBody] LoginInput input)
+        public ApiResult Login([FromBody] LoginInput input)
         {
-            var result =  new Job<bool>
+            var result =  new Job
             {
                 Controller = this
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult res) =>
             {
                 res = result.UseService<AccountService>().Login(input.Username, input.Password);
             }

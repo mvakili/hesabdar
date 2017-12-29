@@ -25,7 +25,7 @@ namespace api.Controllers
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult res) =>
             {
                 res = result.UseService<AccountService>().LogOut();
             }

@@ -27,7 +27,7 @@ namespace api.Controllers
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult<List<GetMaterialsResult>> res) =>
             {
                 res = result.UseService<MaterialService>().GetMaterials();
             }

@@ -10,7 +10,7 @@ namespace api.Providers
 {
     public class Job<T> : BaseJob
     {
-        public delegate void Work(ApiResult<T> result);
+        public delegate void Work(ref ApiResult<T> result);
         public  ApiResult<T> Run(Work Do)
         {
             var result = new ApiResult<T> { ResultStatus = ResultStatus.Successful };
@@ -27,7 +27,7 @@ namespace api.Providers
                         return result;
                     }
                 }
-                Do(result);
+                Do(ref result);
             }
             catch (Exception ex)
             {
@@ -41,7 +41,7 @@ namespace api.Providers
 
     public class Job : BaseJob
     {
-        public delegate void Work(ApiResult result);
+        public delegate void Work(ref ApiResult result);
         public ApiResult Run(Work Do)
         {
             var result = new ApiResult { ResultStatus = ResultStatus.Successful };
@@ -58,7 +58,7 @@ namespace api.Providers
                         return result;
                     }
                 }
-                Do(result);
+                Do(ref result);
             }
             catch (Exception)
             {
@@ -70,7 +70,7 @@ namespace api.Providers
     }
     public class DataJob<T> : BaseJob
     {
-        public delegate void Work(HesabdarContext context, ApiResult<T> result);
+        public delegate void Work(HesabdarContext context,ref ApiResult<T> result);
         public ApiResult<T> Run(Work Do)
         {
             var result = new ApiResult<T> { ResultStatus = ResultStatus.Successful };
@@ -90,7 +90,7 @@ namespace api.Providers
 
                 using (var transaction = Controller.ModuleContainer.DbContext.Database.BeginTransaction())
                 {
-                    Do(Controller.ModuleContainer.DbContext, result);
+                    Do(Controller.ModuleContainer.DbContext,ref result);
                     transaction.Commit();
                 }
 
@@ -107,7 +107,7 @@ namespace api.Providers
 
     public class DataJob : BaseJob
     {
-        public delegate void Work(HesabdarContext context, ApiResult result);
+        public delegate void Work(HesabdarContext context,ref ApiResult result);
         public ApiResult Run(Work Do)
         {
             var result = new ApiResult { ResultStatus = ResultStatus.Successful };
@@ -127,7 +127,7 @@ namespace api.Providers
 
                 using (var transaction = Controller.ModuleContainer.DbContext.Database.BeginTransaction())
                 {
-                    Do(Controller.ModuleContainer.DbContext, result);
+                    Do(Controller.ModuleContainer.DbContext, ref result);
                     transaction.Commit();
                 }
             }

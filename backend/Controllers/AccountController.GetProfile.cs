@@ -29,7 +29,7 @@ namespace api.Controllers
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult<ProfileResult> res) =>
             {
                 res = result.UseService<AccountService>().GetProfile(input.Username);
             }

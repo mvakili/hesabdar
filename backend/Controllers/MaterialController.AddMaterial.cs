@@ -29,7 +29,7 @@ namespace api.Controllers
             };
 
             return result.Run(
-            res =>
+            (ref ApiResult<int> res) =>
             {
                 res = result.UseService<MaterialService>().AddMaterial(input.Name);
             }
