@@ -21,7 +21,7 @@ namespace api.Providers
                     var res = new Services.AccountService(Controller.ModuleContainer).GetPermissionLevel();
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
-                    if (BaseJob.HasAccess(res.Data, Permission))
+                    if (!BaseJob.HasAccess(res.Data, Permission))
                     {
                         result.ResultStatus = ResultStatus.Unauthorized;
                         return result;
@@ -52,7 +52,7 @@ namespace api.Providers
                     var res = new Services.AccountService(this.Controller.ModuleContainer).GetPermissionLevel();
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
-                    if (BaseJob.HasAccess(res.Data, Permission))
+                    if (!BaseJob.HasAccess(res.Data, Permission))
                     {
                         result.ResultStatus = ResultStatus.Unauthorized;
                         return result;
@@ -81,7 +81,7 @@ namespace api.Providers
                     var res = new Services.AccountService(this.Controller.ModuleContainer).GetPermissionLevel();                    
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
-                    if (BaseJob.HasAccess(res.Data, Permission))
+                    if (!BaseJob.HasAccess(res.Data, Permission))
                     {
                         result.ResultStatus = ResultStatus.Unauthorized;
                         return result;
@@ -118,7 +118,7 @@ namespace api.Providers
                     var res = new Services.AccountService(Controller.ModuleContainer).GetPermissionLevel();                    
                     result.ResultStatus = res.ResultStatus;
                     result.Messages = res.Messages;
-                    if (BaseJob.HasAccess(res.Data, Permission))
+                    if (!BaseJob.HasAccess(res.Data, Permission))
                     {
                         result.ResultStatus = ResultStatus.Unauthorized;
                         return result;
