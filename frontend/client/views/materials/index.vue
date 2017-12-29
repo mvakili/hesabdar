@@ -116,7 +116,7 @@ export default {
   },
   methods: {
     loadDataList () {
-      Material.getMaterials().then (res => {
+      Material.getMaterials().then(res => {
         console.log(res)
         this.datalist = res.Data
       })
