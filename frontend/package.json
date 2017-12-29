@@ -78,6 +78,7 @@
     "vue-cleave": "1.1.1",
     "vue-jalaali-datepicker": "^1.0.1",
     "vue-lory": "0.0.4",
+    "vue-moment-jalaali": "^2.0.0",
     "vue-nprogress": "0.1.5",
     "vue-peity": "0.5.0",
     "vue-router": "^2.3.0",

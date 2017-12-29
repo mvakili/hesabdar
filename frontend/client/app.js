@@ -27,7 +27,7 @@ Vue.use(VueAuth, {
   loginData: { url: 'http://localhost:6789/login', fetchUser: false },
   refreshData: { enabled: false }
 })
-
+Vue.use(require('vue-moment-jalaali'))
 Vue.use(NProgress)
 // Enable devtools
 Vue.config.devtools = true

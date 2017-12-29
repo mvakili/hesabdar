@@ -40,7 +40,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.provider}}</td>
                 <td >
-                  {{item.date}}
+                  {{item.date | moment("HH:mm jYYYY/jM/jD")}}
                 </td>
                 <td>
                   {{item.price}}
@@ -90,25 +90,25 @@ export default {
         {
           id: 1,
           provider: 'تامین کننده 1',
-          date: '1396/07/25',
+          date: '2017-05-12 16:55',
           price: '32000'
         },
         {
           id: 2,
           provider: 'تامین کننده 2',
-          date: '1396/07/25',
+          date: '2017-05-12 16:55',
           price: '32000'
         },
         {
           id: 3,
           provider: 'تامین کننده 3',
-          date: '1396/07/25',
+          date: '2017-05-12 16:55',
           price: '32000'
         },
         {
           id: 3,
           provider: 'تامین کننده 4',
-          date: '1396/07/25',
+          date: '2017-05-12 16:55',
           price: '32000'
         }
       ]
