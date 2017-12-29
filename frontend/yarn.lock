@@ -5252,6 +5252,13 @@ mocha@^3.4.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
+moment-jalaali@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.4.0.tgz#67ea429ab0194e9adb092dfa640d862fa6d18d26"
+  dependencies:
+    jalaali-js "^0.2.0"
+    moment "^2.9.0"
+
 moment-jalaali@^0.6.0:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.6.1.tgz#450043895c8c8f7d66b38c86e1884dce05906965"
@@ -5266,6 +5273,10 @@ moment@^2.10.6:
 moment@^2.12.0:
   version "2.19.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
+
+moment@^2.9.0:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
 monotone-convex-hull-2d@^1.0.1:
   version "1.0.1"
@@ -8347,6 +8358,12 @@ vue-lory@0.0.4:
   resolved "https://registry.yarnpkg.com/vue-lory/-/vue-lory-0.0.4.tgz#08cac91bfb5898f6a1fc94d89b7b760d88b8f889"
   dependencies:
     lory.js "^2.2.1"
+
+vue-moment-jalaali@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vue-moment-jalaali/-/vue-moment-jalaali-2.0.0.tgz#3ee1691a35e0d48468683d27deb6cb4517d645ae"
+  dependencies:
+    moment-jalaali "^0.4.0"
 
 vue-nprogress@0.1.5:
   version "0.1.5"
