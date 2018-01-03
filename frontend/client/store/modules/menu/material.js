@@ -28,6 +28,7 @@ export default {
       component: lazyLoading('material/New'),
       meta: {
         show: false,
+        label: 'جدید',
         link: 'material/New.vue'
       }
     }
