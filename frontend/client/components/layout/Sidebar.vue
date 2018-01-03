@@ -5,21 +5,21 @@
         <router-link :to="item.path" :exact="true" :aria-expanded="isExpanded(item) ? 'true' : 'false'" v-if="item.path" @click.native="toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
           {{ item.meta.label || item.name }}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
+          <span class="icon is-small is-angle" v-if="item.children && item.children.filter(item => item.meta.show == null || item.meta.show).length">
             <i class="fa fa-angle-down"></i>
           </span>
         </router-link>
         <a :aria-expanded="isExpanded(item)" v-else @click="toggle(index, item)">
           <span class="icon is-small"><i :class="['fa', item.meta.icon]"></i></span>
           {{ item.meta.label || item.name }}
-          <span class="icon is-small is-angle" v-if="item.children && item.children.length">
+          <span class="icon is-small is-angle" v-if="item.children && item.children.filter(item => item.meta.show == null || item.meta.show).length">
             <i class="fa fa-angle-down"></i>
           </span>
         </a>
 
-        <expanding v-if="item.children && item.children.length">
+        <expanding v-if="item.children && item.children.filter(item => item.meta.show == null || item.meta.show).length">
           <ul v-show="isExpanded(item)">
-            <li v-for="subItem in item.children" v-if="subItem.path">
+            <li v-for="subItem in item.children.filter(item => item.meta.show == null || item.meta.show)" v-if="subItem.path">
               <router-link :to="generatePath(item, subItem)">
                 {{ subItem.meta && subItem.meta.label || subItem.name }}
               </router-link>
@@ -33,7 +33,7 @@
 
 <script>
 import Expanding from 'vue-bulma-expanding'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -58,9 +58,11 @@ export default {
     }
   },
 
-  computed: mapGetters({
-    menu: 'menuitems'
-  }),
+  computed: {
+    menu () {
+      return this.$store.state.menu.items.filter(item => item.meta.show == null || item.meta.show)
+    }
+  },
 
   methods: {
     ...mapActions([

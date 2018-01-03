@@ -3,6 +3,7 @@ import lazyLoading from './lazyLoading'
 export default {
   name: 'گزارشات',
   path: '/reports',
+  redirect: 'reports/Materials',
   meta: {
     icon: 'fa-bar-chart-o',
     expanded: false,

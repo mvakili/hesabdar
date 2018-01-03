@@ -3,11 +3,11 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent is-12">
         <nav>
-          <a class="button has-text-success" v-on:click="loadDataList()">  جدید 
+          <router-link class="button has-text-success" to="material/New">جدید
              &nbsp; &nbsp;<span class="icon has-text-success">
               <i class="fa fa-plus"></i>
             </span>
-          </a>
+          </router-link>
         </nav>
       </div>
     </div>
@@ -17,7 +17,7 @@
           <div class="block">
             <p class="control has-addons">
               <input class="input" type="text" placeholder="...">
-              <a class="button is-primary">جستجو</a>
+              <a class="button is-primary" v-on:click="loadDataList()">جستجو</a>
             </p>
           </div>
         </article>
@@ -30,21 +30,13 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>نام کالا</th>
-                <th>تاریخ ثبت</th>
-                <th>قیمت</th>
+                <th>نام کالا</th>              
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in datalist">
                 <td>{{item.id}}</td>
-                <td>{{item.provider}}</td>
-                <td >
-                  {{item.date | moment("HH:mm jYYYY/jM/jD")}}
-                </td>
-                <td>
-                  {{item.price}}
-                </td>
+                <td>{{item.name}}</td>
               </tr>
             </tbody>
           </table>
@@ -89,27 +81,19 @@ export default {
       datalist: [
         {
           id: 1,
-          provider: 'تامین کننده 1',
-          date: '2017-05-12 16:55',
-          price: '32000'
+          name: 'کالای 1'
         },
         {
           id: 2,
-          provider: 'تامین کننده 2',
-          date: '2017-05-12 16:55',
-          price: '32000'
+          name: 'کالای 1'
         },
         {
           id: 3,
-          provider: 'تامین کننده 3',
-          date: '2017-05-12 16:55',
-          price: '32000'
+          name: 'کالای 1'
         },
         {
           id: 3,
-          provider: 'تامین کننده 4',
-          date: '2017-05-12 16:55',
-          price: '32000'
+          name: 'کالای 1'
         }
       ]
     }
@@ -117,10 +101,13 @@ export default {
   methods: {
     loadDataList () {
       Material.getMaterials().then(res => {
-        console.log(res)
-        this.datalist = res.Data
+        console.log(res.data.data)
+        this.datalist = res.data.data
       })
     }
+  },
+  created () {
+    this.loadDataList()
   }
 }
 </script>

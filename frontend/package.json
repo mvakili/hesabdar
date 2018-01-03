@@ -82,6 +82,7 @@
     "vue-nprogress": "0.1.5",
     "vue-peity": "0.5.0",
     "vue-router": "^2.3.0",
+    "vue-router-back-button": "^0.0.1",
     "vuejs-datepicker": "^0.9.20",
     "vuex": "^2.2.1",
     "vuex-router-sync": "^4.1.2",

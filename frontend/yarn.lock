@@ -8375,9 +8375,20 @@ vue-peity@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/vue-peity/-/vue-peity-0.5.0.tgz#0729d04c6850c218cba4d6d7219bf1cfe5a3bfcb"
 
+vue-router-back-button@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vue-router-back-button/-/vue-router-back-button-0.0.1.tgz#abedc2229ad1d8b4324c2a10aef346b039e42591"
+  dependencies:
+    vue "^2.3.3"
+    vue-router "^2.6.0"
+
 vue-router@^2.3.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.6.0.tgz#77b271f6e0ac6d57e8e556da58c6582fce0ab712"
+
+vue-router@^2.6.0:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.8.1.tgz#9833c9ee57ac83beb0269056fefee71713f20695"
 
 vue-style-loader@^2.0.0:
   version "2.0.5"
@@ -8400,6 +8411,10 @@ vue-template-es2015-compiler@^1.2.2:
 vue@^2.2.2:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
+
+vue@^2.3.3:
+  version "2.5.13"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
 
 vuejs-datepicker@^0.9.20:
   version "0.9.20"

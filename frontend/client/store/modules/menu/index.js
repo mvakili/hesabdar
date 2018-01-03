@@ -1,6 +1,7 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
 import reports from './reports'
+import material from './material'
 // import uifeatures from './uifeatures'
 // import components from './components'
 // import tables from './tables'
@@ -51,15 +52,7 @@ const state = {
       },
       component: lazyLoading('customers', true)
     },
-    {
-      name: 'اجناس',
-      path: '/materials',
-      meta: {
-        icon: 'fa-rocket',
-        link: 'materials/index.vue'
-      },
-      component: lazyLoading('materials', true)
-    }
+    material
   ]
 }
 

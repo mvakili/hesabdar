@@ -16,7 +16,7 @@ namespace api.Controllers
     public partial class MaterialController : HesabdarController
     {
 
-        [HttpGet]
+        [HttpPost]
         [Route("[action]")]
         public ApiResult<List<GetMaterialsResult>> GetMaterials()
         {

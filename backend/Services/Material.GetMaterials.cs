@@ -13,11 +13,18 @@ namespace api.Services
 
         public class GetMaterialsResult
         {
+            public int Id {get; set;}
+            public string Name { get; set; }
         }
         public ApiResult<List<GetMaterialsResult>> GetMaterials()
         {
             var result = new ApiResult<List<GetMaterialsResult>>();
             result.Data = new List<GetMaterialsResult>();
+            result.Data.Add(new GetMaterialsResult()
+            {
+                Id = 1,
+                Name = "Material 1"
+            });
             return result;
         }
         
