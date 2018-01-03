@@ -11,17 +11,13 @@
             <div class="column">
               <label class="label">نام کالا</label>
               <p class="control has-icon has-icon-right">
-                <input class="input" type="text" placeholder="نام کالا" value="">
+                <input class="input" v-model="materialName" type="text" placeholder="نام کالا" value="">
                 <!-- <validator></validator> -->
               </p>
             </div>
           </div>
           <p class="control">
-            <router-link class="button is-primary"
-              v-if="$routerHistory.hasHistory()"
-              :to="{ path: $routerHistory.previous().path }">
-                تایید
-            </router-link>
+            <a class="button is-primary" v-on:click="addMaterial()">تایید</a>
             <router-link class="button"
               v-if="$routerHistory.hasHistory()"
               :to="{ path: $routerHistory.previous().path }">
@@ -35,31 +31,26 @@
 </template>
 
 <script>
-import Cleave from 'vue-cleave'
-import 'cleave.js/dist/addons/cleave-phone.cn'
+import Material from './../../services/material'
 export default {
-  components: {
-    Cleave
-  },
   data () {
     return {
       demo: {
         value: '',
         rawValue: ''
-      }
+      },
+      materialName: ''
     }
   },
   methods: {
     onRawValueChanged (newVal) {
       this.demo.rawValue = newVal
-    }
-  },
-  watch: {
-    'demo.value' (newVal, oldVal) {
-      console.log('value: new ->', newVal, 'old ->', oldVal)
     },
-    'demo.rawValue' (newVal, oldVal) {
-      console.log('rawValue: new ->', newVal, 'old ->', oldVal)
+    addMaterial () {
+      Material.addMaterial(this.materialName).then(res => {
+        console.log(res)
+        this.$router.go(-1)
+      })
     }
   }
 }

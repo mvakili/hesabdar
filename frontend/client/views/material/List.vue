@@ -70,7 +70,7 @@
 </template>
 <script>
 import { CardModal } from 'vue-bulma-modal'
-import { Material } from './../../services/material'
+import Material from './../../services/material'
 export default {
   components: {
     CardModal
@@ -79,29 +79,12 @@ export default {
     return {
       newMaterialModalVisible: false,
       datalist: [
-        {
-          id: 1,
-          name: 'کالای 1'
-        },
-        {
-          id: 2,
-          name: 'کالای 1'
-        },
-        {
-          id: 3,
-          name: 'کالای 1'
-        },
-        {
-          id: 3,
-          name: 'کالای 1'
-        }
       ]
     }
   },
   methods: {
     loadDataList () {
       Material.getMaterials().then(res => {
-        console.log(res.data.data)
         this.datalist = res.data.data
       })
     }
