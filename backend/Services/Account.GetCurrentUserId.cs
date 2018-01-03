@@ -15,7 +15,7 @@ namespace api.Services {
         {
             try
             {
-                return Int32.Parse(this.Modules.Session.GetString("UserId"));
+                return 1;
             }
             catch (System.Exception)
             {

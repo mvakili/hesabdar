@@ -9,7 +9,6 @@ namespace api.Services
 {
     public partial class MaterialService : BaseService {
     
-
         public ApiResult<int> AddMaterial(string name)
         {
             var result = new ApiResult<int>();
@@ -18,6 +17,7 @@ namespace api.Services
             .Where(u => u.Name == name).Select(u => u.Id).FirstOrDefault();
             if (data != 0)
             {
+                result.ResultStatus = ResultStatus.Failed;
                 result.Data = data;
                 result.Messages.Add("کالایی با همین نام در سیستم موجود است");
             } else {
