@@ -11,6 +11,7 @@ namespace api.Models.Data.Transaction
         public int Id { get; set; }
         public int? FromId {get; set;}
         public int? ToId {get; set;}
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationTime { get; set; }
         [ForeignKey("Creator")]
         public int? CreatorId { get; set; }

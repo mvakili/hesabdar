@@ -12,6 +12,7 @@ namespace api.Models.Data.Account {
         public string Password {get; set;}
         [JsonConverter(typeof(StringEnumConverter))]
         public PermissionLevel Permission {get; set;}
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]
         public int? CreatorId { get ; set ; }

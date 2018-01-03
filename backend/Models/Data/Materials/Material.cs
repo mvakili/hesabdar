@@ -9,6 +9,7 @@ namespace api.Models.Data.Materials
         [Key]
         public int Id {get; set;}
         public string Name {get; set;}
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]
         public int? CreatorId { get ; set ; }

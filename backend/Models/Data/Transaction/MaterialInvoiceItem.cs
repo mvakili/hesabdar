@@ -21,6 +21,7 @@ namespace api.Models.Data.Transaction
         [ForeignKey("MaterialInvoice")]
         public int MaterialInvoiceId {get; set;}
         public virtual MaterialInvoice MaterialInvoice {get; set;}
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationTime { get ; set ; }
         [ForeignKey("Creator")]
         public int? CreatorId { get ; set ; }
