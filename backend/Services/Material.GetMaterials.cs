@@ -20,11 +20,10 @@ namespace api.Services
         {
             var result = new ApiResult<List<GetMaterialsResult>>();
             result.Data = new List<GetMaterialsResult>();
-            result.Data.Add(new GetMaterialsResult()
-            {
-                Id = 1,
-                Name = "Material 1"
-            });
+            result.Data = Modules.DbContext.Materials.Select( u => new GetMaterialsResult {
+                Id = u.Id,
+                Name = u.Name
+            }).ToList();
             return result;
         }
         
