@@ -28,6 +28,7 @@ namespace api.DataContext
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=Hesabdar;Integrated Security=True");
+            // optionsBuilder.UseSqlServer("data source='192.168.1.28';initial catalog=Hesabdar;user id=sa;password=123");
         }
 
         public HesabdarContext() : base()
