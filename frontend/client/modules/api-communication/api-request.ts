@@ -6,13 +6,7 @@ export class ApiRequest {
     }
 
     public post<T>(controller: string, method: string, params: any = null) : AxiosPromise<T>{
-        return axios.post<T>(`http://localhost:5000/api/`+ controller + `/` + method,
-        {
-            body: params,
-            headers: {
-                'Content-type': 'application/x-www-form-urlencoded',
-            }
-        }
+        return axios.post<T>(`http://localhost:5000/api/`+ controller + `/` + method, params
         );
     }
 }
