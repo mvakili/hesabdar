@@ -20,7 +20,7 @@ namespace api.Services
         {
             var result = new ApiResult<List<GetMaterialsResult>>();
             result.Data = new List<GetMaterialsResult>();
-            result.Data = Modules.DbContext.Materials.Select( u => new GetMaterialsResult {
+            result.Data = Modules.DbContext.Materials.OrderByDescending(u => u.CreationTime).Select( u => new GetMaterialsResult {
                 Id = u.Id,
                 Name = u.Name
             }).ToList();

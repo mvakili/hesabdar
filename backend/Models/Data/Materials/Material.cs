@@ -8,6 +8,7 @@ namespace api.Models.Data.Materials
     public class Material: IEntityModel {
         [Key]
         public int Id {get; set;}
+        [MinLength(2)]
         public string Name {get; set;}
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreationTime { get ; set ; }
