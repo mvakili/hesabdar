@@ -1,35 +1,28 @@
 
-import {ApiResult, GenericApiResult, ApiRequest, AxiosPromise} from './../modules/api-communication/';
+import { ApiRequest, AxiosPromise} from './../modules/api-communication/';
+import Base from './base'
 
 export class Account {
 
     constructor() { }
 
-    public getPermissionLevel() : AxiosPromise<GenericApiResult<any>>
+    public getPermissionLevel() : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('account', 'GetPermissionLevel');
-        return result;
+        return Base.post('account', 'GetPermissionLevel');
     }
 
-    public getProfile(username: string) : AxiosPromise<GenericApiResult<any>>
+    public getProfile(username: string) : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('account', 'GetProfile', {Username: username});
-        return result;
+        return Base.post('account', 'GetProfile', {Username: username});
     }
 
-    public login(username: string, password) : AxiosPromise<GenericApiResult<any>>
+    public login(username: string, password) : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('account', 'Login', {Username: username, Password: password});
-        return result;
+        return Base.post('account', 'Login', {Username: username, Password: password});
     }
 
-    public logout() : AxiosPromise<GenericApiResult<any>>
+    public logout() : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('account', 'Login');
-        return result;
+        return Base.post('account', 'Logout');
     }
 }

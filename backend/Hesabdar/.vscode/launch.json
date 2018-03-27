@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/SmartSchool/bin/Debug/netcoreapp2.0/SmartSchool.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/Hesabdar.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/SmartSchool",
+            "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
@@ -42,5 +42,5 @@
             "request": "attach",
             "processId": "${command:pickProcess}"
         }
-    ,]
+    ]
 }

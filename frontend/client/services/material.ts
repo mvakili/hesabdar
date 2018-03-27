@@ -1,19 +1,16 @@
 
-import {ApiResult, GenericApiResult, ApiRequest, AxiosPromise} from './../modules/api-communication/';
-
-export default {
+import {ApiRequest, AxiosPromise} from './../modules/api-communication/';
+import Base from './base'
+export default  {
 
     constructor() { },
-    addMaterial(name: string) : AxiosPromise<GenericApiResult<any>>
+    addMaterial(name: string) : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('material', 'AddMaterial', { Name: name });
-        return result;
+        return Base.post('material', 'AddMaterial', { Name: name });
+
     },
-    getMaterials() : AxiosPromise<GenericApiResult<any>>
+    getMaterials() : Promise<any>
     {
-        let req = new ApiRequest();
-        let result = req.post<GenericApiResult<any>>('material', 'GetMaterials');
-        return result;
+        return Base.post('material', 'GetMaterials');
     }
 }

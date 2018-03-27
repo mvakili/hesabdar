@@ -85,7 +85,7 @@ export default {
   methods: {
     loadDataList () {
       Material.getMaterials().then(res => {
-        this.datalist = res.data.data
+        this.datalist = res.data
       })
     }
   },

@@ -2,12 +2,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "taskName": "build",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/SmartSchool/SmartSchool.csproj"
+                "${workspaceFolder}/Hesabdar.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

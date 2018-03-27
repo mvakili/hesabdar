@@ -7,23 +7,25 @@
         <article class="tile is-child box">
           <h1 class="title">ثبت کالای جدید</h1>
           <h2 class="subtitle"></h2>
-          <div class="columns">
-            <div class="column">
-              <label class="label">نام کالا</label>
-              <p class="control has-icon has-icon-right">
-                <input class="input" v-model="materialName" type="text" placeholder="نام کالا" value="">
-                <!-- <validator></validator> -->
-              </p>
+          <form v-on:submit.prevent="addMaterial">
+            <div class="columns">
+              <div class="column">
+                <label class="label">نام کالا</label>
+                <p class="control has-icon has-icon-right">
+                  <input class="input" v-model="materialName" type="text" placeholder="نام کالا" value="" autofocus>
+                  <!-- <validator></validator> -->
+                </p>
+              </div>
             </div>
-          </div>
-          <p class="control">
-            <a class="button is-primary" v-on:click="addMaterial()">تایید</a>
-            <router-link class="button"
-              v-if="$routerHistory.hasHistory()"
-              :to="{ path: $routerHistory.previous().path }">
-                بی خیال
-            </router-link>
-          </p>
+            <p class="control">
+              <input type="submit" class="button is-primary" value="تایید" />
+              <router-link class="button"
+                v-if="$routerHistory.hasHistory()"
+                :to="{ path: $routerHistory.previous().path }">
+                  بی خیال
+              </router-link>
+            </p>
+          </form>
         </article>
       </div>
     </div>
@@ -32,6 +34,7 @@
 
 <script>
 import Material from './../../services/material'
+
 export default {
   data () {
     return {
@@ -48,7 +51,6 @@ export default {
     },
     addMaterial () {
       Material.addMaterial(this.materialName).then(res => {
-        console.log(res)
         this.$router.go(-1)
       })
     }
@@ -58,6 +60,9 @@ export default {
 
 <style lang="scss" scoped>
 @import '~bulma/sass/utilities/mixins';
+.left-notification {
+  left: 0px;
+}
 .button {
   margin: 5px 0 0;
 }
