@@ -59,11 +59,12 @@ Backend:
 - dotnetcore v2
 - Microsoft.EntityFrameworkCore.SqlServer v2
 - Microsoft.AspNetCore.All v2
+- Swashbuckle.AspNetCore (Swagger UI) v1.1.0
 
 ### شروع استفاده - Backend
 
 ```bash
-> cd backend/
+> cd backend/Hesabdar
 > dotnet restore
 > dotnet run
 ```
