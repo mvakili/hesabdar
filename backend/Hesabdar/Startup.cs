@@ -72,7 +72,7 @@ namespace Hesabdar
                 options.UseSqlServer(GetConfiguration().GetConnectionString("UserDbContext")));
 
 
-            services.AddIdentity<IdentityUser, Role>().AddEntityFrameworkStores<UserDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("HesabdarSigningKeyxy"));
 
@@ -97,21 +97,22 @@ namespace Hesabdar
 
             services.Configure<IdentityOptions>(options =>
             {
-                    // Password settings
+                // Password settings
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
+                options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 6;
 
-                    // Lockout settings
+                // Lockout settings
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 10;
                 options.Lockout.AllowedForNewUsers = true;
 
-                    // User settings
-                options.User.RequireUniqueEmail = true;
+                // User settings
+                options.User.RequireUniqueEmail = false;
+
             });
 
         }
