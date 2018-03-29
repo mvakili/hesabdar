@@ -28,6 +28,13 @@ namespace Hesabdar.Controllers
             return Ok(materials);
         }
 
+        [HttpGet("Suggest")]
+        public IActionResult GetSuggestedMaterials([FromQuery] string text = "")
+        {
+            var materials = _context.Material;
+            return Ok(materials);
+        }
+
         // GET: api/Material/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMaterial([FromRoute] int id)

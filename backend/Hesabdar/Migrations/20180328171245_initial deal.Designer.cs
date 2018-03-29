@@ -11,9 +11,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180328171245_initial deal")]
+    partial class initialdeal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,24 +77,6 @@ namespace Hesabdar.Migrations
                     b.ToTable("Dealer");
                 });
 
-            modelBuilder.Entity("Hesabdar.Models.DealItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("DealId");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DealId");
-
-                    b.ToTable("DealItem");
-                });
-
             modelBuilder.Entity("Hesabdar.Models.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -119,13 +102,6 @@ namespace Hesabdar.Migrations
                     b.HasOne("Hesabdar.Models.Dealer", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId");
-                });
-
-            modelBuilder.Entity("Hesabdar.Models.DealItem", b =>
-                {
-                    b.HasOne("Hesabdar.Models.Deal")
-                        .WithMany("Items")
-                        .HasForeignKey("DealId");
                 });
 #pragma warning restore 612, 618
         }
