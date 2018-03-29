@@ -17,7 +17,7 @@ namespace Hesabdar.Controllers
 {
     public class RegisterInput
     {
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
     }
 
@@ -25,6 +25,13 @@ namespace Hesabdar.Controllers
     {
         public string Username { get; set; }
         public string Password { get; set; }
+    }
+
+    public class ChangePasswordInput
+    {
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+
     }
 
     public class AdminRegisterInput : RegisterInput
@@ -39,9 +46,9 @@ namespace Hesabdar.Controllers
     {
         readonly UserManager<IdentityUser> userManager;
         readonly SignInManager<IdentityUser> signInManager;
-        readonly RoleManager<Role> roleManager;
+        readonly RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<Role> roleManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -49,12 +56,25 @@ namespace Hesabdar.Controllers
 
         }
 
+        [HttpPut("ChangePassword")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordInput input)
+        {
+            var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var result = await userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+            return Ok();
+
+        }
+
 
         [HttpPost("register/Admin")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] AdminRegisterInput credentials)
         {
-            var user = new IdentityUser { UserName = credentials.Email, Email = credentials.Email };
+            var user = new IdentityUser { UserName = credentials.Username, Email = "Hesabdar@Hesabdar.com" };
 
             var result = await userManager.CreateAsync(user, credentials.Password);
             if (!result.Succeeded)
@@ -105,17 +125,18 @@ namespace Hesabdar.Controllers
 
         private async Task<string> CreateOrGetRole(RoleType roleType)
         {
-            bool studentRole = await roleManager.RoleExistsAsync(roleType.ToString());
-            if (!studentRole)
+            bool roleExists = await roleManager.RoleExistsAsync(roleType.ToString());
+            if (!roleExists)
             {
-                var role = new Role
+                var role = new IdentityRole
                 {
-                    Name = roleType.ToString(),
-                    Type = roleType
+                    Name = roleType.ToString()
                 };
                 await roleManager.CreateAsync(role);
             }
             return roleType.ToString();
         }
     }
+
+ 
 }
