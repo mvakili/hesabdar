@@ -108,4 +108,7 @@
   margin-right: 0.75rem;
   margin-left: 0rem;
 }
+.modal-content > .content {
+  margin: 50px;
+}
 </style>
