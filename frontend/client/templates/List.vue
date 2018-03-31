@@ -97,4 +97,15 @@
 .is-desc {
   transform: rotate(180deg);
 }
+
+.pagination-list li:not(:first-child) {
+  margin-right: 0.375rem;
+  margin-left: 0rem;
+  
+}
+
+.pagination-previous, .pagination-next {
+  margin-right: 0.75rem;
+  margin-left: 0rem;
+}
 </style>
