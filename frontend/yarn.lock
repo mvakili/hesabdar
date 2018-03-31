@@ -259,10 +259,6 @@ ansi-styles@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-1.0.0.tgz#cb102df1c56f5123eab8b67cd7b98027a0279178"
 
-ansicolors@~0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ansicolors/-/ansicolors-0.2.1.tgz#be089599097b74a5c9c4a84a0cdbcdb62bd87aef"
-
 anymatch@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-1.3.0.tgz#a3e52fa39168c825ff57b0248126ce5a8ff95507"
@@ -1109,10 +1105,6 @@ big.js@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.1.3.tgz#4cada2193652eb3ca9ec8e55c9015669c9806978"
 
-bignumber.js@4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-4.0.4.tgz#7c40f5abcd2d6623ab7b99682ee7db81b11889a4"
-
 binary-extensions@^1.0.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.8.0.tgz#48ec8d16df4377eae5fa5884682480af4d95c774"
@@ -1297,6 +1289,12 @@ browserslist@^1.3.6, browserslist@^1.5.2, browserslist@^1.7.6:
     caniuse-db "^1.0.30000639"
     electron-to-chromium "^1.2.7"
 
+buefy@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.6.5.tgz#84e76e9101085dbbc84e66e755aff75030078553"
+  dependencies:
+    bulma "^0.6.2"
+
 buffer-equal@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/buffer-equal/-/buffer-equal-0.0.1.tgz#91bc74b11ea405bc916bc6aa908faafa5b4aac4b"
@@ -1324,6 +1322,10 @@ builtin-status-codes@^3.0.0:
 bulma@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.3.2.tgz#2c1fa6adaf2a31f47a142c11856f2db27bc638c9"
+
+bulma@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.6.2.tgz#f4b1d11d5acc51a79644eb0a2b0b10649d3d71f5"
 
 call-matcher@^1.0.1:
   version "1.0.1"
@@ -1382,13 +1384,6 @@ caniuse-api@^1.5.2:
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
   version "1.0.30000692"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000692.tgz#3da9a99353adbcea1e142b99f60ecc6216df47a5"
-
-cardinal@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/cardinal/-/cardinal-1.0.0.tgz#50e21c1b0aa37729f9377def196b5a9cec932ee9"
-  dependencies:
-    ansicolors "~0.2.1"
-    redeyed "~1.0.0"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -2241,10 +2236,6 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
-denque@^1.1.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/denque/-/denque-1.2.2.tgz#e06cf7cf0da8badc88cbdaabf8fc0a70d659f1d4"
-
 depd@1.1.0, depd@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.0.tgz#e1bd82c6aab6ced965b97b88b17ed3e528ca18c3"
@@ -2724,10 +2715,6 @@ esprima@~1.0.2:
 esprima@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-1.1.1.tgz#5b6f1547f4d102e670e140c509be6771d6aeb549"
-
-esprima@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.0.0.tgz#53cf247acda77313e551c3aa2e73342d3fb4f7d9"
 
 espurify@^1.3.0, espurify@^1.6.0:
   version "1.7.0"
@@ -4218,10 +4205,6 @@ husl@^5.0.0:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/husl/-/husl-5.0.3.tgz#ee272aaff1bebe40df3588ed007b70de7e679788"
 
-iconv-lite@^0.4.18:
-  version "0.4.19"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
-
 icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/icss-replace-symbols/-/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -4945,10 +4928,6 @@ log-symbols@^1.0.2:
   dependencies:
     chalk "^1.0.0"
 
-long@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/long/-/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
-
 longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
@@ -4980,17 +4959,13 @@ lower-case@^1.1.0, lower-case@^1.1.1, lower-case@^1.1.2:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
 
-lru-cache@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-2.5.0.tgz#d82388ae9c960becbea0c73bb9eb79b6c6ce9aeb"
-
 lru-cache@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-3.2.0.tgz#71789b3b7f5399bec8565dda38aa30d2a097efee"
   dependencies:
     pseudomap "^1.0.1"
 
-lru-cache@^4.0.1, lru-cache@^4.1.1:
+lru-cache@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.1.tgz#622e32e82488b49279114a4f9ecf45e7cd6bba55"
   dependencies:
@@ -5365,38 +5340,6 @@ mustache@^2.2.1:
 mute-stream@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
-
-mysql2@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/mysql2/-/mysql2-1.4.2.tgz#b5e04009fd6d63f00755253df88540a2532640b2"
-  dependencies:
-    cardinal "1.0.0"
-    denque "^1.1.1"
-    generate-function "^2.0.0"
-    iconv-lite "^0.4.18"
-    long "^3.2.0"
-    lru-cache "^4.1.1"
-    named-placeholders "1.1.1"
-    object-assign "^4.1.1"
-    readable-stream "2.3.2"
-    safe-buffer "^5.0.1"
-    seq-queue "0.0.5"
-    sqlstring "^2.2.0"
-
-mysql@mysqljs/mysql:
-  version "2.15.0"
-  resolved "https://codeload.github.com/mysqljs/mysql/tar.gz/e16c52da980e46012a391232be884b797b8af070"
-  dependencies:
-    bignumber.js "4.0.4"
-    readable-stream "2.3.3"
-    safe-buffer "5.1.1"
-    sqlstring "2.3.0"
-
-named-placeholders@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/named-placeholders/-/named-placeholders-1.1.1.tgz#3b7a0d26203dd74b3a9df4c9cfb827b2fb907e64"
-  dependencies:
-    lru-cache "2.5.0"
 
 nan@^2.3.0, nan@^2.3.2:
   version "2.6.2"
@@ -6671,30 +6614,6 @@ readable-stream@1.0, "readable-stream@>=1.0.33-1 <1.1.0-0", readable-stream@~1.0
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.2.tgz#5a04df05e4f57fe3f0dc68fdd11dc5c97c7e6f4d"
-  dependencies:
-    core-util-is "~1.0.0"
-    inherits "~2.0.3"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    safe-buffer "~5.1.0"
-    string_decoder "~1.0.0"
-    util-deprecate "~1.0.1"
-
-readable-stream@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
-  dependencies:
-    core-util-is "~1.0.0"
-    inherits "~2.0.3"
-    isarray "~1.0.0"
-    process-nextick-args "~1.0.6"
-    safe-buffer "~5.1.1"
-    string_decoder "~1.0.3"
-    util-deprecate "~1.0.1"
-
 readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.6:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.0.tgz#640f5dcda88c91a8dc60787145629170813a1ed2"
@@ -6754,12 +6673,6 @@ redent@^1.0.0:
   dependencies:
     indent-string "^2.1.0"
     strip-indent "^1.0.1"
-
-redeyed@~1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/redeyed/-/redeyed-1.0.1.tgz#e96c193b40c0816b00aec842698e61185e55498a"
-  dependencies:
-    esprima "~3.0.0"
 
 reduce-css-calc@^1.2.6:
   version "1.3.0"
@@ -7143,13 +7056,13 @@ safe-buffer@5.0.1, safe-buffer@^5.0.1, safe-buffer@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
 
-safe-buffer@5.1.1, safe-buffer@^5.1.1, safe-buffer@~5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
-
 safe-buffer@^5.1.0, safe-buffer@~5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
+
+safe-buffer@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
 sane-topojson@^2.0.0:
   version "2.0.0"
@@ -7227,10 +7140,6 @@ sentence-case@^2.1.0:
   dependencies:
     no-case "^2.2.0"
     upper-case-first "^1.1.2"
-
-seq-queue@0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/seq-queue/-/seq-queue-0.0.5.tgz#d56812e1c017a6e4e7c3e3a37a1da6d78dd3c93e"
 
 serve-favicon@^2.4.1:
   version "2.4.3"
@@ -7520,10 +7429,6 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-sqlstring@2.3.0, sqlstring@^2.2.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/sqlstring/-/sqlstring-2.3.0.tgz#525b8a4fd26d6f71aa61e822a6caf976d31ad2a8"
-
 sshpk@^1.7.0:
   version "1.13.1"
   resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.13.1.tgz#512df6da6287144316dc4c18fe1cf1d940739be3"
@@ -7641,12 +7546,6 @@ string_decoder@~1.0.0:
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.2.tgz#b29e1f4e1125fa97a10382b8a533737b7491e179"
   dependencies:
     safe-buffer "~5.0.1"
-
-string_decoder@~1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
-  dependencies:
-    safe-buffer "~5.1.0"
 
 stringstream@~0.0.4, stringstream@~0.0.5:
   version "0.0.5"
@@ -8444,13 +8343,13 @@ vue-router-back-button@^0.0.1:
     vue "^2.3.3"
     vue-router "^2.6.0"
 
-vue-router@^2.3.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.6.0.tgz#77b271f6e0ac6d57e8e556da58c6582fce0ab712"
-
 vue-router@^2.6.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.8.1.tgz#9833c9ee57ac83beb0269056fefee71713f20695"
+
+vue-router@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
 
 vue-style-loader@^2.0.0:
   version "2.0.5"
@@ -8459,9 +8358,9 @@ vue-style-loader@^2.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.2.2:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.3.4.tgz#5a88ac2c5e4d5d6218e6aa80e7e221fb7e67894c"
+vue-template-compiler@^2.5.16:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.16.tgz#93b48570e56c720cdf3f051cc15287c26fbd04cb"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -8470,13 +8369,13 @@ vue-template-es2015-compiler@^1.2.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.5.2.tgz#a0a6c50c941d2a4abda963f2f42c337ac450ee95"
 
-vue@^2.2.2:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.4.tgz#5ec3b87a191da8090bbef56b7cfabd4158038171"
-
 vue@^2.3.3:
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
+
+vue@^2.5.16:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vuejs-datepicker@^0.9.20:
   version "0.9.20"
@@ -8486,9 +8385,9 @@ vuex-router-sync@^4.1.2:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/vuex-router-sync/-/vuex-router-sync-4.2.0.tgz#ebfc497d69b4018a9266a8f18b54bfca4d52125f"
 
-vuex@^2.2.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.3.1.tgz#cde8e997c1f9957719bc7dea154f9aa691d981a6"
+vuex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
 
 w3c-blob@0.0.1:
   version "0.0.1"

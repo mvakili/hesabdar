@@ -1,113 +1,163 @@
 <template>
-  <div>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-12">
-        <nav>
-          <router-link class="button has-text-success" to="material/New">جدید
-             &nbsp; &nbsp;<span class="icon has-text-success">
-              <i class="fa fa-plus"></i>
-            </span>
-          </router-link>
-        </nav>
-      </div>
+<div>
+  <div class="tile is-ancestor">
+    <div class="tile is-parent is-12">
+      <nav>
+        <a class="button has-text-success" v-on:click="newSellModalVisible = true">  جدید 
+          &nbsp; &nbsp;<span class="icon has-text-success">
+            <i class="fa fa-plus"></i>
+          </span>
+        </a>
+      </nav>
     </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent">
-        <article class="tile is-child">
-          <div class="block">
-            <p class="control has-addons">
-              <input class="input" type="text" placeholder="...">
-              <a class="button is-primary" v-on:click="loadDataList()">جستجو</a>
-            </p>
-          </div>
-        </article>
-      </div>
-    </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-12">
-        <article class="tile is-child box">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>نام کالا</th>              
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in datalist">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </article>
-      </div>
-    </div>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-12">
-        <nav class="pagination" role="navigation" aria-label="pagination">
-          <a class="pagination-previous" title="This is the first page" disabled>صفحه قبل</a>
-          <a class="pagination-next">صفحه بعد</a>
-          <ul class="pagination-list">
-            <li>
-              <a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a>
-            </li>
-            <li>
-              <a class="pagination-link" aria-label="Goto page 2">2</a>
-            </li>
-            <li>
-              <a class="pagination-link" aria-label="Goto page 3">3</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-    <card-modal v-bind:visible="newMaterialModalVisible" @close="newMaterialModalVisible = false">
-      <div class="content has-text-centered">
-      </div>
-    </card-modal>
   </div>
+  <div class="tile is-ancestor">
+    <div class="tile is-parent is-12">
+      <article class="tile is-child box">
+        <section>
+            <b-table
+                :data="data"
+                :loading="loading"
+                :paginated="isPaginated"
+                :per-page="perPage"
+                :total="total"
+                :current-page.sync="currentPage"
+                :backend-sorting="true"
+                :backend-pagination="true"
+                @sort="onSort"
+                @page-change="onPageChange"
+                :mobile-cards="false">
+
+                <template slot-scope="props">
+                    <b-table-column field="id" label="#" width="100" sortable numeric>
+                        {{ props.row.id }}
+                    </b-table-column>
+
+                    <b-table-column field="name" label="نام" sortable>
+                        {{ props.row.name }}
+                    </b-table-column>
+                    <b-table-column  label="عملیات">
+                      <a class="button is-info">آمار</a>
+                      <a class="button is-warning">ویرایش</a>
+                      <a class="button is-danger">حذف</a>
+                    </b-table-column>
+                </template>
+
+            </b-table>
+        </section>
+      </article>
+    </div>
+  </div>
+  <card-modal v-bind:visible="newSellModalVisible" @close="newSellModalVisible = false">
+      <div class="content has-text-centered">
+      <form action="">
+                <div class="modal-card" style="width: auto">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Login</p>
+                    </header>
+                    <section class="modal-card-body">
+                        <b-field label="Email">
+                            <b-input
+                                type="email"
+                                placeholder="Your email"
+                                required>
+                            </b-input>
+                        </b-field>
+
+                        <b-field label="Password">
+                            <b-input
+                                type="password"
+  
+                                password-reveal
+                                placeholder="Your password"
+                                required>
+                            </b-input>
+                        </b-field>
+
+                        <b-checkbox>Remember me</b-checkbox>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button" type="button" @click="$parent.close()">Close</button>
+                        <button class="button is-primary">Login</button>
+                    </footer>
+                </div>
+            </form>
+        </div>
+    </card-modal>
+</div>
 </template>
+
 <script>
 import { CardModal } from 'vue-bulma-modal'
 import Material from './../../services/material'
+
 export default {
   components: {
     CardModal
   },
   data () {
     return {
-      newMaterialModalVisible: false,
-      datalist: [
-      ]
+      data: [],
+      total: 0,
+      isPaginated: true,
+      currentPage: 1,
+      perPage: 10,
+      loading: false,
+      sortField: '',
+      sortOrder: 'desc',
+      newSellModalVisible: false
     }
   },
   methods: {
-    loadDataList () {
-      Material.getMaterials().then(res => {
-        this.datalist = res.data
+    onPageChange (page) {
+      this.currentPage = page
+      this.loading = true
+      this.loadAsyncData()
+    },
+    onSort (field, order) {
+      this.sortField = field
+      this.sortOrder = order
+      this.loadAsyncData()
+    },
+    loadAsyncData () {
+      Material.getMaterials(
+        this.currentPage,
+        this.perPage,
+        this.sortField,
+        this.sortOrder
+      ).then(response => {
+        this.data = response.queryable
+        this.total = response.rowCount
+        this.perPage = response.pageSize
+
+        this.loading = false
       })
     }
   },
-  created () {
-    this.loadDataList()
+  mounted () {
+    this.loadAsyncData()
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.table-responsive {
-  display: block;
-  width: 100%;
-  min-height: .01%;
-  overflow-x: auto;
-  text-align: right;
+<style>
+.pagination-previous {
+  transform: rotate(180deg);
+}
+.pagination-next {
+  transform: rotate(180deg);
+}
+.table th,
+.table td {
+  text-align: right !important;
 }
 
-td, th {
-  text-align: right;
+.table th:last-child,
+.table td:last-child
+{
+    text-align: left !important;
 }
-.control.has-addons .button:last-child {
-  border-radius: 3px 0px 0px 3px;
+.pagination .fa {
+  vertical-align: text-top !important;
 }
 </style>

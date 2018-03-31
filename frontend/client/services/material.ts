@@ -9,8 +9,8 @@ export default  {
         return Base.post('material', 'AddMaterial', { Name: name });
 
     },
-    getMaterials() : Promise<any>
+    getMaterials(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
     {
-        return Base.post('material', 'GetMaterials');
+        return Base.get('material', '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
     }
 }
