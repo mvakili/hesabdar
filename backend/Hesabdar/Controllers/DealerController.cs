@@ -24,9 +24,9 @@ namespace Hesabdar.Controllers
 
         // GET: api/Dealer
         [HttpGet]
-        public IActionResult Dealers([FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult Dealers([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var dealers = _context.Dealer.OrderBy(order).PageResult(page, 10);
+            var dealers = _context.Dealer.OrderBy(sort).PageResult(page, perPage);
             return Ok(dealers);
         }
 

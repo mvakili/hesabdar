@@ -25,13 +25,13 @@ namespace Hesabdar.Controllers
         /// 
         /// </summary>
         /// <param name="page"></param>
-        /// <param name="order"></param>
+        /// <param name="sort"></param>
         /// <remarks>api/Activity?page=1&&order=id desc</remarks>
         /// <remarks>api/Activity?page=1&&order=id desc</remarks>
         [HttpGet]
-        public IActionResult GetActivities([FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult GetActivities([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var activities = _context.Activity.OrderBy(order).PageResult(page, 10);
+            var activities = _context.Activity.OrderBy(sort).PageResult(page, perPage);
             return Ok(activities);
         }
 

@@ -7,6 +7,6 @@
         <member name="T:Hesabdar.Controllers.AccountController">
             
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Hesabdar.Controllers.ActivityController.GetActivities(System.Int32,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Hesabdar.Controllers.ActivityController.GetActivities(System.Int32,System.Int32,System.String,System.String)" -->
     </members>
 </doc>

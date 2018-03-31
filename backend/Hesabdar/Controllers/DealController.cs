@@ -23,14 +23,14 @@ namespace Hesabdar.Controllers
 
         // GET: api/Deal
         [HttpGet]
-        public IActionResult Deals([FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult Deals([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var deals = _context.Deal.OrderBy(order).PageResult(page, 10);
+            var deals = _context.Deal.OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
         [HttpGet("Dealer/{id}")]
-        public IActionResult GetDealsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult GetDealsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
             
@@ -40,12 +40,12 @@ namespace Hesabdar.Controllers
             }
 
 
-            var deals = _context.Deal.Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(order).PageResult(page, 10);
+            var deals = _context.Deal.Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
         [HttpGet("Dealer/{id}/Sales")]
-        public IActionResult GetُalesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult GetُalesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
 
@@ -54,12 +54,12 @@ namespace Hesabdar.Controllers
                 return BadRequest();
             }
 
-            var deals = _context.Deal.Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(order).PageResult(page, 10);
+            var deals = _context.Deal.Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
         [HttpGet("Dealer/{id}/Purchases")]
-        public IActionResult GetPurchasesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] string order = "id desc")
+        public IActionResult GetPurchasesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
 
@@ -67,7 +67,7 @@ namespace Hesabdar.Controllers
             {
                 return BadRequest();
             }
-            var deals = _context.Deal.Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(order).PageResult(page, 10);
+            var deals = _context.Deal.Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
