@@ -3,7 +3,7 @@
   <div class="tile is-ancestor">
     <div class="tile is-parent is-12">
       <nav>
-        <a class="button has-text-success" v-on:click="newSellModalVisible = true">  جدید 
+        <a class="button has-text-success" v-on:click="newModalVisible = true">  جدید 
           &nbsp; &nbsp;<span class="icon has-text-success">
             <i class="fa fa-plus"></i>
           </span>
@@ -48,7 +48,7 @@
       </article>
     </div>
   </div>
-  <card-modal v-bind:visible="newSellModalVisible" @close="newSellModalVisible = false">
+  <card-modal v-bind:visible="newModalVisible" @close="newModalVisible = false">
       <div class="content has-text-centered">
       <form action="">
                 <div class="modal-card" style="width: auto">
@@ -105,13 +105,13 @@ export default {
       loading: false,
       sortField: '',
       sortOrder: 'desc',
-      newSellModalVisible: false
+      newModalVisible: false
     }
   },
   methods: {
     onPageChange (page) {
       this.currentPage = page
-      this.loading = true
+
       this.loadAsyncData()
     },
     onSort (field, order) {
@@ -120,6 +120,7 @@ export default {
       this.loadAsyncData()
     },
     loadAsyncData () {
+      this.loading = true
       Material.getMaterials(
         this.currentPage,
         this.perPage,
@@ -130,6 +131,9 @@ export default {
         this.total = response.rowCount
         this.perPage = response.pageSize
 
+        this.loading = false
+      }).catch(err => {
+        console.log(err)
         this.loading = false
       })
     }
