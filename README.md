@@ -53,6 +53,7 @@ Frontend:
 - BulmaJs v3
 - Chart.js v1
 - Electron v1
+- Buefy v0.5.6
 
 Backend:
 

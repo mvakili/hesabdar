@@ -10,8 +10,13 @@ import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import { routerHistory, writeHistory } from 'vue-router-back-button'
+import Buefy from 'buefy'
 
 Vue.router = router
+Vue.use(Buefy, {
+  defaultIconPack: 'fa'
+  // ...
+})
 Vue.use(VueAxios, axios)
 Vue.use(VueAuth, {
   auth: {
