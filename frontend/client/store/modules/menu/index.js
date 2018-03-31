@@ -44,13 +44,13 @@ const state = {
     // components,
     // tables
     {
-      name: 'مشتری',
-      path: '/customers',
+      name: 'خریدار / فروشنده',
+      path: '/dealers',
       meta: {
         icon: 'fa-rocket',
-        link: 'customers/index.vue'
+        link: 'dealers/index.vue'
       },
-      component: lazyLoading('customers', true)
+      component: lazyLoading('dealers', true)
     },
     material
   ]
