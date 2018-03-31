@@ -9,7 +9,6 @@ import router from './router'
 import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
-import { routerHistory, writeHistory } from 'vue-router-back-button'
 import Buefy from 'buefy'
 
 Vue.router = router
@@ -33,9 +32,6 @@ Vue.use(VueAuth, {
   loginData: { url: 'http://localhost:6789/login', fetchUser: false },
   refreshData: { enabled: false }
 })
-
-Vue.use(routerHistory)
-router.afterEach(writeHistory)
 
 Vue.use(require('vue-moment-jalaali'))
 Vue.use(NProgress)

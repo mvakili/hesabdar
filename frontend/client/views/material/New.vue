@@ -19,11 +19,6 @@
             </div>
             <p class="control">
               <input type="submit" class="button is-primary" value="تایید" />
-              <router-link class="button"
-                v-if="$routerHistory.hasHistory()"
-                :to="{ path: $routerHistory.previous().path }">
-                  بی خیال
-              </router-link>
             </p>
           </form>
         </article>
