@@ -1,155 +1,108 @@
 <template>
-  <div>
-    <div class="tile is-ancestor">
-      <div class="tile is-parent is-8">
-        <article class="tile is-child box">
-        <p class="title control" :class="{'is-loading': isloading}">
-          Price History of {{params.symbol}}
-          <span class="subtitle help is-danger is-5">
-            This demo only works under Development env
-          </span>
-        </p>
-        <chart :type="'line'" :data="stockData" :options="options"></chart>
-      </article>
-      </div>
-      <div class="tile is-parent is-4">
-        <article class="tile is-child box">
-          <div class="block">
-            <p class="title is-5">Request Params</p>
-            <a href="https://github.com/markitondemand/DataApis" class="link">Markit On Demand - Market Data APIs</a>
-          </div>
-          <div class="block">
-            <div class="control is-horizontal">
-              <div class="control-label">
-                <label class="label">Symbol</label>
-              </div>
-              <div class="control">
-                <div class="select is-fullwidth">
-                  <select v-model="params.symbol">
-                    <option v-for="s in symbols" :value="s">{{s}}</option>
-                  </select>
+  <list @load-data="loadAsyncData">
+    <template slot="nav">
+      <a class="button is-warning" v-on:click="newModalVisible = true"> جدید &nbsp; &nbsp;
+        <span class="icon">
+          <i class="fa fa-plus"></i>
+        </span>
+      </a>
+    </template>
+
+    <template slot="table-template" slot-scope="props">
+      <b-table-column field="id" label="#" width="100" sortable numeric>
+          {{ props.row.id }}
+      </b-table-column>
+
+      <b-table-column field="name" label="نام" sortable>
+          {{ props.row.name }}
+      </b-table-column>
+      <b-table-column  label="">
+        <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
+          <button class="button is-link" type="button" slot="trigger">
+            <template v-if="isPublic">
+              <b-icon icon="earth"></b-icon>
+              <span>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              </span>
+            </template>
+            <template v-else>
+              <b-icon icon="account-multiple"></b-icon>
+              <span>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+              </span>
+            </template>
+            <b-icon icon="menu-down"></b-icon>
+          </button>
+          <div class="box"> 
+            <b-dropdown-item :value="true" class="">
+              <div class="media">
+                <div class="media-content has-text-success">
+                  
+                  <span> ویرایش</span>
                 </div>
               </div>
-            </div>
-            <div class="control is-horizontal">
-              <div class="control-label">
-                <label class="label">Days</label>
-              </div>
-              <div class="control is-fullwidth">
-                  <input class="input" min="0" max="720" type="number" v-model="params.numberOfDays">
-              </div>
-            </div>
-            <div class="control is-horizontal">
-              <div class="control-label">
-                <label class="label">Period</label>
-              </div>
-              <div class="control">
-                <div class="select is-fullwidth">
-                  <select v-model="params.dataPeriod">
-                    <option v-for="p in periods" :value="p">{{p}}</option>
-                  </select>
+            </b-dropdown-item>
+            <b-dropdown-item :separator="true" />
+            <b-dropdown-item :value="false">
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>حذف</span>
                 </div>
               </div>
-            </div>
-            <div class="control is-horizontal">
-              <div class="control-label">
-                <label class="label"></label>
-              </div>
-              <div class="control">
-                <button class="button is-primary" :class="{'is-loading': isloading}" @click="loadData">Refresh</button>
-              </div>
-            </div>
+            </b-dropdown-item>
           </div>
-        </article>
-      </div>
-    </div>
-  </div>
+        </b-dropdown>
+      </b-table-column>
+    </template>
+
+    <template slot="modals">
+      <modal :visible="newModalVisible" @close="newModalVisible = false">
+        <div class="content has-text-centered">
+          <new-dealer></new-dealer>
+        </div>
+      </modal>
+    </template>
+  </list>
 </template>
 
 <script>
-import Chart from 'vue-bulma-chartjs'
+  import { CardModal, Modal } from 'vue-bulma-modal'
+  import List from './../../templates/List'
+  import Dealer from './../../services/dealer'
+  import NewDealer from './New'
 
-const api = '/MODApis/Api/v2/InteractiveChart/json'
-
-export default {
-  components: {
-    Chart
-  },
-
-  data () {
-    return {
-      params: {
-        symbol: 'AAPL',
-        numberOfDays: 450,
-        dataPeriod: 'Month'
-      },
-      symbols: ['AAPL', 'MSFT', 'JNJ', 'GOOG'],
-      periods: ['Day', 'Week', 'Month', 'Quarter', 'Year'],
-      data: [],
-      labels: [],
-      isloading: false,
-      options: {
-        legend: { display: false },
-        animation: { duration: 0 },
-        scales: {
-          xAxes: [{
-            type: 'time',
-            time: {
-              unit: 'month'
-            }
-          }]
-        }
-      }
-    }
-  },
-
-  computed: {
-    stockData () {
+  export default {
+    components: {
+      List,
+      CardModal,
+      NewDealer,
+      Modal
+    },
+    data () {
       return {
-        labels: this.labels,
-        datasets: [{
-          fill: false,
-          lineTension: 0.25,
-          data: this.data,
-          label: 'Close price',
-          pointBackgroundColor: '#1fc8db',
-          pointBorderWidth: 1
-        }]
+        newModalVisible: false
       }
-    }
-  },
+    },
+    methods: {
+      loadAsyncData (table) {
+        table.loading = true
+        Dealer.getDealers(
+          table.currentPage,
+          table.perPage,
+          table.sortField,
+          table.sortOrder
+        ).then(response => {
+          table.data = response.queryable
+          table.total = response.rowCount
+          table.perPage = response.pageSize
 
-  methods: {
-    loadData () {
-      this.isloading = true
-      this.labels.length = 0
-      this.data.length = 0
-      this.$http({
-        url: api,
-        transformResponse: [(data) => {
-          return JSON.parse(data.replace(/T00:00:00/g, ''))
-        }],
-        params: {
-          parameters: {
-            Normalized: false,
-            NumberOfDays: parseInt(this.params.numberOfDays),
-            DataPeriod: this.params.dataPeriod,
-            Elements: [{'Symbol': this.params.symbol, 'Type': 'price', 'Params': ['c']}]
-          }
-        }
-      }).then((response) => {
-        let dates = response.data.Dates
-        let price = response.data.Elements[0].DataSeries.close.values
-        this.data.push(...price)
-        this.labels.push(...dates)
-        this.isloading = false
-      }).catch((error) => {
-        console.log(error)
-      })
+          console.log(response)
+          table.loading = false
+        }).catch(err => {
+          console.log(err)
+          table.loading = false
+        })
+      }
     }
   }
-}
 </script>
-
-<style scoped>
-</style>
