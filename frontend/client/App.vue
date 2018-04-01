@@ -95,4 +95,15 @@ html {
 .control {
   text-align: right;
 }
+
+.notifications {
+  right: auto !important;
+  top: auto !important;
+  
+  left: 0px !important;
+  bottom: 50px !important;
+}
+body, button, input, select, textarea {
+  font: "B Nazanin",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
 </style>

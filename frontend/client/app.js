@@ -10,6 +10,23 @@ import store from './store'
 import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import Buefy from 'buefy'
+import Notification from 'vue-bulma-notification'
+
+const NotificationComponent = Vue.extend(Notification)
+
+Vue.prototype.$openNotification = (propsData = {
+  title: '',
+  message: '',
+  type: '',
+  direction: 'Left',
+  duration: 4500,
+  container: '.notifications'
+}) => {
+  return new NotificationComponent({
+    el: document.createElement('div'),
+    propsData
+  })
+}
 
 Vue.router = router
 Vue.use(Buefy, {
