@@ -21,10 +21,18 @@
                 :current-page.sync="table.currentPage"
                 :backend-sorting="true"
                 :backend-pagination="true"
+                :selected.sync="table.selected"
                 @sort="onSort"
+                :detailed="detailed"
+                :detail-key="detailKey"
                 @page-change="onPageChange"
+                :row-class="rowClass"
                 :mobile-cards="false">
 
+                <template slot="detail" slot-scope="props">
+                   <slot name="table-detail" :row="props.row" :index="props.index" >
+                  </slot>
+                </template>
                 <template slot-scope="props">
                   <slot name="table-template" :row="props.row" :index="props.index" >
                   </slot>
@@ -42,6 +50,20 @@
 <script>
 
   export default {
+    props: {
+      detailed: {
+        type: Boolean,
+        default: false
+      },
+      detailKey: {
+        type: String,
+        default: ''
+      },
+      rowClass: {
+        type: Function,
+        default: () => ''
+      }
+    },
     data () {
       return {
         table: {
@@ -52,7 +74,8 @@
           perPage: 10,
           loading: false,
           sortField: '',
-          sortOrder: 'desc'
+          sortOrder: 'desc',
+          selected: null
         }
       }
     },
@@ -90,6 +113,11 @@
 {
     text-align: left !important;
 }
+
+
+.table td .fa-angle-right {
+  transform: rotate(180deg);  
+}
 .pagination .fa {
   vertical-align: text-top !important;
 }
@@ -110,5 +138,18 @@
 }
 .modal-content > .content {
   margin: 50px;
+}
+.dropdown {
+  position: absolute;
+  left: 50px;
+  margin-top: -6px;
+}
+.dropdown .dropdown-menu {
+  z-index: 1;
+  position: absolute;
+  background-color: white;
+}
+.media-content {
+  text-align: right !important;
 }
 </style>
