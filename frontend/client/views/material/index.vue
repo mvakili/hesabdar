@@ -37,7 +37,7 @@
             <b-icon icon="menu-down"></b-icon>
           </button>
           <div class="box"> 
-            <b-dropdown-item :value="true" class="">
+            <b-dropdown-item :value="true" class="" @click="openEditModal(props.row.id)">
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>ویرایش</span>
@@ -46,7 +46,7 @@
             </b-dropdown-item>
             <b-dropdown-item :separator="true" />
             
-            <b-dropdown-item :value="false">
+            <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
@@ -64,6 +64,16 @@
           <new-material></new-material>
         </div>
       </modal>
+     <modal :visible="editModalVisible" @close="editModalVisible = false">
+        <div class="content has-text-centered">
+          <edit-material :id="editId" @onSuccess="edited" ></edit-material>
+        </div>
+      </modal>
+      <modal :visible="deleteModalVisible" @close="deleteModalVisible = false">
+        <div class="content has-text-centered">
+          <new-material></new-material>
+        </div>
+      </modal>
     </template>
   </list>
 </template>
@@ -73,18 +83,23 @@
   import List from './../../templates/List'
   import Material from './../../services/material'
   import NewMaterial from './New'
+  import EditMaterial from './Edit'
 
   export default {
     components: {
       List,
       CardModal,
       NewMaterial,
+      EditMaterial,
       Modal
     },
     data () {
       return {
         newModalVisible: false,
-        isPublic: true
+        deleteModalVisible: false,
+        editModalVisible: false,
+        isPublic: true,
+        editId: null
       }
     },
     methods: {
@@ -100,10 +115,23 @@
           table.total = response.rowCount
           table.perPage = response.pageSize
           table.loading = false
+          this.table = table
         }).catch(err => {
           console.log(err)
           table.loading = false
         })
+      },
+      openEditModal (id) {
+        this.editId = id
+        this.editModalVisible = true
+      },
+      edited (material) {
+        this.editModalVisible = false
+        this.loadAsyncData(this.table)
+      },
+      deleted () {
+        this.deleteModalVisible = false
+        this.loadAsyncData(this.table)
       }
     }
   }

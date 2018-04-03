@@ -1,18 +1,16 @@
 <template>
   <div>
     <div class="tile is-ancestor">
-
-
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <h1 class="title">ثبت جنس جدید</h1>
+          <h1 class="title">ویرایش جنس</h1>
           <h2 class="subtitle"></h2>
-          <form v-on:submit.prevent="addMaterial">
+          <form v-on:submit.prevent="editMaterial">
             <div class="columns">
               <div class="column">
                 <label class="label">نام جنس</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="materialName" type="text" placeholder="نام جنس" value="" autofocus>
+                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -30,19 +28,28 @@
 import Material from './../../services/material'
 
 export default {
+  props: {
+    id: Number
+  },
   data () {
     return {
-      materialName: ''
+      material: {
+      }
     }
   },
   methods: {
-    addMaterial () {
-      Material.addMaterial(this.materialName).then(res => {
-        this.$emit('done', res.data)
+    editMaterial () {
+      Material.editMaterial(this.id, this.material).then(res => {
+        this.$emit('onSuccess', this.material)
       }).catch(err => {
-        this.$emit('failed', err)
+        this.$emit('onFail', err)
       })
     }
+  },
+  mounted () {
+    Material.getMaterial(this.id).then(res => {
+      this.material = res
+    })
   }
 }
 </script>
