@@ -14,17 +14,18 @@ import Notification from 'vue-bulma-notification'
 
 const NotificationComponent = Vue.extend(Notification)
 
-Vue.prototype.$openNotification = (propsData = {
-  title: '',
-  message: '',
-  type: '',
-  direction: 'Left',
-  duration: 4500,
-  container: '.notifications'
-}) => {
+Vue.prototype.$openNotification = (title = '', message = '', type = 'success') => {
+  var prop = {
+    title: title,
+    message: message,
+    type: type,
+    direction: 'Left',
+    duration: 4500,
+    container: '.notifications'
+  }
   return new NotificationComponent({
     el: document.createElement('div'),
-    propsData
+    prop
   })
 }
 
