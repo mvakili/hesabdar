@@ -14,8 +14,8 @@ export class ApiRequest {
         );
     }
 
-    public put<T>(controller: string, method: string, id: number, params: any = null) : AxiosPromise<T>{
-        return axios.put<T>(`http://localhost:5000/api/`+ controller + `/` + method + `/` + id, params
+    public put<T>(controller: string, method: string, params: any = null) : AxiosPromise<T>{
+        return axios.put<T>(`http://localhost:5000/api/`+ controller + `/` + method, params
         );
     }
 
