@@ -47,9 +47,9 @@ const state = {
       path: '/dealers',
       meta: {
         icon: 'fa-rocket',
-        link: 'dealers/index.vue'
+        link: 'dealer/index.vue'
       },
-      component: lazyLoading('dealers', true)
+      component: lazyLoading('dealer', true)
     },
     {
       name: 'اجناس',

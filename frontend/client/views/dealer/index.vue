@@ -8,6 +8,9 @@
       </a>
     </template>
 
+    <template slot="table-detail" slot-scope="props">
+      
+    </template>
     <template slot="table-template" slot-scope="props">
       <b-table-column field="id" label="#" width="100" sortable numeric>
           {{ props.row.id }}
@@ -16,7 +19,7 @@
       <b-table-column field="name" label="نام" sortable>
           {{ props.row.name }}
       </b-table-column>
-      <b-table-column  label="">
+      <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">
             <template v-if="isPublic">
@@ -34,16 +37,16 @@
             <b-icon icon="menu-down"></b-icon>
           </button>
           <div class="box"> 
-            <b-dropdown-item :value="true" class="">
+            <b-dropdown-item :value="true" class="" @click="openEditModal(props.row.id)">
               <div class="media">
                 <div class="media-content has-text-success">
-                  
-                  <span> ویرایش</span>
+                  <span>ویرایش</span>
                 </div>
               </div>
             </b-dropdown-item>
             <b-dropdown-item :separator="true" />
-            <b-dropdown-item :value="false">
+            
+            <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
@@ -58,7 +61,17 @@
     <template slot="modals">
       <modal :visible="newModalVisible" @close="newModalVisible = false">
         <div class="content has-text-centered">
-          <new-dealer></new-dealer>
+          <new @onSuccess="added"></new>
+        </div>
+      </modal>
+     <modal :visible="editModalVisible" @close="editModalVisible = false">
+        <div class="content has-text-centered">
+          <edit :id="editId" @onSuccess="edited" ></edit>
+        </div>
+      </modal>
+      <modal :visible="deleteModalVisible" @close="deleteModalVisible = false">
+        <div class="content has-text-centered">
+          <new></new>
         </div>
       </modal>
     </template>
@@ -69,24 +82,30 @@
   import { CardModal, Modal } from 'vue-bulma-modal'
   import List from './../../templates/List'
   import Dealer from './../../services/dealer'
-  import NewDealer from './New'
+  import New from './New'
+  import Edit from './Edit'
 
   export default {
     components: {
       List,
       CardModal,
-      NewDealer,
+      New,
+      Edit,
       Modal
     },
     data () {
       return {
-        newModalVisible: false
+        newModalVisible: false,
+        deleteModalVisible: false,
+        editModalVisible: false,
+        isPublic: true,
+        editId: null
       }
     },
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Dealer.getDealers(
+        Dealer.gets(
           table.currentPage,
           table.perPage,
           table.sortField,
@@ -95,13 +114,28 @@
           table.data = response.queryable
           table.total = response.rowCount
           table.perPage = response.pageSize
-
-          console.log(response)
           table.loading = false
+          this.table = table
         }).catch(err => {
           console.log(err)
           table.loading = false
         })
+      },
+      openEditModal (id) {
+        this.editId = id
+        this.editModalVisible = true
+      },
+      edited (dealer) {
+        this.editModalVisible = false
+        this.loadAsyncData(this.table)
+      },
+      added (dealer) {
+        this.newModalVisible = false
+        this.loadAsyncData(this.table)
+      },
+      deleted () {
+        this.deleteModalVisible = false
+        this.loadAsyncData(this.table)
       }
     }
   }

@@ -5,12 +5,12 @@
         <article class="tile is-child box">
           <h1 class="title">ویرایش جنس</h1>
           <h2 class="subtitle"></h2>
-          <form v-on:submit.prevent="editMaterial">
+          <form v-on:submit.prevent="edit">
             <div class="columns">
               <div class="column">
                 <label class="label">نام جنس</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="" autofocus>
+                  <input class="input" v-model="material.name" type="text" placeholder="نام جنس" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -38,8 +38,8 @@ export default {
     }
   },
   methods: {
-    editMaterial () {
-      Material.editMaterial(this.id, this.material).then(res => {
+    edit () {
+      Material.edit(this.id, this.material).then(res => {
         this.$emit('onSuccess', this.material)
       }).catch(err => {
         this.$emit('onFail', err)
@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted () {
-    Material.getMaterial(this.id).then(res => {
+    Material.get(this.id).then(res => {
       this.material = res
     })
   }

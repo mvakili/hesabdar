@@ -61,17 +61,17 @@
     <template slot="modals">
       <modal :visible="newModalVisible" @close="newModalVisible = false">
         <div class="content has-text-centered">
-          <new-material></new-material>
+          <new @onSuccess="added"></new>
         </div>
       </modal>
      <modal :visible="editModalVisible" @close="editModalVisible = false">
         <div class="content has-text-centered">
-          <edit-material :id="editId" @onSuccess="edited" ></edit-material>
+          <edit :id="editId" @onSuccess="edited" ></edit>
         </div>
       </modal>
       <modal :visible="deleteModalVisible" @close="deleteModalVisible = false">
         <div class="content has-text-centered">
-          <new-material></new-material>
+          <new></new>
         </div>
       </modal>
     </template>
@@ -82,15 +82,15 @@
   import { CardModal, Modal } from 'vue-bulma-modal'
   import List from './../../templates/List'
   import Material from './../../services/material'
-  import NewMaterial from './New'
-  import EditMaterial from './Edit'
+  import New from './New'
+  import Edit from './Edit'
 
   export default {
     components: {
       List,
       CardModal,
-      NewMaterial,
-      EditMaterial,
+      New,
+      Edit,
       Modal
     },
     data () {
@@ -105,7 +105,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Material.getMaterials(
+        Material.gets(
           table.currentPage,
           table.perPage,
           table.sortField,
@@ -127,6 +127,10 @@
       },
       edited (material) {
         this.editModalVisible = false
+        this.loadAsyncData(this.table)
+      },
+      added (material) {
+        this.newModalVisible = false
         this.loadAsyncData(this.table)
       },
       deleted () {

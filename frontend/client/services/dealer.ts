@@ -4,13 +4,20 @@ import Base from './base'
 export default  {
 
     constructor() { },
-    addDealer(name: string) : Promise<any>
+    add(param: any) : Promise<any>
     {
-        return Base.post('dealer', '', { Name: name });
-
+        return Base.post('dealer', '', param);
     },
-    getDealers(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
+    gets(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
     {
         return Base.get('dealer', '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
+    },
+    get(id: number) : Promise<any>
+    {
+        return Base.get('dealer', '' + id);
+    },
+    edit(id: number, param: any) : Promise<any>
+    {
+        return Base.put('dealer', '' + id , param);
     }
 }

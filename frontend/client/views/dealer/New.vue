@@ -5,15 +5,14 @@
 
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <h1 class="title">ثبت طرف حساب جدید</h1>
+          <h1 class="title">ثبت فروشنده - خریدار جدید</h1>
           <h2 class="subtitle"></h2>
-          <form v-on:submit.prevent="addDealer">
+          <form v-on:submit.prevent="add">
             <div class="columns">
               <div class="column">
-                <label class="label">نام طرف حساب</label>
+                <label class="label">نام فروشنده - خریدار</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealerName" type="text" placeholder="نام طرف حساب" value="" autofocus>
-                  <!-- <validator></validator> -->
+                  <input class="input" v-model="dealer.name" type="text" placeholder="نام فروشنده - خریدار" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -33,20 +32,16 @@ import Dealer from './../../services/dealer'
 export default {
   data () {
     return {
-      demo: {
-        value: '',
-        rawValue: ''
-      },
-      dealerName: ''
+      dealer: {
+      }
     }
   },
   methods: {
-    onRawValueChanged (newVal) {
-      this.demo.rawValue = newVal
-    },
-    addDealer () {
-      Dealer.addDealer(this.dealerName).then(res => {
-        this.$router.go(-1)
+    add () {
+      Dealer.add(this.dealer).then(res => {
+        this.$emit('onSuccess', res.data)
+      }).catch(err => {
+        this.$emit('onFail', err)
       })
     }
   }
