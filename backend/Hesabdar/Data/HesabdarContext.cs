@@ -25,6 +25,14 @@ namespace Hesabdar.Models
 
             foreach (var fk in cascadeFKs)
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+
+            foreach (var property in builder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetProperties())
+                .Where(p => p.ClrType == typeof(decimal)))
+            {
+                property.Relational().ColumnType = "decimal(15, 3)";
+            }
             base.OnModelCreating(builder);
 
 

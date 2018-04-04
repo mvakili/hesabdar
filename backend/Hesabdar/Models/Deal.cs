@@ -16,6 +16,7 @@ namespace Hesabdar.Models
         [ForeignKey("Buyer")]
         public int BuyerId { get; set; }
         public Dealer Buyer { get; set; }
+        public Decimal Price { get; set; }
         public virtual ICollection<DealItem> Items { get; set; }
     }
 }
