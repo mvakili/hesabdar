@@ -22,21 +22,21 @@ const state = {
     },
     {
       name: 'خرید',
-      path: '/buy',
+      path: '/purchase',
       meta: {
         icon: 'fa-rocket',
-        link: 'buy/index.vue'
+        link: 'purchase/index.vue'
       },
-      component: lazyLoading('buy', true)
+      component: lazyLoading('purchase', true)
     },
     {
       name: 'فروش',
-      path: '/sell',
+      path: '/sale',
       meta: {
         icon: 'fa-rocket',
-        link: 'sell/index.vue'
+        link: 'sale/index.vue'
       },
-      component: lazyLoading('sell', true)
+      component: lazyLoading('sale', true)
     },
     reports,
     // uifeatures,
