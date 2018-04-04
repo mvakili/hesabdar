@@ -11,9 +11,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180404055732_Deal's Dealer Keys added to model")]
+    partial class DealsDealerKeysaddedtomodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,9 +44,7 @@ namespace Hesabdar.Migrations
 
                     b.Property<int>("BuyerId");
 
-                    b.Property<DateTime>("DealTime")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                    b.Property<DateTime>("DealTime");
 
                     b.Property<int>("SellerId");
 

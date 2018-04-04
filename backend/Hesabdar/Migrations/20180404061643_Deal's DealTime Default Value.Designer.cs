@@ -11,9 +11,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180404061643_Deal's DealTime Default Value")]
+    partial class DealsDealTimeDefaultValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

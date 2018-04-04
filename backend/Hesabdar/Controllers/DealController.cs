@@ -25,7 +25,7 @@ namespace Hesabdar.Controllers
         [HttpGet]
         public IActionResult Deals([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var deals = _context.Deal.OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
@@ -40,11 +40,11 @@ namespace Hesabdar.Controllers
             }
 
 
-            var deals = _context.Deal.Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
-        [HttpGet("Dealer/{id:int=1}/Sales")]
+        [HttpGet("Dealer/Sales/{id:int=1}")]
         public IActionResult GeDealesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
 
@@ -55,11 +55,11 @@ namespace Hesabdar.Controllers
                 return BadRequest();
             }
 
-            var deals = _context.Deal.Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
-        [HttpGet("Dealer/{id:int=1}/Purchases")]
+        [HttpGet("Dealer/Purchases/{id:int=1}")]
         public IActionResult GetPurchasesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
 
@@ -69,7 +69,7 @@ namespace Hesabdar.Controllers
             {
                 return BadRequest();
             }
-            var deals = _context.Deal.Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
@@ -82,7 +82,7 @@ namespace Hesabdar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var deal = await _context.Deal.SingleOrDefaultAsync(m => m.Id == id);
+            var deal = await _context.Deal.Include("Seller").Include("Buyer").SingleOrDefaultAsync(m => m.Id == id);
 
             if (deal == null)
             {

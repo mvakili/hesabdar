@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180404055144_Deal%27s Dealer Keys added to model.cs" />
+    <Compile Remove="Migrations\20180404055144_Deal%27s Dealer Keys added to model.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
