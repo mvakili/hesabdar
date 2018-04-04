@@ -44,10 +44,13 @@ namespace Hesabdar.Controllers
             return Ok(deals);
         }
 
-        [HttpGet("Dealer/Sales/{id:int=1}")]
-        public IActionResult GeDealesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        [HttpGet("Dealer/Sales/{id:int?=null}")]
+        public IActionResult GetSalesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-
+            if (id == null)
+            {
+                id = 1;
+            }
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
 
             if (!dealerExists)
@@ -59,10 +62,13 @@ namespace Hesabdar.Controllers
             return Ok(deals);
         }
 
-        [HttpGet("Dealer/Purchases/{id:int=1}")]
+        [HttpGet("Dealer/Purchases/{id:int?=null}")]
         public IActionResult GetPurchasesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-
+            if (id == null)
+            {
+                id = 1;
+            }
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
 
             if (!dealerExists)
