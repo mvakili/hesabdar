@@ -43,8 +43,9 @@ namespace Hesabdar.Controllers
             var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
+        [HttpGet("Dealer/Sales")]
 
-        [HttpGet("Dealer/Sales/{id:int?=null}")]
+        [HttpGet("Dealer/Sales/{id}")]
         public IActionResult GetSalesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             if (id == null)
@@ -61,9 +62,9 @@ namespace Hesabdar.Controllers
             var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
-
-        [HttpGet("Dealer/Purchases/{id:int?=null}")]
-        public IActionResult GetPurchasesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        [HttpGet("Dealer/Purchases")]
+        [HttpGet("Dealer/Purchases/{id}")]
+        public IActionResult GetPurchasesOfDealer([FromRoute] int? id = null, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             if (id == null)
             {
