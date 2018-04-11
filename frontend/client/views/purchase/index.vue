@@ -19,16 +19,6 @@
       <b-table-column field="name" label="نام" sortable>
           {{ props.row.name }}
       </b-table-column>
-      <b-table-column field="barcode" label="بارکد">
-        <barcode v-if="props.row.barcode" :value="props.row.barcode"
-          :options="{ height: 20,
-                      width: 1.3,
-                      fontSize: 12,
-                      textMargin: 0,
-                      font: 'tahoma',
-                      margin: 0
-                    }" />
-      </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">
@@ -90,9 +80,8 @@
 
 <script>
   import { CardModal, Modal } from 'vue-bulma-modal'
-  import Barcode from '@xkeshi/vue-barcode'
   import List from './../../templates/List'
-  import Material from './../../services/material'
+  import Dealer from './../../services/dealer'
   import New from './New'
   import Edit from './Edit'
 
@@ -102,8 +91,7 @@
       CardModal,
       New,
       Edit,
-      Modal,
-      Barcode
+      Modal
     },
     data () {
       return {
@@ -117,7 +105,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Material.gets(
+        Dealer.gets(
           table.currentPage,
           table.perPage,
           table.sortField,
@@ -137,11 +125,11 @@
         this.editId = id
         this.editModalVisible = true
       },
-      edited (material) {
+      edited (dealer) {
         this.editModalVisible = false
         this.loadAsyncData(this.table)
       },
-      added (material) {
+      added (dealer) {
         this.newModalVisible = false
         this.loadAsyncData(this.table)
       },

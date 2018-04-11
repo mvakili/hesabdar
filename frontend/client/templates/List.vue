@@ -108,8 +108,8 @@
   text-align: right !important;
 }
 
-.table th:last-child,
-.table td:last-child
+.table>tr>th:last-child,
+.table>tr>td:last-child
 {
     text-align: left !important;
 }
@@ -140,7 +140,6 @@
   margin: 50px;
 }
 .dropdown {
-  position: absolute;
   left: 50px;
   margin-top: -6px;
 }

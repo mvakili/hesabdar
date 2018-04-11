@@ -11,9 +11,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180407044243_DealItem navigationProperties set")]
+    partial class DealItemnavigationPropertiesset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,8 +48,6 @@ namespace Hesabdar.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<int?>("PaymentId");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(15, 3)");
 
@@ -61,8 +60,6 @@ namespace Hesabdar.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("SellerId");
 
@@ -94,12 +91,6 @@ namespace Hesabdar.Migrations
 
                     b.Property<int>("MaterialId");
 
-                    b.Property<decimal>("PricePerOne")
-                        .HasColumnType("decimal(15, 3)");
-
-                    b.Property<decimal>("Quantity")
-                        .HasColumnType("decimal(15, 3)");
-
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -108,8 +99,6 @@ namespace Hesabdar.Migrations
 
                     b.HasIndex("DealId");
 
-                    b.HasIndex("MaterialId");
-
                     b.ToTable("DealItem");
                 });
 
@@ -117,8 +106,6 @@ namespace Hesabdar.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Barcode");
 
                     b.Property<string>("Name");
 
@@ -131,41 +118,12 @@ namespace Hesabdar.Migrations
                     b.ToTable("Material");
                 });
 
-            modelBuilder.Entity("Hesabdar.Models.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(15, 3)");
-
-                    b.Property<int>("PayeeId");
-
-                    b.Property<int>("PayerId");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PayeeId");
-
-                    b.HasIndex("PayerId");
-
-                    b.ToTable("Payment");
-                });
-
             modelBuilder.Entity("Hesabdar.Models.Deal", b =>
                 {
                     b.HasOne("Hesabdar.Models.Dealer", "Buyer")
                         .WithMany()
                         .HasForeignKey("BuyerId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hesabdar.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId");
 
                     b.HasOne("Hesabdar.Models.Dealer", "Seller")
                         .WithMany()
@@ -178,24 +136,6 @@ namespace Hesabdar.Migrations
                     b.HasOne("Hesabdar.Models.Deal", "Deal")
                         .WithMany("Items")
                         .HasForeignKey("DealId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hesabdar.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Hesabdar.Models.Payment", b =>
-                {
-                    b.HasOne("Hesabdar.Models.Dealer", "Payee")
-                        .WithMany()
-                        .HasForeignKey("PayeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hesabdar.Models.Dealer", "Payer")
-                        .WithMany()
-                        .HasForeignKey("PayerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

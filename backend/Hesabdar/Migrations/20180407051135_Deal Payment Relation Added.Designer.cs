@@ -11,9 +11,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180407051135_Deal Payment Relation Added")]
+    partial class DealPaymentRelationAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,8 +118,6 @@ namespace Hesabdar.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Barcode");
 
                     b.Property<string>("Name");
 

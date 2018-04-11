@@ -20,5 +20,8 @@ namespace Hesabdar.Models
 
         public Decimal Price { get; set; }
         public virtual ICollection<DealItem> Items { get; set; }
+        [ForeignKey("Payment")]
+        public int? PaymentId { get; set; }
+        public Payment Payment { get; set; }
     }
 }

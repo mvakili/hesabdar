@@ -3,28 +3,14 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <h1 class="title">ویرایش جنس</h1>
+          <h1 class="title">ویرایش فروشنده - خریدار</h1>
           <h2 class="subtitle"></h2>
           <form v-on:submit.prevent="edit">
             <div class="columns">
               <div class="column">
-                <label class="label">نام جنس</label>
+                <label class="label">نام فروشنده - خریدار</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="material.name" type="text" placeholder="نام جنس" value="" autofocus>
-                </p>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <label class="label">بارکد</label>
-                <p class="control has-icon has-icon-right">
-                   <barcode v-if="material.barcode" :value="material.barcode"
-                      :options="{ height: 20,
-                        width: 1.3,
-                        displayValue: false,
-                        margin: 0
-                    }" />
-                  <input class="input" v-model="material.barcode" type="text" placeholder="بارکد" value="" autofocus>
+                  <input class="input" v-model="dealer.name" type="text" placeholder="نام فروشنده - خریدار" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -39,34 +25,30 @@
 </template>
 
 <script>
-import Material from './../../services/material'
-import Barcode from '@xkeshi/vue-barcode'
+import Dealer from './../../services/dealer'
 
 export default {
-  components: {
-    Barcode
-  },
   props: {
     id: Number
   },
   data () {
     return {
-      material: {
+      dealer: {
       }
     }
   },
   methods: {
     edit () {
-      Material.edit(this.id, this.material).then(res => {
-        this.$emit('onSuccess', this.material)
+      Dealer.edit(this.id, this.dealer).then(res => {
+        this.$emit('onSuccess', this.dealer)
       }).catch(err => {
         this.$emit('onFail', err)
       })
     }
   },
   mounted () {
-    Material.get(this.id).then(res => {
-      this.material = res
+    Dealer.get(this.id).then(res => {
+      this.dealer = res
     })
   }
 }

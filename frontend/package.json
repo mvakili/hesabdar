@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^2.8.2-beta",
+    "@xkeshi/vue-barcode": "^0.2.0",
     "animate.css": "3.5.2",
     "animejs": "^2.0.1",
     "axios": "^0.17.1",

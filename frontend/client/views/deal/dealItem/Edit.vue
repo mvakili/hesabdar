@@ -14,20 +14,6 @@
                 </p>
               </div>
             </div>
-            <div class="columns">
-              <div class="column">
-                <label class="label">بارکد</label>
-                <p class="control has-icon has-icon-right">
-                   <barcode v-if="material.barcode" :value="material.barcode"
-                      :options="{ height: 20,
-                        width: 1.3,
-                        displayValue: false,
-                        margin: 0
-                    }" />
-                  <input class="input" v-model="material.barcode" type="text" placeholder="بارکد" value="" autofocus>
-                </p>
-              </div>
-            </div>
             <p class="control">
               <input type="submit" class="button is-primary" value="تایید" />
             </p>
@@ -39,13 +25,9 @@
 </template>
 
 <script>
-import Material from './../../services/material'
-import Barcode from '@xkeshi/vue-barcode'
+import Material from './../../../services/material'
 
 export default {
-  components: {
-    Barcode
-  },
   props: {
     id: Number
   },

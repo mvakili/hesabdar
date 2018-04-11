@@ -1,13 +1,5 @@
 <template>
   <list @load-data="loadAsyncData">
-    <template slot="nav">
-      <a class="button is-warning" v-on:click="newModalVisible = true"> جدید &nbsp; &nbsp;
-        <span class="icon">
-          <i class="fa fa-plus"></i>
-        </span>
-      </a>
-    </template>
-
     <template slot="table-detail" slot-scope="props">
       
     </template>
@@ -16,18 +8,17 @@
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="name" label="نام" sortable>
-          {{ props.row.name }}
+      <b-table-column field="name" label="جنس" sortable>
+          {{ props.row.material.name }}
       </b-table-column>
-      <b-table-column field="barcode" label="بارکد">
-        <barcode v-if="props.row.barcode" :value="props.row.barcode"
-          :options="{ height: 20,
-                      width: 1.3,
-                      fontSize: 12,
-                      textMargin: 0,
-                      font: 'tahoma',
-                      margin: 0
-                    }" />
+      <b-table-column field="name" label="تعداد" sortable>
+          {{ props.row.quantity }}
+      </b-table-column>
+      <b-table-column field="name" label="فی" sortable>
+          {{ props.row.pricePerOne }}
+      </b-table-column>
+      <b-table-column field="name" label="قیمت" sortable>
+          {{ props.row.pricePerOne * props.row.quantity }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
@@ -69,11 +60,6 @@
     </template>
 
     <template slot="modals">
-      <modal :visible="newModalVisible" @close="newModalVisible = false">
-        <div class="content has-text-centered">
-          <new @onSuccess="added"></new>
-        </div>
-      </modal>
      <modal :visible="editModalVisible" @close="editModalVisible = false">
         <div class="content has-text-centered">
           <edit :id="editId" @onSuccess="edited" ></edit>
@@ -90,24 +76,25 @@
 
 <script>
   import { CardModal, Modal } from 'vue-bulma-modal'
-  import Barcode from '@xkeshi/vue-barcode'
-  import List from './../../templates/List'
-  import Material from './../../services/material'
-  import New from './New'
+  import List from './../../../templates/List'
+  import DealItem from './../../../services/dealItem'
   import Edit from './Edit'
 
   export default {
     components: {
       List,
       CardModal,
-      New,
       Edit,
-      Modal,
-      Barcode
+      Modal
+    },
+    props: {
+      dealId: {
+        type: Number,
+        default: null
+      }
     },
     data () {
       return {
-        newModalVisible: false,
         deleteModalVisible: false,
         editModalVisible: false,
         isPublic: true,
@@ -117,17 +104,15 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Material.gets(
-          table.currentPage,
-          table.perPage,
-          table.sortField,
-          table.sortOrder
+        DealItem.gets(
+          this.dealId
         ).then(response => {
-          table.data = response.queryable
-          table.total = response.rowCount
-          table.perPage = response.pageSize
+          table.data = response
+          table.isPaginated = false
           table.loading = false
+          table.perPage = response.length
           this.table = table
+          console.log(response)
         }).catch(err => {
           console.log(err)
           table.loading = false
@@ -142,7 +127,6 @@
         this.loadAsyncData(this.table)
       },
       added (material) {
-        this.newModalVisible = false
         this.loadAsyncData(this.table)
       },
       deleted () {
