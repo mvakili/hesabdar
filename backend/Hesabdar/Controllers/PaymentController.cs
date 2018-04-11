@@ -30,9 +30,9 @@ namespace Hesabdar.Controllers
         }
 
         [HttpGet("Deal/{id}")]
-        public async Task<IActionResult> GetPaymentOfDeal([FromQuery] int id)
+        public async Task<IActionResult> GetPaymentOfDeal([FromRoute] int id)
         {
-            var payment = _context.Payment.Where(u => u.Deal != null && u.Deal.Id == id).SingleOrDefaultAsync();
+            var payment = await _context.Payment.Where(u => u.Deal != null && u.Deal.Id == id).SingleOrDefaultAsync();
             if (payment == null)
             {
                 return NotFound();
