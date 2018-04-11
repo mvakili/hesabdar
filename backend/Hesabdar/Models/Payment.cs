@@ -17,6 +17,6 @@ namespace Hesabdar.Models
         [ForeignKey("Payee")]
         public int PayeeId { get; set; }
         public Dealer Payee { get; set; }
-
+        public Deal Deal { get; set; }
     }
 }

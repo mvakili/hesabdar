@@ -42,6 +42,7 @@ namespace Hesabdar.Models
         public DbSet<Hesabdar.Models.Dealer> Dealer { get; set; }
         public DbSet<Hesabdar.Models.Deal> Deal { get; set; }
         public DbSet<Hesabdar.Models.DealItem> DealItem { get; set; }
+        public DbSet<Hesabdar.Models.Payment> Payment { get; set; }
 
 
 
