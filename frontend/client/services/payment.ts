@@ -19,8 +19,7 @@ export default  {
     getPaymentOfDeal(dealId: number) : Promise<any>
     {
         return Base.get('payment', 'Deal/' + dealId);
-        
-    }
+    },
     edit(id: number, param: any) : Promise<any>
     {
         return Base.put('payment', '' + id , param);
