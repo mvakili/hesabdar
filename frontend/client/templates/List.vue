@@ -37,6 +37,20 @@
                   <slot name="table-template" :row="props.row" :index="props.index" >
                   </slot>
                 </template>
+
+              <template slot="empty">
+                <section class="section">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                icon="emoticon-sad"
+                                size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>اطلاعاتی برای نمایش وجود ندارد</p>
+                    </div>
+                </section>
+              </template>
             </b-table>
         </section>
       </article>
