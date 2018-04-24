@@ -104,6 +104,9 @@ html {
   bottom: 50px !important;
 }
 body, button, input, select, textarea {
-  font: "B Nazanin",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font: "IRANSans",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+.modal-content {
+  overflow: hidden;
 }
 </style>

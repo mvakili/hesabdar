@@ -14,7 +14,13 @@ export default  {
     },
     get(id: number) : Promise<any>
     {
-        return Base.get('payment', '' + id);
+        if (id) {
+            return Base.get('payment', '' + id);
+        } else {
+            return new Promise<any> ( function(resolve, reject) { 
+                reject();
+            })
+        }
     },
     getPaymentOfDeal(dealId: number) : Promise<any>
     {

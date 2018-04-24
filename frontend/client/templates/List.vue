@@ -37,7 +37,9 @@
                   <slot name="table-template" :row="props.row" :index="props.index" >
                   </slot>
                 </template>
-
+              <template slot="footer">
+                  <slot name="table-footer" />
+              </template>
               <template slot="empty">
                 <section class="section">
                     <div class="content has-text-grey has-text-centered">

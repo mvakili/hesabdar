@@ -39,7 +39,7 @@ namespace Hesabdar.Controllers
                 return BadRequest();
             }
 
-
+ 
             var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }

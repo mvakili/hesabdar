@@ -1,6 +1,6 @@
 <template>
-  <list @load-data="loadAsyncData">
-    <template slot="nav">
+  <list @load-data="loadAsyncData" :detailed="true" detailKey="id">
+    <template slot="nav" >
       <a class="button is-warning" v-on:click="newModalVisible = true"> جدید &nbsp; &nbsp;
         <span class="icon">
           <i class="fa fa-plus"></i>
@@ -9,6 +9,20 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent is-6">
+          <article class="tile is-child box">
+            <h4 class="title">اجناس</h4>
+            <deal-item-list :dealId="props.row.id"></deal-item-list>
+          </article>
+        </div>
+        <div class="tile is-parent is-6">
+          <article class="tile is-child box">
+            <h4 class="title">پرداخت</h4>
+            <deal-payment></deal-payment>
+          </article>
+        </div>
+      </div>
       
     </template>
     <template slot="table-template" slot-scope="props">
@@ -16,8 +30,17 @@
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="name" label="نام" sortable>
-          {{ props.row.name }}
+      <b-table-column field="seller.name" label="فروشنده" sortable>
+          {{ props.row.seller.name }}
+      </b-table-column>
+      <b-table-column field="dealTime" label="زمان خرید" sortable>
+          {{ props.row.dealTime | moment("HH:mm jYYYY/jMM/jD") }}
+      </b-table-column>
+      <b-table-column field="price" label="قیمت خرید" sortable>
+          {{ props.row.price }}
+      </b-table-column>
+      <b-table-column field="paymentId" label="paymentId" sortable :visible="false">
+          {{ props.row.paymentId }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
@@ -81,17 +104,21 @@
 <script>
   import { CardModal, Modal } from 'vue-bulma-modal'
   import List from './../../templates/List'
-  import Dealer from './../../services/dealer'
+  import Deal from './../../services/deal'
   import New from './New'
   import Edit from './Edit'
-
+  import DealItemList from './../deal/dealItem/List'
+  import DealPayment from './../deal/payment/index'
+  
   export default {
     components: {
       List,
       CardModal,
       New,
       Edit,
-      Modal
+      Modal,
+      DealItemList,
+      DealPayment
     },
     data () {
       return {
@@ -105,7 +132,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Dealer.gets(
+        Deal.getPurchases(
           table.currentPage,
           table.perPage,
           table.sortField,
@@ -125,11 +152,11 @@
         this.editId = id
         this.editModalVisible = true
       },
-      edited (dealer) {
+      edited (deal) {
         this.editModalVisible = false
         this.loadAsyncData(this.table)
       },
-      added (dealer) {
+      added (deal) {
         this.newModalVisible = false
         this.loadAsyncData(this.table)
       },

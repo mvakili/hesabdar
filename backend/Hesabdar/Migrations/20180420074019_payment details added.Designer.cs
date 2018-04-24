@@ -12,9 +12,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180420074019_payment details added")]
+    partial class paymentdetailsadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

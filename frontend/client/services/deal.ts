@@ -12,6 +12,14 @@ export default  {
     {
         return Base.get('deal', '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
     },
+    getPurchases(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
+    {
+        return Base.get('deal', 'dealer/purchases?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
+    },
+    getSales(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
+    {
+        return Base.get('deal', 'dealer/sales?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
+    },
     get(id: number) : Promise<any>
     {
         return Base.get('deal', '' + id);

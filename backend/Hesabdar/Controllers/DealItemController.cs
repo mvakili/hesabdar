@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +21,9 @@ namespace Hesabdar.Controllers
 
         // GET: api/DealItem
         [HttpGet("Deal/{id}")]
-        public IEnumerable<DealItem> GetDealItemsOfDeal([FromRoute] int id)
+        public IActionResult GetDealItemsOfDeal([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            return _context.DealItem.Include("Material").Where( u => u.DealId == id);
+            return Ok(_context.DealItem.Include("Material").Where( u => u.DealId == id).OrderBy(sort).PageResult(page, perPage));
         }
 
         // GET: api/DealItem/5

@@ -12,14 +12,14 @@
       <div class="tile is-ancestor">
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
-            <h4 class="title">فاکتور اجناس</h4>
+            <h4 class="title">اجناس</h4>
             <deal-item-list :dealId="props.row.id"></deal-item-list>
           </article>
         </div>
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
-            <h4 class="title">فاکتور اجناس</h4>
-            <deal-item-list :dealId="props.row.id"></deal-item-list>
+            <h4 class="title">پرداخت</h4>
+            <deal-payment :paymentId="props.row.paymentId"></deal-payment>
           </article>
         </div>
       </div>
@@ -38,6 +38,9 @@
       </b-table-column>
       <b-table-column field="price" label="قیمت فروش" sortable>
           {{ props.row.price }}
+      </b-table-column>
+      <b-table-column field="paymentId" label="paymentId" sortable :visible="false">
+          {{ props.row.paymentId }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
@@ -105,7 +108,8 @@
   import New from './New'
   import Edit from './Edit'
   import DealItemList from './../deal/dealItem/List'
-
+  import DealPayment from './../deal/payment/index'
+  
   export default {
     components: {
       List,
@@ -113,7 +117,8 @@
       New,
       Edit,
       Modal,
-      DealItemList
+      DealItemList,
+      DealPayment
     },
     data () {
       return {
@@ -127,7 +132,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Deal.gets(
+        Deal.getSales(
           table.currentPage,
           table.perPage,
           table.sortField,

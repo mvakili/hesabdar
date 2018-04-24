@@ -8,9 +8,9 @@ export default  {
     {
         return Base.post('dealItem', '', param);
     },
-    gets(dealId: number) : Promise<any>
+    getDealItemsOfDeal(dealId: number, page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
     {
-        return Base.get('dealItem', 'Deal/' + dealId);
+        return Base.get('dealItem', 'Deal/' + dealId + '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
     },
     get(id: number) : Promise<any>
     {

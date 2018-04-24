@@ -4566,6 +4566,10 @@ jalaali-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-0.2.0.tgz#1096b3c720fc74e3dd2adf7a6fc01ea4fbb4ba1c"
 
+jalaali-js@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.1.0.tgz#f0e942049273d11f7298a992356fc36ce2784863"
+
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
@@ -5266,20 +5270,21 @@ moment-jalaali@^0.4.0:
     jalaali-js "^0.2.0"
     moment "^2.9.0"
 
-moment-jalaali@^0.6.0:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.6.1.tgz#450043895c8c8f7d66b38c86e1884dce05906965"
+moment-jalaali@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.7.2.tgz#b26505ba6c5af4785a7fee132a193405e60f21ba"
   dependencies:
-    jalaali-js "^0.2.0"
-    moment "^2.12.0"
+    jalaali-js "^1.0.0"
+    moment "^2.18.1"
+    rimraf "^2.6.1"
 
 moment@^2.10.6:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-moment@^2.12.0:
-  version "2.19.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
+moment@^2.18.1:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
 moment@^2.9.0:
   version "2.20.1"
@@ -8263,8 +8268,8 @@ vue-bulma-slider@^1.0.2:
   resolved "https://registry.yarnpkg.com/vue-bulma-slider/-/vue-bulma-slider-1.0.2.tgz#7b8e0dd0bc2c1a7c5e77d117059847ba41eaff14"
 
 vue-bulma-switch@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vue-bulma-switch/-/vue-bulma-switch-1.0.4.tgz#52e99de5b57baa39b1bc80240b3ae5d43f53c522"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/vue-bulma-switch/-/vue-bulma-switch-1.0.5.tgz#ac0c21136582c7120b2fb21176404fb28b5ae651"
 
 vue-bulma-tabs@^1.1.2:
   version "1.1.2"
@@ -8300,12 +8305,6 @@ vue-html-loader@^1.2.3:
     html-minifier "^2.1.5"
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
-
-vue-jalaali-datepicker@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/vue-jalaali-datepicker/-/vue-jalaali-datepicker-1.0.1.tgz#9c1d10e4f1f7422ec109ec08a07e9c0f9873a170"
-  dependencies:
-    moment-jalaali "^0.6.0"
 
 vue-loader@^11.1.4:
   version "11.3.4"
@@ -8345,6 +8344,12 @@ vue-nprogress@0.1.5:
 vue-peity@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/vue-peity/-/vue-peity-0.5.0.tgz#0729d04c6850c218cba4d6d7219bf1cfe5a3bfcb"
+
+vue-persian-datetime-picker@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/vue-persian-datetime-picker/-/vue-persian-datetime-picker-1.0.9.tgz#ac0b5e5dbfc6b810ad8adbd55fda7d2eb03ec79f"
+  dependencies:
+    moment-jalaali "^0.7.2"
 
 vue-router@^3.0.1:
   version "3.0.1"

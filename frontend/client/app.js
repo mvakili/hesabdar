@@ -11,6 +11,7 @@ import * as filters from './filters'
 import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import Buefy from 'buefy'
 import Notification from 'vue-bulma-notification'
+import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 
 const NotificationComponent = Vue.extend(Notification)
 
@@ -30,6 +31,8 @@ Vue.prototype.$openNotification = (title = '', message = '', type = 'success') =
 }
 
 Vue.router = router
+
+Vue.component('date-picker', VuePersianDatetimePicker)
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
   // ...
