@@ -19,5 +19,9 @@ export default  {
     edit(id: number, param: any) : Promise<any>
     {
         return Base.put('material', '' + id , param);
+    },
+    suggest(text: string) : Promise<any>
+    {
+        return Base.get('material', 'suggest/' + text);
     }
 }
