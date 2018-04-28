@@ -29,9 +29,10 @@ namespace Hesabdar.Controllers
         }
 
         [HttpGet("Suggest")]
-        public IActionResult GetSuggestedMaterials([FromQuery] string text = "")
+        [HttpGet("Suggest/{text}")]
+        public IActionResult GetSuggestedMaterials([FromRoute] string text = "")
         {
-            var materials = _context.Material;
+            var materials = _context.Material.Where(u => u.Name.StartsWith(text)).Take(10);
             return Ok(materials);
         }
 
