@@ -3,13 +3,13 @@
     <dashboard-nav></dashboard-nav>
     <div class="tile is-ancestor">
       <div class="tile is-parent" >
-       <weekly-sell-chart></weekly-sell-chart>
-       <weekly-buy-chart></weekly-buy-chart>
+       <weekly-sale-chart></weekly-sale-chart>
+       <weekly-purchase-chart></weekly-purchase-chart>
       </div>
     </div>
     <div class="tile is-ancestor">
       <div class="tile is-parent" >
-        <weekly-buy-sell-distance-chart></weekly-buy-sell-distance-chart>
+        <weekly-purchase-and-sale-distance-chart></weekly-purchase-and-sale-distance-chart>
       </div>
     </div>
   </div>
@@ -18,17 +18,17 @@
 <script>
 import Chart from 'vue-bulma-chartjs'
 import DashboardNav from './DashboardNav'
-import WeeklySellChart from './WeeklySellChart'
-import WeeklyBuyChart from './WeeklyBuyChart'
-import WeeklyBuySellDistanceChart from './WeeklyBuySellDistanceChart'
+import WeeklySaleChart from './WeeklySaleChart'
+import WeeklyPurchaseChart from './WeeklyPurchaseChart'
+import WeeklyPurchaseAndSaleDistanceChart from './WeeklyPurchaseAndSaleDistanceChart'
 
 export default {
   components: {
     Chart,
     DashboardNav,
-    WeeklySellChart,
-    WeeklyBuyChart,
-    WeeklyBuySellDistanceChart
+    WeeklySaleChart,
+    WeeklyPurchaseChart,
+    WeeklyPurchaseAndSaleDistanceChart
   }
 }
 </script>

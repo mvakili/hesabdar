@@ -31,7 +31,7 @@
             سررسید چک :
           </div>
           <div class="control column is-two-thirds">
-            <date-picker :editable="true" input-format="YYYY-MM-DD" format="jYYYY/jMM/jDD" v-model="payment.dueDate"></date-picker>
+            <date-picker :editable="true" :auto-submit="true" input-format="YYYY-MM-DD" format="jYYYY/jMM/jDD" v-model="payment.dueDate"></date-picker>
           </div>
          </div>
       </div>
@@ -52,7 +52,7 @@
             تاریخ پرداخت: 
           </div>
           <div class="control column is-two-thirds">
-            <date-picker type="datetime" :editable="true" input-format="YYYY-MM-DD HH:mm" format="HH:mm jYYYY/jMM/jDD" v-model="payment.payDate"></date-picker>
+            <date-picker type="datetime" :auto-submit="true" :editable="true" input-format="YYYY-MM-DD HH:mm" format="HH:mm jYYYY/jMM/jDD" v-model="payment.payDate"></date-picker>
           </div>
          </div>
       </div>
@@ -64,6 +64,7 @@
   import Cleave from 'vue-cleave'
   import VbSwitch from 'vue-bulma-switch'
   import Payment from './../../../services/payment'
+
   export default {
     components: {
       VbSwitch,
@@ -83,9 +84,11 @@
     },
     methods: {
       loadAsyncData () {
+        console.log(this.paymentId)
         Payment.get(
           this.paymentId
         ).then(response => {
+          console.log(response)
           this.payment = response
         }).catch(err => {
           if (err.response.status !== 404) {

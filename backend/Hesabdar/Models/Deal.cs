@@ -13,15 +13,16 @@ namespace Hesabdar.Models
         [ForeignKey("Seller")]
         public int SellerId { get; set; }
         public Dealer Seller { get; set; }
-
         [ForeignKey("Buyer")]
         public int BuyerId { get; set; }
         public Dealer Buyer { get; set; }
 
-        public Decimal Price { get; set; }
         public virtual ICollection<DealItem> Items { get; set; }
-        [ForeignKey("Payment")]
-        public int? PaymentId { get; set; }
-        public Payment Payment { get; set; }
+        [ForeignKey("DealPrice")]
+        public int? DealPriceId { get; set; }
+        public Payment DealPrice { get; set; }
+        [ForeignKey("DealPayment")]
+        public int? DealPaymentId { get; set; }
+        public Payment DealPayment { get; set; }
     }
 }

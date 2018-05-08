@@ -29,6 +29,17 @@ namespace Hesabdar.Controllers
             return Ok(dealers);
         }
 
+        [HttpGet("Suggest")]
+        [HttpGet("Suggest/{text}")]
+        public IActionResult GetSuggestedDealers([FromRoute] string text = "")
+        {
+            var dealers = _context.Dealer
+                .Where(u => u.Id != 1)
+                .Where(u => u.Name.StartsWith(text))
+                .Take(10);
+            return Ok(dealers);
+        }
+
         // GET: api/Dealer/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDealer([FromRoute] int id)

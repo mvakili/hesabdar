@@ -2,13 +2,14 @@
   <article class="tile is-child box">
     <h4 class="title">فاصله خرید و فروش هفتگی</h4>
     <div class="content">
-        <chart :type="'line'" :data="weekly_buy_sell_distance_chart_data" :options="options"></chart>
+        <chart :type="'line'" :data="data" :options="options"></chart>
+        
     </div>
   </article>
 </template>
 <script>
+import Statistics from './../../services/statistics'
 import Chart from 'vue-bulma-chartjs'
-
 export default {
   components: {
     Chart
@@ -20,19 +21,26 @@ export default {
           mode: 'label'
         }
       },
-      series: ['فروش', 'خرید'],
-      datas: [
-        [5, 9, 7, 8, 3, 9, 4],
-        [2, 8, 15, 7, 3, 9, 7]
-      ],
+      series: ['خرید', 'فروش'],
+      datas: [[], []],
       backgroundColors: [
         'rgba(240, 230, 30, 1)',
         'rgba(120, 120, 10, 1)'
       ]
     }
   },
+  methods: {
+    loadAsyncData () {
+      Statistics.getWeeklyPurchaseAndSalePrice().then(response => {
+        response.forEach(element => {
+          this.datas[0].push(element.purchasesAmount)
+          this.datas[1].push(element.salesAmount)
+        })
+      })
+    }
+  },
   computed: {
-    weekly_buy_sell_distance_chart_data () {
+    data () {
       return {
         datasets: this.series.map((e, i) => {
           return {
@@ -46,6 +54,9 @@ export default {
         labels: ['شنبه', 'یکشنبه', 'دو شنبه', 'سه شنبه', 'چارشنبه', 'پنج شنبه', 'جمعه']
       }
     }
+  },
+  mounted: function () {
+    this.loadAsyncData()
   }
 }
 </script>

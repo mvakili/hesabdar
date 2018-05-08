@@ -16,6 +16,11 @@ import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
 const NotificationComponent = Vue.extend(Notification)
 
 Vue.prototype.$openNotification = (title = '', message = '', type = 'success') => {
+  console.log({
+    title,
+    message,
+    type
+  })
   var prop = {
     title: title,
     message: message,
@@ -26,7 +31,7 @@ Vue.prototype.$openNotification = (title = '', message = '', type = 'success') =
   }
   return new NotificationComponent({
     el: document.createElement('div'),
-    prop
+    propsData: prop
   })
 }
 

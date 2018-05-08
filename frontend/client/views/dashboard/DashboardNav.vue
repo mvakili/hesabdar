@@ -2,47 +2,54 @@
   <nav class="level is-mobile">
       <div class="level-item has-text-centered notification is-warning">
         <div>
-          <p class="heading">فاکتور فروش امروز</p>
-          <p class="title">{{sell_invoices_count}}</p>
+          <p class="heading">تعداد فاکتور فروش امروز</p>
+          <p class="title">{{statistics.todaySaleInvoicesCount}}</p>
           <p class="is-size-6">عدد</p>
         </div>
       </div>
       <div class="level-item has-text-centered notification is-warning">
         <div>
           <p class="heading">فروش امروز</p>
-          <p class="title">{{today_sell}}</p>
-          <p class="is-size-6">{{unit.name}}</p>
+          <p class="title">{{statistics.todaySalesPrice}}</p>
+          <p class="is-size-6">&nbsp;</p>
+          
         </div>
       </div>
       <div class="level-item has-text-centered  notification is-primary">
         <div>
-          <p class="heading">فاکتور خرید امروز</p>
-          <p class="title">{{buy_invoices_count}}</p>
+          <p class="heading">تعداد فاکتور خرید امروز</p>
+          <p class="title">{{statistics.todayPurchaseInvoicesCount}}</p>
           <p class="is-size-6">عدد</p>
         </div>
       </div>
       <div class="level-item has-text-centered  notification is-primary">
         <div>
           <p class="heading">خرید امروز</p>
-          <p class="title">{{today_buy}}</p>
-          <p class="is-size-6">{{unit.name}}</p>
+          <p class="title">{{statistics.todayPurchasePrice}}</p>
+          <p class="is-size-6">&nbsp;</p>
         </div>
       </div>
     </nav>
 </template>
 <script>
+import Statistics from './../../services/statistics'
 export default {
   data () {
     return {
-      today_sell: 10028,
-      today_buy: 17000,
-      unit: {
-        name: 'ریال',
-        id: '1'
-      },
-      sell_invoices_count: 10,
-      buy_invoices_count: 3
+      statistics: {
+
+      }
     }
+  },
+  methods: {
+    loadAsyncData () {
+      Statistics.getGeneral().then(response => {
+        this.statistics = response
+      })
+    }
+  },
+  mounted: function () {
+    this.loadAsyncData()
   }
 }
 </script>

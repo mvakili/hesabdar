@@ -12,9 +12,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180504153149_price removed from Deal")]
+    partial class priceremovedfromDeal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,10 +45,6 @@ namespace Hesabdar.Migrations
 
                     b.Property<int>("BuyerId");
 
-                    b.Property<int?>("DealPaymentId");
-
-                    b.Property<int?>("DealPriceId");
-
                     b.Property<DateTime>("DealTime")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
@@ -61,10 +58,6 @@ namespace Hesabdar.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
-
-                    b.HasIndex("DealPaymentId");
-
-                    b.HasIndex("DealPriceId");
 
                     b.HasIndex("SellerId");
 
@@ -141,6 +134,8 @@ namespace Hesabdar.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(15, 3)");
 
+                    b.Property<int?>("DealId");
+
                     b.Property<DateTime>("DueDate");
 
                     b.Property<byte>("Method");
@@ -149,11 +144,7 @@ namespace Hesabdar.Migrations
 
                     b.Property<bool>("Payed");
 
-                    b.Property<int?>("Payee");
-
                     b.Property<int>("PayeeId");
-
-                    b.Property<int?>("Payer");
 
                     b.Property<int>("PayerId");
 
@@ -163,9 +154,11 @@ namespace Hesabdar.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Payee");
+                    b.HasIndex("DealId");
 
-                    b.HasIndex("Payer");
+                    b.HasIndex("PayeeId");
+
+                    b.HasIndex("PayerId");
 
                     b.ToTable("Payment");
                 });
@@ -176,14 +169,6 @@ namespace Hesabdar.Migrations
                         .WithMany()
                         .HasForeignKey("BuyerId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hesabdar.Models.Payment", "DealPayment")
-                        .WithMany()
-                        .HasForeignKey("DealPaymentId");
-
-                    b.HasOne("Hesabdar.Models.Payment", "DealPrice")
-                        .WithMany()
-                        .HasForeignKey("DealPriceId");
 
                     b.HasOne("Hesabdar.Models.Dealer", "Seller")
                         .WithMany()
@@ -206,13 +191,19 @@ namespace Hesabdar.Migrations
 
             modelBuilder.Entity("Hesabdar.Models.Payment", b =>
                 {
-                    b.HasOne("Hesabdar.Models.Dealer")
-                        .WithMany("Incomes")
-                        .HasForeignKey("Payee");
+                    b.HasOne("Hesabdar.Models.Deal", "Deal")
+                        .WithMany("Payments")
+                        .HasForeignKey("DealId");
 
-                    b.HasOne("Hesabdar.Models.Dealer")
-                        .WithMany("Expenses")
-                        .HasForeignKey("Payer");
+                    b.HasOne("Hesabdar.Models.Dealer", "Payee")
+                        .WithMany()
+                        .HasForeignKey("PayeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Hesabdar.Models.Dealer", "Payer")
+                        .WithMany()
+                        .HasForeignKey("PayerId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

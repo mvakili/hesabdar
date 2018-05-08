@@ -1,6 +1,6 @@
 import * as types from '../../mutation-types'
 import lazyLoading from './lazyLoading'
-import reports from './reports'
+
 // import uifeatures from './uifeatures'
 // import components from './components'
 // import tables from './tables'
@@ -38,12 +38,8 @@ const state = {
       },
       component: lazyLoading('sale', true)
     },
-    reports,
-    // uifeatures,
-    // components,
-    // tables
     {
-      name: 'خریدار - فروشنده',
+      name: 'طرف حساب',
       path: '/dealers',
       meta: {
         icon: 'fa-rocket',
@@ -52,7 +48,7 @@ const state = {
       component: lazyLoading('dealer', true)
     },
     {
-      name: 'اجناس',
+      name: 'کالا',
       path: '/material',
       meta: {
         icon: 'fa-rocket',

@@ -21,9 +21,9 @@ namespace Hesabdar.Controllers
 
         // GET: api/DealItem
         [HttpGet("Deal/{id}")]
-        public IActionResult GetDealItemsOfDeal([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        public IActionResult GetDealItemsOfDeal([FromRoute] int id)
         {
-            return Ok(_context.DealItem.Include("Material").Where( u => u.DealId == id).OrderBy(sort).PageResult(page, perPage));
+            return Ok(_context.DealItem.Include("Material").Where( u => u.DealId == id).OrderBy("id"));
         }
 
         // GET: api/DealItem/5

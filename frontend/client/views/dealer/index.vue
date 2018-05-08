@@ -45,7 +45,35 @@
               </div>
             </b-dropdown-item>
             <b-dropdown-item :separator="true" />
-            
+            <b-dropdown-item :value="false" disabled>
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>دریافت</span>
+                </div>
+              </div>
+            </b-dropdown-item>
+            <b-dropdown-item :value="false" disabled>
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>پرداخت</span>
+                </div>
+              </div>
+            </b-dropdown-item>
+            <b-dropdown-item :value="false" disabled>
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>بدهی</span>
+                </div>
+              </div>
+            </b-dropdown-item>
+            <b-dropdown-item :value="false" disabled>
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>طلب</span>
+                </div>
+              </div>
+            </b-dropdown-item>
+            <b-dropdown-item :separator="true" />            
             <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">

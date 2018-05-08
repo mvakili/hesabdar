@@ -26,6 +26,10 @@ export default  {
     {
         return Base.get('payment', 'Deal/' + dealId);
     },
+    getPriceOfDeal(dealId: number) : Promise<any>
+    {
+        return Base.get('payment', 'Deal/Price/' + dealId);
+    },
     edit(id: number, param: any) : Promise<any>
     {
         return Base.put('payment', '' + id , param);

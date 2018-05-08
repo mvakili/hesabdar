@@ -12,6 +12,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20180404055144_Deal%27s Dealer Keys added to model.cs" />
     <Compile Remove="Migrations\20180404055144_Deal%27s Dealer Keys added to model.Designer.cs" />
+    <Compile Remove="Migrations\20180507020027_testtt2.cs" />
+    <Compile Remove="Migrations\20180507020027_testtt2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

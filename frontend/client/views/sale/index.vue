@@ -12,14 +12,14 @@
       <div class="tile is-ancestor">
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
-            <h4 class="title">اجناس</h4>
+            <h4 class="title">کالا</h4>
             <deal-item-list :dealId="props.row.id"></deal-item-list>
           </article>
         </div>
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
             <h4 class="title">پرداخت</h4>
-            <deal-payment :paymentId="props.row.paymentId"></deal-payment>
+            <deal-payment :paymentId="props.row.dealPaymentId | null"></deal-payment>
           </article>
         </div>
       </div>
@@ -36,11 +36,11 @@
       <b-table-column field="dealTime" label="زمان فروش" sortable>
           {{ props.row.dealTime | moment("HH:mm jYYYY/jMM/jD") }}
       </b-table-column>
-      <b-table-column field="price" label="قیمت فروش" sortable>
-          {{ props.row.price }}
+      <b-table-column field="dealPrice" label="قیمت فروش" sortable>
+          {{ props.row.dealPrice.amount || 0 }}
       </b-table-column>
-      <b-table-column field="paymentId" label="paymentId" sortable :visible="false">
-          {{ props.row.paymentId }}
+      <b-table-column field="dealPaymentId" label="DealPaymentId" sortable :visible="false">
+        {{props.row.dealPaymentId}}          
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">

@@ -13,7 +13,7 @@ export default {
 
   children: [
     {
-      name: 'اجناس',
+      name: 'کالا',
       path: 'materials',
       component: lazyLoading('reports/Materials'),
       meta: {

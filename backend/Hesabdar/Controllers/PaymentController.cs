@@ -29,10 +29,21 @@ namespace Hesabdar.Controllers
             return Ok(materials);
         }
 
+        [HttpGet("Deal/Price/{id}")]
+        public async Task<IActionResult> GetPriceOfDeal([FromRoute] int id)
+        {
+            var payment = _context.Deal.Include(u => u.DealPrice).SingleOrDefault(u => u.Id == id).DealPrice;
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            return Ok(payment);
+        }
+
         [HttpGet("Deal/{id}")]
         public async Task<IActionResult> GetPaymentOfDeal([FromRoute] int id)
         {
-            var payment = await _context.Payment.Where(u => u.Deal != null && u.Deal.Id == id).SingleOrDefaultAsync();
+            var payment = _context.Deal.Include(u => u.DealPayment).SingleOrDefault(u => u.Id == id).DealPayment;
             if (payment == null)
             {
                 return NotFound();

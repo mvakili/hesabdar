@@ -12,9 +12,10 @@ using System;
 namespace Hesabdar.Migrations
 {
     [DbContext(typeof(HesabdarContext))]
-    partial class HesabdarContextModelSnapshot : ModelSnapshot
+    [Migration("20180507015642_testtt")]
+    partial class testtt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,10 +45,6 @@ namespace Hesabdar.Migrations
 
                     b.Property<int>("BuyerId");
 
-                    b.Property<int?>("DealPaymentId");
-
-                    b.Property<int?>("DealPriceId");
-
                     b.Property<DateTime>("DealTime")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
@@ -61,10 +58,6 @@ namespace Hesabdar.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
-
-                    b.HasIndex("DealPaymentId");
-
-                    b.HasIndex("DealPriceId");
 
                     b.HasIndex("SellerId");
 
@@ -141,6 +134,8 @@ namespace Hesabdar.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(15, 3)");
 
+                    b.Property<int?>("DealId");
+
                     b.Property<DateTime>("DueDate");
 
                     b.Property<byte>("Method");
@@ -163,6 +158,8 @@ namespace Hesabdar.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DealId");
+
                     b.HasIndex("Payee");
 
                     b.HasIndex("Payer");
@@ -176,14 +173,6 @@ namespace Hesabdar.Migrations
                         .WithMany()
                         .HasForeignKey("BuyerId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Hesabdar.Models.Payment", "DealPayment")
-                        .WithMany()
-                        .HasForeignKey("DealPaymentId");
-
-                    b.HasOne("Hesabdar.Models.Payment", "DealPrice")
-                        .WithMany()
-                        .HasForeignKey("DealPriceId");
 
                     b.HasOne("Hesabdar.Models.Dealer", "Seller")
                         .WithMany()
@@ -206,6 +195,10 @@ namespace Hesabdar.Migrations
 
             modelBuilder.Entity("Hesabdar.Models.Payment", b =>
                 {
+                    b.HasOne("Hesabdar.Models.Deal", "Deal")
+                        .WithMany("Payments")
+                        .HasForeignKey("DealId");
+
                     b.HasOne("Hesabdar.Models.Dealer")
                         .WithMany("Incomes")
                         .HasForeignKey("Payee");

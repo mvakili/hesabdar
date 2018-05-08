@@ -7,6 +7,7 @@ namespace Hesabdar.Models.Enums
     public enum PaymentMethod : byte
     {
         Cash,
-        Cheque
+        Cheque,
+        DealPrice
     }
 }

@@ -7,19 +7,18 @@
         </span>
       </a>
     </template>
-
     <template slot="table-detail" slot-scope="props">
       <div class="tile is-ancestor">
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
-            <h4 class="title">اجناس</h4>
-            <deal-item-list :dealId="props.row.id"></deal-item-list>
+            <h4 class="title">کالا</h4>
+            <deal-item-list v-model="deal.items" :dealId="props.row.id" @price-changed="console.log(123)"></deal-item-list>
           </article>
         </div>
         <div class="tile is-parent is-6">
           <article class="tile is-child box">
             <h4 class="title">پرداخت</h4>
-            <deal-payment></deal-payment>
+            <deal-payment :paymentId="props.row.dealPaymentId"></deal-payment>            
           </article>
         </div>
       </div>
@@ -36,11 +35,11 @@
       <b-table-column field="dealTime" label="زمان خرید" sortable>
           {{ props.row.dealTime | moment("HH:mm jYYYY/jMM/jD") }}
       </b-table-column>
-      <b-table-column field="price" label="قیمت خرید" sortable>
-          {{ props.row.price }}
+            <b-table-column field="dealPrice" label="قیمت خرید" sortable>
+          {{ props.row.dealPrice.amount || 0 }}
       </b-table-column>
-      <b-table-column field="paymentId" label="paymentId" sortable :visible="false">
-          {{ props.row.paymentId }}
+      <b-table-column field="dealPaymentId" label="dealPaymentId" sortable :visible="false">
+        {{props.row.dealPaymentId}}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
@@ -126,7 +125,10 @@
         deleteModalVisible: false,
         editModalVisible: false,
         isPublic: true,
-        editId: null
+        editId: null,
+        deal: {
+          items: []
+        }
       }
     },
     methods: {
@@ -163,6 +165,9 @@
       deleted () {
         this.deleteModalVisible = false
         this.loadAsyncData(this.table)
+      },
+      dealItemsPriceChanged (value) {
+        console.log(value)
       }
     }
   }

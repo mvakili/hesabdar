@@ -25,7 +25,7 @@ namespace Hesabdar.Controllers
         [HttpGet]
         public IActionResult Deals([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var deals = _context.Deal.Include("Seller").Include("Buyer").OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
@@ -40,7 +40,7 @@ namespace Hesabdar.Controllers
             }
 
  
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
         [HttpGet("Dealer/Sales")]
@@ -59,7 +59,7 @@ namespace Hesabdar.Controllers
                 return BadRequest();
             }
 
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
         [HttpGet("Dealer/Purchases")]
@@ -76,7 +76,7 @@ namespace Hesabdar.Controllers
             {
                 return BadRequest();
             }
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
+            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
 
@@ -89,7 +89,7 @@ namespace Hesabdar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var deal = await _context.Deal.Include("Seller").Include("Buyer").SingleOrDefaultAsync(m => m.Id == id);
+            var deal = await _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).SingleOrDefaultAsync(m => m.Id == id);
 
             if (deal == null)
             {

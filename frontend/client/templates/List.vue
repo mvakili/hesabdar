@@ -42,7 +42,8 @@
               </template>
               <template slot="empty">
                 <section class="section">
-                    <div class="content has-text-grey has-text-centered">
+                    <slot name="table-empty">
+                      <div class="content has-text-grey has-text-centered">
                         <p>
                             <b-icon
                                 icon="emoticon-sad"
@@ -50,10 +51,14 @@
                             </b-icon>
                         </p>
                         <p>اطلاعاتی برای نمایش وجود ندارد</p>
-                    </div>
+                      </div>
+                    </slot>
                 </section>
               </template>
             </b-table>
+            <section class="section">
+              <slot name="table-bottom" />
+            </section>
         </section>
       </article>
     </div>
@@ -78,20 +83,21 @@
       rowClass: {
         type: Function,
         default: () => ''
-      }
-    },
-    data () {
-      return {
-        table: {
-          data: [],
-          total: 0,
-          isPaginated: true,
-          currentPage: 1,
-          perPage: 10,
-          loading: false,
-          sortField: '',
-          sortOrder: 'desc',
-          selected: null
+      },
+      table: {
+        type: Object,
+        default: () => {
+          return {
+            data: [],
+            total: 0,
+            isPaginated: true,
+            currentPage: 1,
+            perPage: 10,
+            loading: false,
+            sortField: '',
+            sortOrder: 'desc',
+            selected: null
+          }
         }
       }
     },
@@ -125,7 +131,8 @@
 }
 
 .table>tr>th:last-child,
-.table>tr>td:last-child
+.table>tr>td:last-child,
+.table>tfoot>tr>th:last-child
 {
     text-align: left !important;
 }

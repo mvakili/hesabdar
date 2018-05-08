@@ -8,9 +8,9 @@
           <form v-on:submit.prevent="edit">
             <div class="columns">
               <!-- <div class="column">
-                <label class="label">نام جنس</label>
+                <label class="label">نام کالا</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="material.name" type="text" placeholder="نام جنس" value="" autofocus>
+                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="" autofocus>
                 </p>
               </div> -->
             </div>

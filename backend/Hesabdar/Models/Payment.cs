@@ -13,11 +13,8 @@ namespace Hesabdar.Models
 
         [ForeignKey("Payer")]
         public int PayerId { get; set; }
-        public Dealer Payer { get; set; }
         [ForeignKey("Payee")]
         public int PayeeId { get; set; }
-        public Dealer Payee { get; set; }
-        public Deal Deal { get; set; }
         public PaymentMethod Method { get; set; }
         public DateTime PayDate { get; set; }
         public Boolean Payed { get; set; }
