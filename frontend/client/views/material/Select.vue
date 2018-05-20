@@ -1,5 +1,5 @@
 <template>
-  <b-autocomplete
+  <b-autocomplete ref="autoComplete"
     rounded
     v-model="name"
     :data="data"
@@ -22,7 +22,8 @@ export default {
     return {
       data: [],
       name: '',
-      loadData: true
+      loadData: true,
+      selected: {}
     }
   },
   methods: {
@@ -33,6 +34,9 @@ export default {
         })
       }
       this.loadData = true
+    },
+    focus: function () {
+      this.$refs.autoComplete.focus()
     }
   },
   watch: {
@@ -40,7 +44,14 @@ export default {
       this.loadAsyncData()
     },
     selected: function (val) {
-      this.$emit('input', this.selected)
+      this.$emit('changed', this.selected)
+    },
+    value: function (val) {
+      if (this.value) {
+        this.selected = this.value
+        this.loadData = false
+        this.name = this.value.name
+      }
     }
   },
   mounted: function () {

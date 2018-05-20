@@ -8,6 +8,7 @@
   </article>
 </template>
 <script>
+import Vue from 'vue'
 import Statistics from './../../services/statistics'
 import Chart from 'vue-bulma-chartjs'
 export default {
@@ -26,7 +27,8 @@ export default {
       backgroundColors: [
         'rgba(120, 200, 219, 1)',
         'rgba(151, 100, 118, 1)'
-      ]
+      ],
+      labels: []
     }
   },
   methods: {
@@ -34,6 +36,7 @@ export default {
       Statistics.getTwoWeeksSalesPrice().then(response => {
         response.slice(0, 7).forEach(element => {
           this.datas[0].push(element.amount)
+          this.labels.push(Vue.moment(element.date).locale('fa').format('dddd'))
         })
         response.slice(7, 14).forEach(element => {
           this.datas[1].push(element.amount)
@@ -53,7 +56,7 @@ export default {
             backgroundColor: this.backgroundColors[i].replace(/1\)$/, '.5)')
           }
         }),
-        labels: ['شنبه', 'یکشنبه', 'دو شنبه', 'سه شنبه', 'چارشنبه', 'پنج شنبه', 'جمعه']
+        labels: this.labels
       }
     }
   },

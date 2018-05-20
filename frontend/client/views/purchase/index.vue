@@ -9,13 +9,13 @@
     </template>
     <template slot="table-detail" slot-scope="props">
       <div class="tile is-ancestor">
-        <div class="tile is-parent is-6">
+        <div class="tile is-parent is-8 is-desktop ">
           <article class="tile is-child box">
             <h4 class="title">کالا</h4>
             <deal-item-list v-model="deal.items" :dealId="props.row.id" @price-changed="console.log(123)"></deal-item-list>
           </article>
         </div>
-        <div class="tile is-parent is-6">
+        <div class="tile is-parent is-desktop ">
           <article class="tile is-child box">
             <h4 class="title">پرداخت</h4>
             <deal-payment :paymentId="props.row.dealPaymentId"></deal-payment>            

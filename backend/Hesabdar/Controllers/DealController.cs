@@ -33,13 +33,13 @@ namespace Hesabdar.Controllers
         public IActionResult GetDealsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
             var dealerExists = _context.Dealer.Any(u => u.Id == id);
-            
+
             if (!dealerExists)
             {
                 return BadRequest();
             }
 
- 
+
             var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
             return Ok(deals);
         }
@@ -113,13 +113,52 @@ namespace Hesabdar.Controllers
                 return BadRequest();
             }
 
+            #region Deal Modify
             _context.Entry(deal).State = EntityState.Modified;
+            #endregion
 
+            #region Payments Modify
+            deal.DealPayment.PayerId = deal.BuyerId;
+            deal.DealPayment.PayeeId = deal.SellerId;
+            deal.DealPrice.PayerId = deal.SellerId;
+            deal.DealPrice.PayeeId = deal.BuyerId;
+
+            _context.Entry(deal.DealPayment).State = EntityState.Modified;
+            _context.Entry(deal.DealPrice).State = EntityState.Modified;
+
+            #endregion
+
+            #region Deal Items Modify
+            var newItems = deal.Items.ToList();
+            var deletingItems = _context.DealItem.Where(u => u.DealId == id && !newItems.Select(i => i.Id).Contains(u.Id)).ToList();
+
+            deletingItems.ForEach(i =>
+            {
+                _context.Entry(i).State = EntityState.Deleted;
+            });
+
+            newItems.ForEach(i =>
+            {
+ 
+                if (i.Id != 0)
+                {
+                    _context.Entry(i).State = EntityState.Modified;
+                } else
+                {
+                    _context.Entry(i).State = EntityState.Added;
+                }
+            });
+
+
+
+
+
+            #endregion
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!DealExists(id))
                 {
@@ -132,6 +171,7 @@ namespace Hesabdar.Controllers
             }
 
             return NoContent();
+
         }
 
         // POST: api/Deal

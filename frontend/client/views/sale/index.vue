@@ -10,17 +10,27 @@
 
     <template slot="table-detail" slot-scope="props">
       <div class="tile is-ancestor">
-        <div class="tile is-parent is-6">
+        <div class=" column is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-two-third-widescreen is-half-fullhd">
           <article class="tile is-child box">
             <h4 class="title">کالا</h4>
-            <deal-item-list :dealId="props.row.id"></deal-item-list>
+            <deal-item-list :deal="props.row" :dealId="props.row.id" ref="deal-item-list"></deal-item-list>
           </article>
         </div>
-        <div class="tile is-parent is-6">
+        <div class=" column ">
           <article class="tile is-child box">
             <h4 class="title">پرداخت</h4>
-            <deal-payment :paymentId="props.row.dealPaymentId | null"></deal-payment>
+            <deal-payment :deal="props.row" :paymentId="props.row.dealPaymentId || null" ref="deal-payment"></deal-payment>
           </article>
+          
+              <div class="tile">
+                <div class="column has-text-left">
+                  <button class="button is-warning" @click="save(props.row, props.index)">
+                    ذخیره
+                  </button>
+                </div>
+              </div>
+
+
         </div>
       </div>
       
@@ -39,7 +49,7 @@
       <b-table-column field="dealPrice" label="قیمت فروش" sortable>
           {{ props.row.dealPrice.amount || 0 }}
       </b-table-column>
-      <b-table-column field="dealPaymentId" label="DealPaymentId" sortable :visible="false">
+      <b-table-column field="dealPaymentId" label="DealPaymentId" :visible="false">
         {{props.row.dealPaymentId}}          
       </b-table-column>
       <b-table-column  label="" width="100">
@@ -143,9 +153,6 @@
           table.perPage = response.pageSize
           table.loading = false
           this.table = table
-        }).catch(err => {
-          console.log(err)
-          table.loading = false
         })
       },
       openEditModal (id) {
@@ -163,6 +170,19 @@
       deleted () {
         this.deleteModalVisible = false
         this.loadAsyncData(this.table)
+      },
+      save (row, index) {
+        console.log(JSON.parse(JSON.stringify(row)))
+        Deal.edit(row.id, row).then(response => {
+          this.$openNotification('عملیات موفق', 'تغییرات ذخیره شد', 'success')
+          Deal.get(row.id).then(response => {
+            console.log(JSON.parse(JSON.stringify(response)))
+            this.table.data.splice(index, 1)
+            this.table.data.splice(index, 0, response)
+            this.$refs['deal-item-list'].loadAsyncData()
+            this.$refs['deal-payment'].loadAsyncData()
+          })
+        })
       }
     }
   }

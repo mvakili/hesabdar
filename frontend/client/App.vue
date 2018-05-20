@@ -59,7 +59,6 @@ export default {
 }
 
 @import '~bulma';
-
 @import '~wysiwyg.css/wysiwyg.sass';
 
 $fa-font-path: "fonts" !default;
@@ -104,7 +103,7 @@ html {
   bottom: 50px !important;
 }
 body, button, input, select, textarea {
-  font: "IRANSans",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font: "IRANSansWeb",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 .modal-content {
   overflow: hidden;

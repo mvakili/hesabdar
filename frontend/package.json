@@ -82,7 +82,7 @@
     "vue-moment-jalaali": "^2.0.0",
     "vue-nprogress": "0.1.5",
     "vue-peity": "0.5.0",
-    "vue-persian-datetime-picker": "^1.0.9",
+    "vue-persian-datetime-picker": "^1.1.2",
     "vue-router": "^3.0.1",
     "vuejs-datepicker": "^0.9.20",
     "vuex": "^3.0.1",

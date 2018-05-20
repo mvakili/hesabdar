@@ -27,5 +27,5 @@ export default  {
     edit(id: number, param: any) : Promise<any>
     {
         return Base.put('deal', '' + id , param);
-    }
+    },
 }

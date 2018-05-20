@@ -4,18 +4,18 @@
       <div class="control is-horizontal">
         <p class="control">
           <label class="radio">
-            <input type="radio"  v-model="payment.method" value="Cash" name="paymentType"> &nbsp;
+            <input type="radio"  v-model="deal.dealPayment.method" value="Cash" name="paymentType"> &nbsp;
             نقدی
           </label>
           <label class="radio">
-            <input type="radio"  v-model="payment.method" value="Cheque" name="paymentType"> &nbsp;
+            <input type="radio"  v-model="deal.dealPayment.method" value="Cheque" name="paymentType"> &nbsp;
             چک
           </label>
         </p>
         <p class="control">
           <label class="radio">
-            <vb-switch v-model="payment.payed" type="primary" ></vb-switch> &nbsp;
-            <span v-if="payment.payed">
+            <vb-switch v-model="deal.dealPayment.payed" type="primary" ></vb-switch> &nbsp;
+            <span v-if="deal.dealPayment.payed">
               پرداخت شده
             </span>
             <span v-else>
@@ -25,13 +25,13 @@
         </p>
       </div>
       <p>&nbsp;</p>
-      <div class="contol" v-if="payment.method == 'Cheque'">
+      <div class="contol" v-if="deal.dealPayment.method == 'Cheque'">
          <div class="columns">
           <div  class="column">
             سررسید چک :
           </div>
           <div class="control column is-two-thirds">
-            <date-picker :editable="true" :auto-submit="true" input-format="YYYY-MM-DD" format="jYYYY/jMM/jDD" v-model="payment.dueDate"></date-picker>
+            <date-picker type="date" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="jYYYY/jMM/jDD" v-model="deal.dealPayment.dueDate"></date-picker>
           </div>
          </div>
       </div>
@@ -42,7 +42,7 @@
             مقدار پرداخت : 
           </div>
           <div class="control column is-two-thirds">
-            <cleave class="input"   placeholder="مقدار پرداخت" :value="payment.amount" :options="{ numeral: true, numeralThousandsGroupStyle: 'thousand' }"></cleave>
+            <input class="input" placeholder="مقدار پرداخت" v-model="deal.dealPayment.amount">
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
             تاریخ پرداخت: 
           </div>
           <div class="control column is-two-thirds">
-            <date-picker type="datetime" :auto-submit="true" :editable="true" input-format="YYYY-MM-DD HH:mm" format="HH:mm jYYYY/jMM/jDD" v-model="payment.payDate"></date-picker>
+            <date-picker type="datetime" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="deal.dealPayment.payDate"></date-picker>
           </div>
          </div>
       </div>
@@ -61,39 +61,26 @@
 </template>
 
 <script>
-  import Cleave from 'vue-cleave'
   import VbSwitch from 'vue-bulma-switch'
   import Payment from './../../../services/payment'
 
   export default {
     components: {
-      VbSwitch,
-      Cleave
+      VbSwitch
     },
     props: {
       paymentId: {
         type: Number,
         default: null
-      }
-    },
-    data () {
-      return {
-        payment: {
-        }
-      }
+      },
+      deal: Object
     },
     methods: {
       loadAsyncData () {
-        console.log(this.paymentId)
         Payment.get(
           this.paymentId
         ).then(response => {
-          console.log(response)
-          this.payment = response
-        }).catch(err => {
-          if (err.response.status !== 404) {
-            console.log(err)
-          }
+          this.deal.dealPayment = response
         })
       }
     },

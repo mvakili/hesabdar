@@ -4570,7 +4570,7 @@ jalaali-js@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-0.2.0.tgz#1096b3c720fc74e3dd2adf7a6fc01ea4fbb4ba1c"
 
-jalaali-js@^1.0.0:
+jalaali-js@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.1.0.tgz#f0e942049273d11f7298a992356fc36ce2784863"
 
@@ -5274,19 +5274,19 @@ moment-jalaali@^0.4.0:
     jalaali-js "^0.2.0"
     moment "^2.9.0"
 
-moment-jalaali@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.7.2.tgz#b26505ba6c5af4785a7fee132a193405e60f21ba"
+moment-jalaali@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/moment-jalaali/-/moment-jalaali-0.7.3.tgz#6eef53cb887e7539b607d296e523ed82bdfb0e02"
   dependencies:
-    jalaali-js "^1.0.0"
-    moment "^2.18.1"
-    rimraf "^2.6.1"
+    jalaali-js "^1.1.0"
+    moment "^2.22.1"
+    rimraf "^2.6.2"
 
 moment@^2.10.6:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.18.1.tgz#c36193dd3ce1c2eed2adb7c802dbbc77a81b1c0f"
 
-moment@^2.18.1, moment@^2.22.1:
+moment@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
@@ -6978,6 +6978,12 @@ rimraf@2, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.2, rimraf@^2.6.1:
   dependencies:
     glob "^7.0.5"
 
+rimraf@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
+  dependencies:
+    glob "^7.0.5"
+
 ripemd160@^2.0.0, ripemd160@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/ripemd160/-/ripemd160-2.0.1.tgz#0f4584295c53a3628af7e6d79aca21ce57d1c6e7"
@@ -8349,11 +8355,11 @@ vue-peity@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/vue-peity/-/vue-peity-0.5.0.tgz#0729d04c6850c218cba4d6d7219bf1cfe5a3bfcb"
 
-vue-persian-datetime-picker@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/vue-persian-datetime-picker/-/vue-persian-datetime-picker-1.0.9.tgz#ac0b5e5dbfc6b810ad8adbd55fda7d2eb03ec79f"
+vue-persian-datetime-picker@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue-persian-datetime-picker/-/vue-persian-datetime-picker-1.1.2.tgz#7a56ec5438121d2fe5c24abb1677a48ffcf8d00c"
   dependencies:
-    moment-jalaali "^0.7.2"
+    moment-jalaali "^0.7.3"
 
 vue-router@^3.0.1:
   version "3.0.1"

@@ -3,11 +3,11 @@
     <template slot="table-detail" slot-scope="props">
     </template>
     <template slot="table-template" slot-scope="props">
-      <b-table-column field="id" label="#" width="100"  numeric :visible="false">
+      <b-table-column field="id" label="#"  numeric :visible="false">
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="material.name" label="کالا" >
+      <b-table-column field="material.name" label="کالا" width="200" >
           <material-select v-bind:value="props.row.material"></material-select>
       </b-table-column>
       <b-table-column field="quantity" label="تعداد" >
@@ -44,11 +44,10 @@
     </template>
     <template slot="table-footer">
       <th>
-          <material-select v-model="newRow.material"></material-select>
-          {{newRow.material.name}}
+          <material-select ref="newMaterial" v-model="newRow.material" v-bind:value="newRow.material" @changed="newRowMaterialChanged"></material-select>
       </th>
       <th>
-          <input class="input" v-model="newRow.quantity" />
+          <input class="input" ref="newQuantity" v-model="newRow.quantity" />
       </th>
       <th>
           <input class="input" v-model="newRow.pricePerOne" />
@@ -66,7 +65,10 @@
           جمع کل: {{ totalPrice }}
         </p>
         <p class="control">
-          <cleave class="input"  placeholder="قیمت فاکتور" :value="dealPrice.amount" v-model="dealPrice.amount" :options="{ numeral: true }"></cleave>
+          <label>
+            قیمت نهایی:
+           <input class="input" type="text" placeholder="قیمت نهایی" v-model="dealPrice" />
+          </label>
         </p>
       </div>
     </template>
@@ -77,19 +79,17 @@
 </template>
 
 <script>
-  import Cleave from 'vue-cleave'
+
   import { CardModal, Modal } from 'vue-bulma-modal'
   import List from './../../../templates/List'
   import DealItem from './../../../services/dealItem'
   import MaterialSelect from './../../material/Select'
-  import Payment from './../../../services/payment'
 
   export default {
     components: {
       List,
       CardModal,
       Modal,
-      Cleave,
       MaterialSelect
     },
     props: {
@@ -97,24 +97,12 @@
         type: Number,
         default: null
       },
-      value: []
+      deal: Object
     },
     data () {
       return {
-        deal: {
-        },
-        dealPrice: {
-          amount: '0'
-        },
         table: {
-          data: {
-            get: function () {
-              return this.value
-            },
-            set: function (val) {
-              this.value = val
-            }
-          }
+          data: []
         },
         newRow: {}
       }
@@ -125,19 +113,27 @@
           this.dealId
         ).then(response => {
           this.table.data = response
-        })
-        Payment.getPriceOfDeal(
-          this.dealId
-        ).then(response => {
-          this.dealPrice = response
+          this.deal.items = this.table.data
         })
       },
       add: function (row) {
-        if (row.quantity && row.pricePerOne) {
-          this.table.data.push(row)
-          this.initNewRow()
-        } else {
-          this.$openNotification('خطا', 'قیمت یا تعداد وارد نشده', 'danger')
+        try {
+          row.quantity = Number(row.quantity)
+          row.pricePerOne = Number(row.pricePerOne)
+
+          if (!row.quantity) {
+            this.$openNotification('خطا', 'تعداد وارد نشده', 'danger')
+          } else if (!row.pricePerOne) {
+            this.$openNotification('خطا', 'قیمت  وارد نشده', 'danger')
+          } else if (!row.material || !row.material.id) {
+            this.$openNotification('خطا', 'کالا انتخاب نشده است', 'danger')
+          } else {
+            this.table.data.push(row)
+            this.initNewRow()
+            this.$refs.newMaterial.focus()
+          }
+        } catch (error) {
+          this.$openNotification('خطا', 'تعداد یا قیمت وارد شده اشتباه است', 'danger')
         }
       },
       remove: function (index) {
@@ -149,6 +145,10 @@
           pricePerOne: 0,
           material: {}
         }
+      },
+      newRowMaterialChanged: function (value) {
+        this.newRow.material = value
+        this.$refs.newQuantity.select()
       }
     },
     computed: {
@@ -163,14 +163,21 @@
         },
         set: function (val) {
         }
+      },
+      dealPrice: {
+        get: function () {
+          return String(this.deal.dealPrice.amount)
+        },
+        set: function (val) {
+          this.deal.dealPrice.amount = Number(val)
+        }
       }
     },
     watch: {
       totalPrice: function (val, oldValue) {
-        this.dealPrice.amount = val + ''
-      },
-      'dealPrice.amount': function (value, oldValue) {
-        this.$emit('price-changed', this.dealPrice)
+        if (this.deal.dealPrice.amount === oldValue) {
+          this.deal.dealPrice.amount = val
+        }
       }
     },
     mounted: function () {
