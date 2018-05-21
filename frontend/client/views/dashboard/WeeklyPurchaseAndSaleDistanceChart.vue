@@ -2,7 +2,7 @@
   <article class="tile is-child box">
     <h4 class="title">فاصله خرید و فروش هفتگی</h4>
     <div class="content">
-        <chart :type="'line'" :data="data" :options="options"></chart>
+        <chart :type="'line'" :data="data" :options="options" ref="chart"></chart>
     </div>
   </article>
 </template>
@@ -58,6 +58,11 @@ export default {
           return v
         })
       }
+    }
+  },
+  watch: {
+    data: function () {
+      this.$nextTick(() => this.$refs['chart'].resetChart())
     }
   },
   mounted: function () {
