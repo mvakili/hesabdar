@@ -128,9 +128,6 @@
           table.perPage = response.pageSize
           table.loading = false
           this.table = table
-        }).catch(err => {
-          console.log(err)
-          table.loading = false
         })
       },
       openEditModal (id) {

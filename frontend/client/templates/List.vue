@@ -22,6 +22,9 @@
                 :backend-sorting="true"
                 :backend-pagination="true"
                 :selected.sync="table.selected"
+                :opened-detailed.sync="table.openedDetailed"
+                @details-open="detailsOpen"
+                @details-close="detailsClose"                
                 @sort="onSort"
                 :detailed="detailed"
                 :detail-key="detailKey"
@@ -106,6 +109,12 @@
         this.table.currentPage = page
         this.$emit('load-data', this.table)
       },
+      detailsOpen (value) {
+        this.$emit('detailsOpen', value)
+      },
+      detailsClose (value) {
+        this.$emit('detailsClose', value)
+      },
       onSort (field, order) {
         this.table.sortField = field
         this.table.sortOrder = order
@@ -137,7 +146,9 @@
     text-align: left !important;
 }
 
-
+.table td .is-expanded>.fa-angle-right {
+  transform: rotate(90deg);  
+}
 .table td .fa-angle-right {
   transform: rotate(180deg);  
 }

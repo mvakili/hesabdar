@@ -55,7 +55,6 @@ export default {
           }
         }),
         labels: this.labels.map((v, i) => {
-          console.log(v)
           return v
         })
       }

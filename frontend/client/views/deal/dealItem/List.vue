@@ -7,8 +7,8 @@
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="material.name" label="کالا" width="200" >
-          <material-select v-bind:value="props.row.material"></material-select>
+      <b-table-column field="material" label="کالا" width="200" >
+          <material-select v-model="props.row.material" :id.sync="props.row.materialId"></material-select>
       </b-table-column>
       <b-table-column field="quantity" label="تعداد" >
           <input class="input" v-model="props.row.quantity" />
@@ -17,7 +17,7 @@
          <input class="input" v-model="props.row.pricePerOne" />
       </b-table-column>
       <b-table-column field="pricePerOne*quantity" label="قیمت" >
-          {{ props.row.pricePerOne * props.row.quantity }}
+          {{ props.row.pricePerOne * props.row.quantity | currency('', 0) }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown position="is-bottom-left">
@@ -44,7 +44,7 @@
     </template>
     <template slot="table-footer">
       <th>
-          <material-select ref="newMaterial" v-model="newRow.material" v-bind:value="newRow.material" @changed="newRowMaterialChanged"></material-select>
+          <material-select ref="newMaterial" v-model="newRow.material"  @changed="newRowMaterialChanged"></material-select>
       </th>
       <th>
           <input class="input" ref="newQuantity" v-model="newRow.quantity" />
@@ -62,7 +62,7 @@
     <template slot="table-bottom">
       <div class="control is-horizontal">
         <p class="control" >
-          جمع کل: {{ totalPrice }}
+          جمع کل: {{ totalPrice | currency('', 0) }}
         </p>
         <p class="control">
           <label>

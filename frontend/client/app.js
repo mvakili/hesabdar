@@ -12,6 +12,11 @@ import { TOGGLE_SIDEBAR } from 'vuex-store/mutation-types'
 import Buefy from 'buefy'
 import Notification from 'vue-bulma-notification'
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker'
+import Chart from 'chart.js'
+import Vue2Filters from 'vue2-filters'
+
+Vue.use(Vue2Filters)
+Chart.defaults.global.defaultFontFamily = 'IRANSansWeb'
 
 const NotificationComponent = Vue.extend(Notification)
 

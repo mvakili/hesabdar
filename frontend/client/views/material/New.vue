@@ -12,7 +12,7 @@
               <div class="column">
                 <label class="label">نام کالا</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="" autofocus>
+                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="material.name" autofocus>
                 </p>
               </div>
             </div>
@@ -48,6 +48,12 @@ export default {
   components: {
     Barcode
   },
+  props: {
+    name: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       material: {
@@ -62,6 +68,9 @@ export default {
         this.$emit('onFail', err)
       })
     }
+  },
+  mounted () {
+    this.material.name = this.name
   }
 }
 </script>

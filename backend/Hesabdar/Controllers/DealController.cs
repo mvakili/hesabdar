@@ -122,6 +122,7 @@ namespace Hesabdar.Controllers
             deal.DealPayment.PayeeId = deal.SellerId;
             deal.DealPrice.PayerId = deal.SellerId;
             deal.DealPrice.PayeeId = deal.BuyerId;
+            deal.DealPrice.PayDate = deal.DealTime;
 
             _context.Entry(deal.DealPayment).State = EntityState.Modified;
             _context.Entry(deal.DealPrice).State = EntityState.Modified;

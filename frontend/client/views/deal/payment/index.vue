@@ -4,11 +4,12 @@
       <div class="control is-horizontal">
         <p class="control">
           <label class="radio">
-            <input type="radio"  v-model="deal.dealPayment.method" value="Cash" name="paymentType"> &nbsp;
+            <b-radio  v-model="deal.dealPayment.method" native-value="Cash" name="paymentType" />
             نقدی
           </label>
+          &nbsp;&nbsp;&nbsp;
           <label class="radio">
-            <input type="radio"  v-model="deal.dealPayment.method" value="Cheque" name="paymentType"> &nbsp;
+            <b-radio  v-model="deal.dealPayment.method" native-value="Cheque" name="paymentType" />
             چک
           </label>
         </p>

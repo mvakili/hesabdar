@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss">
 @import '~animate.css';
+@import '~iransans-fontface/css/iransans/sass/iransans-fontface-regular';
 .animated {
   animation-duration: .377s;
 }
@@ -103,7 +104,7 @@ html {
   bottom: 50px !important;
 }
 body, button, input, select, textarea {
-  font: "IRANSansWeb",apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: "IRANSansWeb";
 }
 .modal-content {
   overflow: hidden;

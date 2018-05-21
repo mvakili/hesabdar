@@ -40,14 +40,14 @@
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="buyer.name" label="خریدار" sortable>
-          {{ props.row.buyer.name }}
+      <b-table-column field="buyer" label="خریدار" sortable>
+        <dealer-select v-model="props.row.buyer" :id.sync="props.row.buyerId" :disabled="!table.openedDetailed.includes(props.row.id)"></dealer-select>
       </b-table-column>
       <b-table-column field="dealTime" label="زمان فروش" sortable>
-          {{ props.row.dealTime | moment("HH:mm jYYYY/jMM/jD") }}
+        <date-picker type="date" :auto-submit="true" :editable="false" format="YYYY-MM-DD HH:mm" display-format="jYYYY/jMM/jDD" v-model="props.row.dealTime"></date-picker>
       </b-table-column>
       <b-table-column field="dealPrice" label="قیمت فروش" sortable>
-          {{ props.row.dealPrice.amount || 0 }}
+          {{ props.row.dealPrice.amount || 0 | currency('', 0) }}
       </b-table-column>
       <b-table-column field="dealPaymentId" label="DealPaymentId" :visible="false">
         {{props.row.dealPaymentId}}          
@@ -119,6 +119,7 @@
   import Edit from './Edit'
   import DealItemList from './../deal/dealItem/List'
   import DealPayment from './../deal/payment/index'
+  import DealerSelect from './../dealer/Select'
   
   export default {
     components: {
@@ -128,7 +129,8 @@
       Edit,
       Modal,
       DealItemList,
-      DealPayment
+      DealPayment,
+      DealerSelect
     },
     data () {
       return {
@@ -152,6 +154,7 @@
           table.total = response.rowCount
           table.perPage = response.pageSize
           table.loading = false
+          table.openedDetailed = []
           this.table = table
         })
       },
@@ -172,16 +175,20 @@
         this.loadAsyncData(this.table)
       },
       save (row, index) {
-        console.log(JSON.parse(JSON.stringify(row)))
         Deal.edit(row.id, row).then(response => {
           this.$openNotification('عملیات موفق', 'تغییرات ذخیره شد', 'success')
-          Deal.get(row.id).then(response => {
-            console.log(JSON.parse(JSON.stringify(response)))
-            this.table.data.splice(index, 1)
-            this.table.data.splice(index, 0, response)
-            this.$refs['deal-item-list'].loadAsyncData()
-            this.$refs['deal-payment'].loadAsyncData()
-          })
+          this.updateRow(row, index)
+        }).catch(() => {
+          this.$openNotification('عملیات ناموفق', 'دوباره سعی کنید', 'danger')
+          this.updateRow(row, index)
+        })
+      },
+      updateRow (row, index) {
+        Deal.get(row.id).then(response => {
+          this.table.data.splice(index, 1)
+          this.table.data.splice(index, 0, response)
+          this.$refs['deal-item-list'].loadAsyncData()
+          this.$refs['deal-payment'].loadAsyncData()
         })
       }
     }

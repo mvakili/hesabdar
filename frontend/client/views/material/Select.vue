@@ -6,10 +6,11 @@
     placeholder="کالا"
     :keep-first="true"
     field="name"
-    @focus="loadAsyncData"
+    @focus="focused($event.target)"
+    :disabled="disabled"
     :open-on-focus="true"
     @select="option => selected = option">
-    <template slot="empty">No results found</template>
+    <template slot="empty">نتیجه ای پیدا نشد</template>     
   </b-autocomplete>
 </template>
 
@@ -17,7 +18,7 @@
 import Material from './../../services/material'
 
 export default {
-  props: ['value'],
+  props: ['value', 'disabled', 'id'],
   data () {
     return {
       data: [],
@@ -27,9 +28,13 @@ export default {
     }
   },
   methods: {
-    loadAsyncData: function () {
+    focused: function (target) {
+      this.loadAsyncData('')
+      target.select()
+    },
+    loadAsyncData: function (name) {
       if (this.loadData) {
-        Material.suggest(this.name || '').then(response => {
+        Material.suggest(name || '').then(response => {
           this.data = response
         })
       }
@@ -41,10 +46,11 @@ export default {
   },
   watch: {
     name: function (val) {
-      this.loadAsyncData()
+      this.loadAsyncData(val)
     },
     selected: function (val) {
-      this.$emit('changed', this.selected)
+      this.$emit('input', this.selected)
+      this.$emit('update:id', this.selected.id)
     },
     value: function (val) {
       if (this.value) {
@@ -75,7 +81,11 @@ export default {
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
 }
+.is-hovered {
+  background-color: lightblue;
+}
 .dropdown-menu {
+  width: 100%;
   position: absolute;
   z-index: 1;
   background-color: white;
