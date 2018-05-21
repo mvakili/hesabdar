@@ -95,7 +95,9 @@ html {
 .control {
   text-align: right;
 }
-
+.dropdown {
+  left: auto !important;
+}
 .notifications {
   right: auto !important;
   top: auto !important;
@@ -108,5 +110,13 @@ body, button, input, select, textarea {
 }
 .modal-content {
   overflow: hidden;
+}
+.disable-event {
+  pointer-events: none;
+  background-color: whitesmoke;
+}
+.disable-event input, .disable-event span {
+  background-color: whitesmoke;
+  color: #7a7a7a;
 }
 </style>

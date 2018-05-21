@@ -3,14 +3,14 @@
       <div class="level-item has-text-centered notification is-warning">
         <div>
           <p class="heading">تعداد فاکتور فروش امروز</p>
-          <p class="title">{{statistics.todaySaleInvoicesCount}}</p>
+          <p class="title">{{statistics.todaySaleInvoicesCount || '-'}}</p>
           <p class="is-size-6">عدد</p>
         </div>
       </div>
       <div class="level-item has-text-centered notification is-warning">
         <div>
           <p class="heading">فروش امروز</p>
-          <p class="title">{{statistics.todaySalesPrice}}</p>
+          <p class="title">{{statistics.todaySalesPrice | currency('', 0) || '-'}}</p>
           <p class="is-size-6">&nbsp;</p>
           
         </div>
@@ -18,14 +18,14 @@
       <div class="level-item has-text-centered  notification is-primary">
         <div>
           <p class="heading">تعداد فاکتور خرید امروز</p>
-          <p class="title">{{statistics.todayPurchaseInvoicesCount}}</p>
+          <p class="title">{{statistics.todayPurchaseInvoicesCount || '-'}}</p>
           <p class="is-size-6">عدد</p>
         </div>
       </div>
       <div class="level-item has-text-centered  notification is-primary">
         <div>
           <p class="heading">خرید امروز</p>
-          <p class="title">{{statistics.todayPurchasePrice}}</p>
+          <p class="title">{{statistics.todayPurchasePrice | currency('', 0) || '-'}}</p>
           <p class="is-size-6">&nbsp;</p>
         </div>
       </div>

@@ -20,7 +20,7 @@
           {{ props.row.name }}
       </b-table-column>
       <b-table-column  label="" width="100">
-        <b-dropdown :mobile-modal="false" v-model="isPublic" position="is-bottom-left">
+        <b-dropdown :mobile-modal="false" v-model="isPublic" class="control" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">
             <template v-if="isPublic">
               <b-icon icon="earth"></b-icon>

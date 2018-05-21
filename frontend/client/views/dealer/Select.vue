@@ -53,6 +53,7 @@ export default {
     selected: function (val) {
       this.$emit('input', this.selected)
       this.$emit('update:id', this.selected.id)
+      this.$emit('changed', this.selected)
     },
     value: function (val) {
       if (this.value) {

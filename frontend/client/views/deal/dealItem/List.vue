@@ -20,7 +20,7 @@
           {{ props.row.pricePerOne * props.row.quantity | currency('', 0) }}
       </b-table-column>
       <b-table-column  label="" width="100">
-        <b-dropdown position="is-bottom-left">
+        <b-dropdown class="control" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">
             <template>
               <b-icon icon="account-multiple"></b-icon>
@@ -53,7 +53,7 @@
           <input class="input" v-model="newRow.pricePerOne" />
       </th>
       <th>
-        {{newRow.pricePerOne * newRow.quantity || 0}}
+        {{newRow.pricePerOne * newRow.quantity || 0 | currency('', 0) }}
       </th>
       <th width="100">
           <button  class="button is-primary is-fullwidth" v-on:click="add(newRow)" ><i class="fa fa-plus"></i></button>
@@ -175,7 +175,7 @@
     },
     watch: {
       totalPrice: function (val, oldValue) {
-        if (this.deal.dealPrice.amount === oldValue) {
+        if (this.deal.dealPrice.amount === oldValue || this.deal.dealPrice.amount === 0) {
           this.deal.dealPrice.amount = val
         }
       }

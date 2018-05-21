@@ -24,7 +24,7 @@ const state = {
       name: 'خرید',
       path: '/purchase',
       meta: {
-        icon: 'fa-rocket',
+        icon: 'fa-shopping-cart',
         link: 'purchase/index.vue'
       },
       component: lazyLoading('purchase', true)
@@ -33,7 +33,7 @@ const state = {
       name: 'فروش',
       path: '/sale',
       meta: {
-        icon: 'fa-rocket',
+        icon: 'fa-dollar',
         link: 'sale/index.vue'
       },
       component: lazyLoading('sale', true)
@@ -42,7 +42,7 @@ const state = {
       name: 'طرف حساب',
       path: '/dealers',
       meta: {
-        icon: 'fa-rocket',
+        icon: 'fa-male ',
         link: 'dealer/index.vue'
       },
       component: lazyLoading('dealer', true)
@@ -51,7 +51,7 @@ const state = {
       name: 'کالا',
       path: '/material',
       meta: {
-        icon: 'fa-rocket',
+        icon: 'fa-barcode ',
         link: 'material/index.vue'
       },
       component: lazyLoading('material', true)
