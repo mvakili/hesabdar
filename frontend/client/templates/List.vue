@@ -59,9 +59,9 @@
                 </section>
               </template>
             </b-table>
-            <section class="section">
-              <slot name="table-bottom" />
-            </section>
+            <div class="container is-fluid">
+                <slot name="table-bottom" />
+            </div>
         </section>
       </article>
     </div>

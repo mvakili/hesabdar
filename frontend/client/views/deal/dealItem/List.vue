@@ -64,12 +64,6 @@
         <p class="control" >
           جمع کل: {{ totalPrice | currency('', 0) }}
         </p>
-        <p class="control">
-          <label>
-            قیمت نهایی:
-           <input class="input" type="text" placeholder="قیمت نهایی" v-model="dealPrice" />
-          </label>
-        </p>
       </div>
     </template>
     <template slot="table-empty">
@@ -109,12 +103,16 @@
     },
     methods: {
       loadAsyncData () {
-        DealItem.getDealItemsOfDeal(
-          this.dealId
-        ).then(response => {
-          this.table.data = response
-          this.deal.items = this.table.data
-        })
+        if (this.deal.id) {
+          DealItem.getDealItemsOfDeal(
+            this.dealId
+          ).then(response => {
+            this.table.data = response
+            this.deal.items = this.table.data
+          })
+        } else {
+          this.table.data = this.deal.items
+        }
       },
       add: function (row) {
         try {
@@ -159,6 +157,7 @@
           this.table.data.forEach(element => {
             sum += element.pricePerOne * element.quantity
           })
+          this.$emit('totalPriceChanged', sum)
           return sum
         },
         set: function (val) {
@@ -174,11 +173,12 @@
       }
     },
     watch: {
-      totalPrice: function (val, oldValue) {
-        if (this.deal.dealPrice.amount === oldValue || this.deal.dealPrice.amount === 0) {
-          this.deal.dealPrice.amount = val
-        }
-      }
+      // totalPrice: function (val, oldValue) {
+      //   let dealPriceValue = Number(this.deal.dealPrice.amount)
+      //   if (dealPriceValue === oldValue || dealPriceValue === 0) {
+      //     this.deal.dealPrice.amount = val
+      //   }
+      // }
     },
     mounted: function () {
       this.loadAsyncData()

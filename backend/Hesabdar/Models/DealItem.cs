@@ -10,7 +10,6 @@ namespace Hesabdar.Models
     public class DealItem : BaseEntity
     {
         public int DealId { get; set; }
-        public Deal Deal { get; set; }
 
         [ForeignKey("Material")]
         public int MaterialId { get; set; }

@@ -1,49 +1,125 @@
 <template>
   <div>
-    <div class="tile is-ancestor">
+      <list :table="newRowHeader">
+        <template slot="table-template" slot-scope="props">
 
+          <b-table-column field="buyer" label="فروشنده" >
+            <dealer-select v-model="props.row.buyer" :id.sync="props.row.sellerId" ></dealer-select>
+          </b-table-column>
+          <b-table-column field="dealTime" label="زمان خرید" >
+            <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
+          </b-table-column>
+          <b-table-column field="dealPrice" label="قیمت خرید" >
+              <input class="input" type="text" placeholder="قیمت خرید" v-model="props.row.dealPrice.amount" />        
 
-      <div class="tile is-parent">
-        <article class="tile is-child box">
-          <h1 class="title">ثبت طرف حساب جدید</h1>
-          <h2 class="subtitle"></h2>
-          <form v-on:submit.prevent="add">
-            <div class="columns">
-              <div class="column">
-                <label class="label">نام طرف حساب</label>
-                <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.name" type="text" placeholder="نام طرف حساب" value="" autofocus>
-                </p>
-              </div>
+          </b-table-column>
+          <b-table-column field="dealPaymentId" label="DealPaymentId" :visible="false">
+            {{props.row.dealPaymentId}}          
+          </b-table-column>
+          <b-table-column  label="" width="100">
+            <button  class="button is-warning" @click="add">
+              ذخیره
+            </button>
+          </b-table-column>
+        </template>
+        <template slot="table-bottom">
+          <div class="tile is-ancestor">
+            <div class=" column is-three-quarters-mobile is-two-thirds-tablet is-two-thirds-desktop is-two-third-widescreen is-half-fullhd">
+              <article class="tile is-child box">
+                <h4 class="title">کالا</h4>
+                <deal-item-list :deal="newDeal" :dealId="null" ref="deal-item-list" @totalPriceChanged="totalPriceChanged"></deal-item-list>
+              </article>
             </div>
-            <p class="control">
-              <input type="submit" class="button is-primary" value="تایید" />
-            </p>
-          </form>
-        </article>
-      </div>
+            <div class=" column ">
+              <article class="tile is-child box">
+                <h4 class="title">پرداخت</h4>
+                <deal-payment :deal="newDeal" :paymentId="null" :newPayment="true" ref="deal-payment"></deal-payment>
+              </article>
+            </div>
+          </div>
+        </template>
+      </list>
     </div>
-  </div>
 </template>
 
 <script>
-import Dealer from './../../services/dealer'
-
+import Deal from './../../services/deal'
+import List from './../../templates/List'
+import DealItemList from './../deal/dealItem/List'
+import DealPayment from './../deal/payment/index'
+import DealerSelect from './../dealer/Select'
 export default {
+  components: {
+    DealItemList,
+    DealPayment,
+    DealerSelect,
+    List
+  },
   data () {
     return {
-      dealer: {
+      newDeal: {}
+    }
+  },
+  computed: {
+    newRowHeader: function () {
+      return {
+        data: [this.newDeal]
       }
     }
   },
   methods: {
     add () {
-      Dealer.add(this.dealer).then(res => {
-        this.$emit('onSuccess', res.data)
-      }).catch(err => {
-        this.$emit('onFail', err)
-      })
+      console.log(this.newDeal.items.length)
+      console.log(this.newDeal.buyerId)
+      if (this.newDeal.items.length === 0) {
+        this.$openNotification('عملیات ناموفق', 'کالایی وارد نشده است', 'danger')
+      } else if (!this.newDeal.sellerId) {
+        this.$openNotification('عملیات ناموفق', 'فروشنده انتخاب نشده است', 'danger')
+      } else {
+        Deal.addNewPurchase(this.newDeal).then(res => {
+          this.$openNotification('عملیات موفق', 'تغییرات ذخیره شد', 'success')
+          this.$emit('onSuccess', res.data)
+          this.initNewDeal()
+          this.$refs['deal-item-list'].deal = this.newDeal
+          this.$refs['deal-item-list'].loadAsyncData()
+          this.$refs['deal-payment'].deal = this.newDeal
+          this.$refs['deal-payment'].paymentId = null
+        }).catch(err => {
+          this.$openNotification('عملیات ناموفق', 'دوباره سعی کنید', 'danger')
+          this.$emit('onFail', err)
+        })
+      }
+    },
+    totalPriceChanged (value) {
+      this.newDeal.dealPrice.amount = value
+    },
+    initNewDeal () {
+      this.newDeal = {
+        dealPayment: {
+          method: 'Cash',
+          payed: true,
+          amount: 0
+        },
+        items: [],
+        dealPrice: {
+          amount: 0
+        },
+        buyerId: 0,
+        buyer: {
+        },
+        buyeeId: 0,
+        buyee: {
+        }
+      }
     }
+  },
+  watch: {
+    'newDeal.dealPrice.amount': function (val) {
+      this.newDeal.dealPayment.amount = val
+    }
+  },
+  beforeMount: function () {
+    this.initNewDeal()
   }
 }
 </script>
@@ -52,9 +128,6 @@ export default {
 @import '~bulma/sass/utilities/mixins';
 .left-notification {
   left: 0px;
-}
-.button {
-  margin: 5px 0 0;
 }
 .control .button {
   margin: inherit;

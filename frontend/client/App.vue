@@ -119,4 +119,7 @@ body, button, input, select, textarea {
   background-color: whitesmoke;
   color: #7a7a7a;
 }
+tr.is-empty>td>section.section {
+  padding: 0px;
+}
 </style>

@@ -8,6 +8,14 @@ export default  {
     {
         return Base.post('deal', '', param);
     },
+    addNewSale(param: any) : Promise<any>
+    {
+        return Base.post('deal', 'sale', param)
+    },
+    addNewPurchase(param: any) : Promise<any>
+    {
+        return Base.post('deal', 'purchase', param)
+    },
     gets(page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
     {
         return Base.get('deal', '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));

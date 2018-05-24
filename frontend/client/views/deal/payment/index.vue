@@ -38,7 +38,7 @@
               سررسید چک :
             </div>
             <div class="control column is-two-thirds">
-              <date-picker type="date" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="jYYYY/jMM/jDD" v-model="deal.dealPayment.dueDate"></date-picker>
+              <date-picker type="date" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="jYYYY/jMM/jDD" :placeholder="newPayment ? 'اکنون' : ''" v-model="deal.dealPayment.dueDate"></date-picker>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
               تاریخ پرداخت: 
             </div>
             <div class="control column is-two-thirds">
-              <date-picker type="datetime" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="deal.dealPayment.payDate"></date-picker>
+              <date-picker type="datetime" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" :placeholder="newPayment ? 'اکنون' : ''" v-model="deal.dealPayment.payDate"></date-picker>
             </div>
           </div>
         </div>
@@ -81,15 +81,21 @@
         type: Number,
         default: null
       },
-      deal: Object
+      deal: Object,
+      newPayment: {
+        type: Boolean,
+        default: false
+      }
     },
     methods: {
       loadAsyncData () {
-        Payment.get(
-          this.paymentId
-        ).then(response => {
-          this.deal.dealPayment = response
-        })
+        if (!this.newPayment) {
+          Payment.get(
+            this.paymentId
+          ).then(response => {
+            this.deal.dealPayment = response
+          })
+        }
       }
     },
     mounted () {

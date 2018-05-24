@@ -175,16 +175,74 @@ namespace Hesabdar.Controllers
 
         }
 
-        // POST: api/Deal
-        [HttpPost]
-        public async Task<IActionResult> PostDeal([FromBody] Deal deal)
+        [HttpPost("Sale")]
+        public async Task<IActionResult> PostSale([FromBody] Deal deal)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Deal.Add(deal);
+            deal.SellerId = 1;
+            deal.DealPrice.PayeeId = deal.BuyerId;
+            deal.DealPrice.PayerId = 1;
+            deal.DealPayment.PayeeId = 1;
+            deal.DealPayment.PayerId = deal.BuyerId;
+            return await PostDeal(deal);
+        }
+        [HttpPost("Purchase")]
+        public async Task<IActionResult> PostPurchase([FromBody] Deal deal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            deal.BuyerId = 1;
+            deal.DealPrice.PayeeId = 1;
+            deal.DealPrice.PayerId = deal.SellerId;
+            deal.DealPayment.PayeeId = deal.SellerId;
+            deal.DealPayment.PayerId = 1;
+
+            
+            return await PostDeal(deal);
+        }
+        private async Task<IActionResult> PostDeal([FromBody] Deal deal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (deal.DealTime == DateTime.MinValue)
+            {
+                deal.DealTime = DateTime.Now;
+            }
+            deal.DealPrice.DueDate = deal.DealTime;
+            deal.DealPrice.PayDate = deal.DealTime;
+            deal.DealPrice.Method = Models.Enums.PaymentMethod.DealPrice;
+            deal.DealPrice.Payed = true;
+
+
+
+            if (deal.DealPayment.PayDate == DateTime.MinValue)
+            {
+                deal.DealPayment.PayDate = DateTime.Now;
+            }
+
+            if (deal.DealPayment.DueDate == DateTime.MinValue)
+            {
+                deal.DealPayment.DueDate = DateTime.Now;
+            }
+
+            _context.Entry(deal).State = EntityState.Added;
+            deal.Items.ToList().ForEach(i =>
+            {
+                _context.Entry(i).State = EntityState.Added;
+            });
+            _context.Entry(deal.DealPayment).State = EntityState.Added;
+            _context.Entry(deal.DealPrice).State = EntityState.Added;
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDeal", new { id = deal.Id }, deal);
