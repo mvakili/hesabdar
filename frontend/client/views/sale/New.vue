@@ -27,7 +27,7 @@
             <div class=" column is-three-quarters-mobile is-two-thirds-tablet is-two-thirds-desktop is-two-third-widescreen is-half-fullhd">
               <article class="tile is-child box">
                 <h4 class="title">کالا</h4>
-                <deal-item-list :deal="newDeal" :dealId="null" ref="deal-item-list" @totalPriceChanged="totalPriceChanged"></deal-item-list>
+                <deal-item-list :deal="newDeal" :dealId="null" saleOrPurchase="sale" ref="deal-item-list" @totalPriceChanged="totalPriceChanged"></deal-item-list>
               </article>
             </div>
             <div class=" column ">

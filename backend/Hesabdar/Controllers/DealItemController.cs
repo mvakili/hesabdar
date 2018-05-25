@@ -120,5 +120,37 @@ namespace Hesabdar.Controllers
         {
             return _context.DealItem.Any(e => e.Id == id);
         }
+
+        [HttpGet("LastSalePrice/{materialId}")]
+        public IActionResult GetLastSalePrice(int materialId)
+        {
+            var price = (from di in _context.DealItem
+                         join d in _context.Deal on di.DealId equals d.Id
+                         where d.SellerId == 1
+                         where di.MaterialId == materialId
+                         orderby d.DealTime descending
+                         orderby di.Id
+                         select di.PricePerOne
+                    ).DefaultIfEmpty(0).FirstOrDefault();
+
+            return Ok(price);
+        }
+
+        [HttpGet("LastPurchasePrice/{materialId}")]
+        public IActionResult GetLastPurchasePrice(int materialId)
+        {
+            var price = (from di in _context.DealItem
+                         join d in _context.Deal on di.DealId equals d.Id
+                         where d.BuyerId == 1
+                         where di.MaterialId == materialId
+                         orderby d.DealTime descending
+                         orderby di.Id
+                         select di.PricePerOne
+                    ).DefaultIfEmpty(0).FirstOrDefault();
+
+            return Ok(price);
+        }
+
+
     }
 }

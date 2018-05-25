@@ -19,5 +19,13 @@ export default  {
     edit(id: number, param: any) : Promise<any>
     {
         return Base.put('dealItem', '' + id , param);
+    },
+    getLastSalePrice(materialId: number) : Promise<any>
+    {
+        return Base.get('dealItem', 'LastSalePrice/' + materialId)
+    },
+    getLastPurchasePrice(materialId: number) : Promise<any>
+    {
+        return Base.get('dealItem', 'LastPurchasePrice/' + materialId)
     }
 }

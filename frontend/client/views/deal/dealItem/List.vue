@@ -31,7 +31,7 @@
             <b-icon icon="menu-down"></b-icon>
           </button>
           <div class="box"> 
-            <b-dropdown-item v-on:click="remove(props.index)">
+            <b-dropdown-item @click="remove(props.index)">
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
@@ -47,10 +47,19 @@
           <material-select ref="newMaterial" v-model="newRow.material"  @changed="newRowMaterialChanged"></material-select>
       </th>
       <th>
-          <input class="input" ref="newQuantity" v-model="newRow.quantity" />
+          <input class="input" ref="newQuantity" @keypress.enter="newRowQuantityUpdated" v-model="newRow.quantity" />
       </th>
       <th>
-          <input class="input" v-model="newRow.pricePerOne" />
+        <p class="control has-addons is-expanded" style="direction:ltr">
+          <tooltip :label="'بصورت پیشفرض قیمت آخرین '+ (saleOrPurchase == 'sale' ? 'فروش' : 'خرید') +' نمایش داده می شود'" type="primary">
+            <button class="button is-primary">
+              <span>
+                ؟
+              </span>
+            </button>
+          </tooltip>
+            <input style="direction:rtl" class="input is-expanded"  ref="newPricePerOne" @keypress.enter="newRowPricePerOneUpdated" v-model="newRow.pricePerOne" />  
+        </p>
       </th>
       <th>
         {{newRow.pricePerOne * newRow.quantity || 0 | currency('', 0) }}
@@ -73,7 +82,7 @@
 </template>
 
 <script>
-
+  import Tooltip from 'vue-bulma-tooltip'
   import { CardModal, Modal } from 'vue-bulma-modal'
   import List from './../../../templates/List'
   import DealItem from './../../../services/dealItem'
@@ -84,14 +93,19 @@
       List,
       CardModal,
       Modal,
-      MaterialSelect
+      MaterialSelect,
+      Tooltip
     },
     props: {
       dealId: {
         type: Number,
         default: null
       },
-      deal: Object
+      deal: Object,
+      saleOrPurchase: {
+        type: String,
+        default: 'sale'
+      }
     },
     data () {
       return {
@@ -147,6 +161,31 @@
       newRowMaterialChanged: function (value) {
         this.newRow.material = value
         this.$refs.newQuantity.select()
+        this.calculateNewPrice(this.newRow.material)
+      },
+      calculateNewPrice (material) {
+        if (material.id) {
+          switch (this.saleOrPurchase) {
+            case 'sale':
+              DealItem.getLastSalePrice(material.id).then(response => {
+                this.newRow.pricePerOne = response
+              })
+              break
+            case 'purchase':
+              DealItem.getLastPurchasePrice(material.id).then(response => {
+                this.newRow.pricePerOne = response
+              })
+              break
+            default:
+              break
+          }
+        }
+      },
+      newRowQuantityUpdated: function () {
+        this.$refs.newPricePerOne.select()
+      },
+      newRowPricePerOneUpdated: function () {
+        this.add(this.newRow)
       }
     },
     computed: {
