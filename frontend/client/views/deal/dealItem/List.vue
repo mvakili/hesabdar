@@ -70,7 +70,7 @@
     </template>
     <template slot="table-bottom">
       <div class="control is-horizontal">
-        <p class="control" >
+        <p class="control" style="direction: ltr" >
           جمع کل: {{ totalPrice | currency('', 0) }}
         </p>
       </div>

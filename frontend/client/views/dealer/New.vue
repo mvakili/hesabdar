@@ -12,7 +12,7 @@
               <div class="column">
                 <label class="label">نام طرف حساب</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.name" type="text" placeholder="نام طرف حساب" value="" autofocus>
+                  <input class="input" v-model="dealer.name" type="text" ref="nameInput" placeholder="نام طرف حساب" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -30,20 +30,31 @@
 import Dealer from './../../services/dealer'
 
 export default {
+  props: {
+    name: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       dealer: {
+        name: ''
       }
     }
   },
   methods: {
     add () {
       Dealer.add(this.dealer).then(res => {
-        this.$emit('onSuccess', res.data)
+        this.$emit('onSuccess', res)
       }).catch(err => {
         this.$emit('onFail', err)
       })
     }
+  },
+  mounted () {
+    this.dealer.name = this.name
+    this.$refs.nameInput.focus()
   }
 }
 </script>

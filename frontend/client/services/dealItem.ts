@@ -27,5 +27,9 @@ export default  {
     getLastPurchasePrice(materialId: number) : Promise<any>
     {
         return Base.get('dealItem', 'LastPurchasePrice/' + materialId)
+    },
+    getDealItemsOfMaterial(materialId: number, page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any>
+    {
+        return Base.get('dealItem', 'Material/' + materialId + '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
     }
 }

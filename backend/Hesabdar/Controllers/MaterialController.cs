@@ -32,7 +32,11 @@ namespace Hesabdar.Controllers
         [HttpGet("Suggest/{text}")]
         public IActionResult GetSuggestedMaterials([FromRoute] string text = "")
         {
-            var materials = _context.Material.Where(u => u.Name.StartsWith(text) || u.Barcode == text).Take(10);
+            text = text.ToLower();
+
+            var materials = _context.Material
+                .Where(u => u.Name.ToLower().Contains(text) || u.Barcode == text)
+                .Take(10);
             return Ok(materials);
         }
 

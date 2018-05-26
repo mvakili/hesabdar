@@ -12,7 +12,7 @@
               <div class="column">
                 <label class="label">نام کالا</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="material.name" autofocus>
+                  <input class="input" v-model="material.name" type="text" ref="nameInput" placeholder="نام کالا" value="material.name" autofocus>
                 </p>
               </div>
             </div>
@@ -26,7 +26,7 @@
                         displayValue: false,
                         margin: 0
                     }" />
-                  <input class="input" v-model="material.barcode" type="text" placeholder="بارکد" value="" autofocus>
+                  <input class="input" v-model="material.barcode" type="text"  placeholder="بارکد" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -57,13 +57,15 @@ export default {
   data () {
     return {
       material: {
+        name: '',
+        barcode: ''
       }
     }
   },
   methods: {
     add () {
-      Material.addMaterial(this.material).then(res => {
-        this.$emit('onSuccess', res.data)
+      Material.add(this.material).then(res => {
+        this.$emit('onSuccess', res)
       }).catch(err => {
         this.$emit('onFail', err)
       })
@@ -71,6 +73,7 @@ export default {
   },
   mounted () {
     this.material.name = this.name
+    this.$refs.nameInput.focus()
   }
 }
 </script>

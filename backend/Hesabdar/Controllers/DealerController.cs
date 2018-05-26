@@ -25,7 +25,7 @@ namespace Hesabdar.Controllers
         [HttpGet]
         public IActionResult Dealers([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var dealers = _context.Dealer.OrderBy(sort).PageResult(page, perPage);
+            var dealers = _context.Dealer.Where(u => u.Id != 1).OrderBy(sort).PageResult(page, perPage);
             return Ok(dealers);
         }
 
@@ -33,9 +33,10 @@ namespace Hesabdar.Controllers
         [HttpGet("Suggest/{text}")]
         public IActionResult GetSuggestedDealers([FromRoute] string text = "")
         {
+            text = text.ToLower();
             var dealers = _context.Dealer
                 .Where(u => u.Id != 1)
-                .Where(u => u.Name.StartsWith(text))
+                .Where(u => u.Name.ToLower().Contains(text))
                 .Take(10);
             return Ok(dealers);
         }

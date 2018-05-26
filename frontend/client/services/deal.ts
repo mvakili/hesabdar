@@ -36,4 +36,8 @@ export default  {
     {
         return Base.put('deal', '' + id , param);
     },
+    getDealsOfDealer(id: number, page: number, perPage: number, sortField: string, sortOrder: string) : Promise<any> 
+    {
+        return Base.get('deal', 'dealer/' + id + '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''));
+    }
 }

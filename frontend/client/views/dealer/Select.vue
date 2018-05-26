@@ -1,49 +1,76 @@
 <template>
-  <b-autocomplete ref="autoComplete"
+  <div>
+  <p class="control  is-expanded" :class="{'has-addons': isNew}" style="direction:ltr">
+    <button class="button is-warning" v-if="isNew" @click="newDealerModalVisible = true"><i class="fa fa-plus"></i></button>    
+  <b-autocomplete style="direction:rtl" class="is-expanded" ref="autoComplete"
     rounded
-    v-model="name"
+    v-model="modelName"
     :data="data"
-    placeholder=""
+    placeholder="طرف حساب"
     :keep-first="true"
     field="name"
     @focus="focused($event.target)"
     :disabled="disabled"
     :open-on-focus="true"
-    @select="option => selected = option">
-    <template slot="empty">نتیجه ای پیدا نشد</template>
+    @select="option => selected = option || {}">
+    <template slot="empty">
+      </template>     
   </b-autocomplete>
+  </p>
+  <modal :visible="newDealerModalVisible" @close="newDealerModalVisible = false">
+    <div class="content has-text-centered">
+      <new :name="modelName" @onSuccess="added"></new>
+    </div>
+  </modal>
+  </div>
+  
 </template>
 
 <script>
+import { Modal } from 'vue-bulma-modal'
 import Dealer from './../../services/dealer'
+import New from './New'
 
 export default {
+  components: {
+    Modal,
+    New
+  },
   props: ['value', 'disabled', 'id'],
   data () {
     return {
       data: [],
       name: '',
       loadData: true,
-      selected: {}
+      selected: {},
+      priceHistoryModalVisible: false,
+      newDealerModalVisible: false
     }
   },
   methods: {
     focused: function (target) {
       this.loadAsyncData('')
-      console.log(target)
-      console.log(this.$refs.autoComplete)
       target.select()
     },
     loadAsyncData: function (name) {
       if (this.loadData) {
         Dealer.suggest(name || '').then(response => {
-          this.data = response
+          this.data.splice(0, this.data.length)
+          for (let index = 0; index < response.length; index++) {
+            const element = response[index]
+            this.data.push(element)
+          }
         })
       }
       this.loadData = true
     },
     focus: function () {
       this.$refs.autoComplete.focus()
+    },
+    added: function (dealer) {
+      this.modelName = dealer.name
+      this.selected = dealer
+      this.newDealerModalVisible = false
     }
   },
   watch: {
@@ -51,23 +78,40 @@ export default {
       this.loadAsyncData(val)
     },
     selected: function (val) {
-      this.$emit('input', this.selected)
-      this.$emit('update:id', this.selected.id)
-      this.$emit('changed', this.selected)
+      if (val.id) {
+        this.$emit('input', val)
+        this.$emit('update:id', val.id)
+        this.$emit('changed', val)
+      }
     },
     value: function (val) {
       if (this.value) {
         this.selected = this.value
         this.loadData = false
-        this.name = this.value.name
+        this.modelName = this.value.name
+      }
+    }
+  },
+  computed: {
+    isNew: function () {
+      return (this.modelName.length > 0 && this.modelName !== (this.selected ? this.selected.name : ''))
+    },
+    modelName: {
+      get: function () {
+        return this.name
+      },
+      set: function (val) {
+        this.name = val || ''
       }
     }
   },
   mounted: function () {
     if (this.value) {
       this.selected = this.value
-      this.loadData = false
-      this.name = this.value.name
+      this.modelName = (this.value ? this.value.name : '')
+      if (this.value.id) {
+        this.loadData = false
+      }
     }
   }
 }
@@ -80,17 +124,20 @@ export default {
 .dropdown-item {
   display: inherit;
 }
-.is-hovered {
-  background-color: lightblue;
-}
 .dropdown-content {
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
   display: block;
 }
+.is-hovered {
+  background-color: lightblue;
+}
 .dropdown-menu {
-  width: 100%;  
+  width: 100%;
   position: absolute;
   z-index: 1;
   background-color: white;
+}
+.modal-content {
+  overflow: auto;
 }
 </style>

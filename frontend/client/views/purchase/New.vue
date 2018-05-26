@@ -4,7 +4,7 @@
         <template slot="table-template" slot-scope="props">
 
           <b-table-column field="buyer" label="فروشنده" >
-            <dealer-select v-model="props.row.buyer" :id.sync="props.row.sellerId" ></dealer-select>
+            <dealer-select v-model="props.row.buyer" :id.sync="props.row.buyerId" ></dealer-select>
           </b-table-column>
           <b-table-column field="dealTime" label="زمان خرید" >
             <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
@@ -27,13 +27,13 @@
             <div class=" column is-three-quarters-mobile is-two-thirds-tablet is-two-thirds-desktop is-two-third-widescreen is-half-fullhd">
               <article class="tile is-child box">
                 <h4 class="title">کالا</h4>
-                <deal-item-list :deal="newDeal" saleOrPurchase="sale" :dealId="null" ref="deal-item-list" @totalPriceChanged="totalPriceChanged"></deal-item-list>
+                <deal-item-list :deal="newDeal" saleOrPurchase="purchase" :dealId="null" ref="new-deal-item-list" @totalPriceChanged="totalPriceChanged"></deal-item-list>
               </article>
             </div>
             <div class=" column ">
               <article class="tile is-child box">
                 <h4 class="title">پرداخت</h4>
-                <deal-payment :deal="newDeal" :paymentId="null" :newPayment="true" ref="deal-payment"></deal-payment>
+                <deal-payment :deal="newDeal" :paymentId="null" :newPayment="true" ref="new-deal-payment"></deal-payment>
               </article>
             </div>
           </div>
@@ -80,10 +80,10 @@ export default {
           this.$openNotification('عملیات موفق', 'تغییرات ذخیره شد', 'success')
           this.$emit('onSuccess', res.data)
           this.initNewDeal()
-          this.$refs['deal-item-list'].deal = this.newDeal
-          this.$refs['deal-item-list'].loadAsyncData()
-          this.$refs['deal-payment'].deal = this.newDeal
-          this.$refs['deal-payment'].paymentId = null
+          this.$refs['new-deal-item-list'].deal = this.newDeal
+          this.$refs['new-deal-item-list'].loadAsyncData()
+          this.$refs['new-deal-payment'].deal = this.newDeal
+          this.$refs['new-deal-payment'].paymentId = null
         }).catch(err => {
           this.$openNotification('عملیات ناموفق', 'دوباره سعی کنید', 'danger')
           this.$emit('onFail', err)

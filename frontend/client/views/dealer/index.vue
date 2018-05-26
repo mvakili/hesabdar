@@ -1,5 +1,5 @@
 <template>
-  <list @load-data="loadAsyncData">
+  <list @load-data="loadAsyncData"  :detailed="true">
     <template slot="nav">
       <a class="button is-warning" v-on:click="newModalVisible = true"> جدید &nbsp; &nbsp;
         <span class="icon">
@@ -9,6 +9,27 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
+
+      <b-tabs type="is-boxed">
+        <b-tab-item>
+            <template slot="header">
+                <span> خرید و فروش </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              <deals-list :dealerId="props.row.id"></deals-list>
+            </template>
+        </b-tab-item>
+        <b-tab-item>
+            <template slot="header">
+                <span> دریافت و پرداخت </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              
+            </template>
+        </b-tab-item>
+      </b-tabs>
       
     </template>
     <template slot="table-template" slot-scope="props">
@@ -111,7 +132,11 @@
   import List from './../../templates/List'
   import Dealer from './../../services/dealer'
   import New from './New'
+  import DealsList from './DealsList'
+  
   import Edit from './Edit'
+  import DealItemList from './../deal/dealItem/List'
+  import DealPayment from './../deal/payment/index'
 
   export default {
     components: {
@@ -119,7 +144,10 @@
       CardModal,
       New,
       Edit,
-      Modal
+      Modal,
+      DealItemList,
+      DealPayment,
+      DealsList
     },
     data () {
       return {

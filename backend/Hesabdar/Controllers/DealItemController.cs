@@ -151,6 +151,35 @@ namespace Hesabdar.Controllers
             return Ok(price);
         }
 
+        [HttpGet("Material/{materialId}")]
+        public IActionResult DealItemsOfMaterial([FromRoute] int materialId, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "deal.dealTime desc", [FromQuery] string filter = "")
+        {
+            var dealItems = (from di in _context.DealItem
+                             join d in _context.Deal on di.DealId equals d.Id
+                             select new
+                             {
+                                 di.Id,
+                                 di.PricePerOne,
+                                 di.Quantity,
+                                 di.Timestamp,
+                                 di.DealId,
+                                 di.MaterialId,
+                                 deal = new
+                                 {
+                                     d.Id,
+                                     d.SellerId,
+                                     d.BuyerId,
+                                     d.DealTime,
+                                     d.Timestamp,
+                                     d.DealPriceId,
+                                     d.DealPaymentId,
+                                     d.Buyer,
+                                     d.Seller
+                                 }
+                             }).Where(u => u.MaterialId == materialId).OrderBy(sort).PageResult(page, perPage);
+            return Ok(dealItems);
+        }
+
 
     }
 }
