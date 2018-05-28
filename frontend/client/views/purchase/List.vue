@@ -121,7 +121,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Deal.getSales(
+        Deal.getPurchases(
           table.currentPage,
           table.perPage,
           table.sortField,

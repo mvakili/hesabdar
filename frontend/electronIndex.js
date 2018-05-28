@@ -18,7 +18,6 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadURL(`http://localhost:8080/`)
   mainWindow.webContents.openDevTools()
-
   // Open the DevTools.
   if (isDev) {
     const installExtension = require('electron-devtools-installer')

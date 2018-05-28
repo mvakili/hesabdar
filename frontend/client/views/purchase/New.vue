@@ -3,8 +3,8 @@
       <list :table="newRowHeader">
         <template slot="table-template" slot-scope="props">
 
-          <b-table-column field="buyer" label="فروشنده" >
-            <dealer-select v-model="props.row.buyer" :id.sync="props.row.buyerId" ></dealer-select>
+          <b-table-column field="seller" label="فروشنده" >
+            <dealer-select v-model="props.row.seller" :id.sync="props.row.sellerId" ></dealer-select>
           </b-table-column>
           <b-table-column field="dealTime" label="زمان خرید" >
             <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
@@ -73,8 +73,8 @@ export default {
       console.log(this.newDeal.buyerId)
       if (this.newDeal.items.length === 0) {
         this.$openNotification('عملیات ناموفق', 'کالایی وارد نشده است', 'danger')
-      } else if (!this.newDeal.sellerId) {
-        this.$openNotification('عملیات ناموفق', 'فروشنده انتخاب نشده است', 'danger')
+      } else if (!this.newDeal.buyerId) {
+        this.$openNotification('عملیات ناموفق', 'خریدار انتخاب نشده است', 'danger')
       } else {
         Deal.addNewPurchase(this.newDeal).then(res => {
           this.$openNotification('عملیات موفق', 'تغییرات ذخیره شد', 'success')
