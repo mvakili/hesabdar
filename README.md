@@ -84,4 +84,4 @@ Backend:
 ## لایسنس
 
 
-[MIT](https://github.com/mvakili/hesabdar/blob/master/LICENSE)
+[MIT](https://github.com/mvakili/hesabdar/blob/dev/LICENSE)
