@@ -83,4 +83,5 @@ Backend:
 
 ## لایسنس
 
-UNLICENSED yet
+
+[MIT](https://github.com/mvakili/hesabdar/blob/master/LICENSE)
