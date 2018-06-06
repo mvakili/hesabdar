@@ -2,7 +2,7 @@
 
 <p>
   <sub>ساخته شده با ❤︎ توسط
-    <a href="https://twitter.com/muhammad_vakili">محمد وکیلی</a>
+    <a href="https://mvakili.github.io">محمد وکیلی</a>
   </sub>
 </p>
 
