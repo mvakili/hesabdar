@@ -75,7 +75,7 @@ Backend:
 ```bash
 > cd frontend/
 > yarn
-// or > npm update
+// or > npm install
 
 > yarn run dev
 // or > npm run dev
