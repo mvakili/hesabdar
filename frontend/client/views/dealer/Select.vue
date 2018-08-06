@@ -2,7 +2,7 @@
   <div>
   <p class="control  is-expanded" :class="{'has-addons': isNew}" style="direction:ltr">
     <button class="button is-warning" v-if="isNew" @click="newDealerModalVisible = true"><i class="fa fa-plus"></i></button>    
-  <b-autocomplete style="direction:rtl" class="is-expanded" ref="autoComplete"
+  <autocomplete style="direction:rtl" class="is-expanded" ref="autoComplete"
     rounded
     v-model="modelName"
     :data="data"
@@ -15,7 +15,7 @@
     @select="option => selected = option || {}">
     <template slot="empty">
       </template>     
-  </b-autocomplete>
+  </autocomplete>
   </p>
   <modal :visible="newDealerModalVisible" @close="newDealerModalVisible = false">
     <div class="content has-text-centered">
@@ -30,11 +30,13 @@
 import { Modal } from 'vue-bulma-modal'
 import Dealer from './../../services/dealer'
 import New from './New'
+import Autocomplete from './../../templates/autocomplete'
 
 export default {
   components: {
     Modal,
-    New
+    New,
+    Autocomplete
   },
   props: ['value', 'disabled', 'id'],
   data () {

@@ -70,10 +70,10 @@ export default {
   methods: {
     add () {
       console.log(this.newDeal.items.length)
-      console.log(this.newDeal.buyerId)
+      console.log(this.newDeal.sellerId)
       if (this.newDeal.items.length === 0) {
         this.$openNotification('عملیات ناموفق', 'کالایی وارد نشده است', 'danger')
-      } else if (!this.newDeal.buyerId) {
+      } else if (!this.newDeal.sellerId) {
         this.$openNotification('عملیات ناموفق', 'خریدار انتخاب نشده است', 'danger')
       } else {
         Deal.addNewPurchase(this.newDeal).then(res => {

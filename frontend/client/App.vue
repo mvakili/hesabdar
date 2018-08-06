@@ -109,7 +109,7 @@ body, button, input, select, textarea {
   font-family: "IRANSansWeb";
 }
 .modal-content {
-  overflow: hidden;
+  overflow: visible !important;
 }
 .disable-event {
   pointer-events: none;
@@ -121,5 +121,11 @@ body, button, input, select, textarea {
 }
 tr.is-empty>td>section.section {
   padding: 0px;
+}
+.p-datetime-picker-container {
+  position: sticky !important;
+}
+.p-datetime-picker-time .p-datetime-picker-time-h, .p-datetime-picker-time .p-datetime-picker-time-m {
+  font-family: inherit !important;
 }
 </style>

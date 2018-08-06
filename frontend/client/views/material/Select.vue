@@ -5,7 +5,7 @@
       <i class="fa fa-line-chart"></i>
     </button>
     <button class="button is-warning" v-if="isNew" @click="newMaterialModalVisible = true"><i class="fa fa-plus"></i></button>    
-  <b-autocomplete style="direction:rtl"  class="is-expanded" ref="autoComplete"
+  <autocomplete style="direction:rtl"  class="is-expanded" ref="autoComplete"
     rounded
     v-model="modelName"
     :data="data"
@@ -18,7 +18,7 @@
     @select="option => selected = option || {}">
     <template slot="empty">
       </template>     
-  </b-autocomplete>
+  </autocomplete>
   </p>
   <modal :visible="priceHistoryModalVisible" @close="priceHistoryModalVisible = false">
     <div class="modal-card-body">
@@ -39,12 +39,14 @@ import { Modal } from 'vue-bulma-modal'
 import Material from './../../services/material'
 import PriceHistory from './../dealItem/PriceHistory'
 import New from './New'
+import Autocomplete from './../../templates/autocomplete'
 
 export default {
   components: {
     Modal,
     PriceHistory,
-    New
+    New,
+    Autocomplete
   },
   props: ['value', 'disabled', 'id'],
   data () {
