@@ -40,6 +40,12 @@
       <b-table-column field="name" label="نام" sortable>
           {{ props.row.name }}
       </b-table-column>
+      <b-table-column field="phoneNumber" label="تلفن" sortable>
+          {{ props.row.phoneNumber || ' ... ' }}
+      </b-table-column>
+      <b-table-column field="address" label="آدرس" sortable>
+          {{ props.row.address || ' ... ' }}
+      </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" class="control" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">

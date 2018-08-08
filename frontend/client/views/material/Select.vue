@@ -133,6 +133,12 @@ export default {
 </script>
 
 <style>
+.autocomplete {
+  width: 100%;
+}
+.autocomplete input {
+  width: 100% !important;
+}
 .autocomplete>.control {
   margin-bottom: auto;
 }

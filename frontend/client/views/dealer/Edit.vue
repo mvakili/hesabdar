@@ -14,6 +14,22 @@
                 </p>
               </div>
             </div>
+            <div class="columns">
+              <div class="column">
+                <label class="label">تلفن</label>
+                <p class="control has-icon has-icon-right">
+                  <input class="input" v-model="dealer.phoneNumber" type="text" ref="phoneNumberINput" placeholder="تلفن" value="" >
+                </p>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <label class="label">آدرس</label>
+                <p class="control has-icon has-icon-right">
+                  <input class="input" v-model="dealer.address" type="text" ref="addressInput" placeholder="آدرس" value="" >
+                </p>
+              </div>
+            </div>
             <p class="control">
               <input type="submit" class="button is-primary" value="تایید" />
             </p>

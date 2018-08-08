@@ -92,6 +92,10 @@ html {
     }
   }
 }
+
+.p-datetime-picker-input-group input {
+  display: table !important;
+}
 .control {
   text-align: right;
 }
