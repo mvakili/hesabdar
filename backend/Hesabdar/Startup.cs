@@ -65,11 +65,14 @@ namespace Hesabdar
                 c.IncludeXmlComments(xmlPath);
             });
 
+            var hessabdarConnectionString = "DataSource=" + $"{Path.Combine(AppContext.BaseDirectory, "Hesabdar.db")}";
+            var userDbConnectionString = "DataSource=" + $"{Path.Combine(AppContext.BaseDirectory, "User.db")}";
+
             services.AddDbContext<HesabdarContext>(options =>
-                options.UseSqlServer(GetConfiguration().GetConnectionString("HesabdarContext")));
+                options.UseSqlite(hessabdarConnectionString));
 
             services.AddDbContext<UserDbContext>(options =>
-                options.UseSqlServer(GetConfiguration().GetConnectionString("UserDbContext")));
+                options.UseSqlite(userDbConnectionString));
 
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();

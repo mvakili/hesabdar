@@ -62,17 +62,18 @@ namespace Hesabdar.Controllers
             {
                 id = 1;
             }
-            var startDate = DateTime.Now.AddDays(-13);
+            var startDate = DateTime.Now.AddDays(-14);
             var endDate = DateTime.Now;
+            var today = DateTime.Today;
 
-            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
-                                  .Select(x => startDate.AddDays(x))
+            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays)
+                                  .Select(x => startDate.AddDays(x + 1))
                                   .ToList();
 
             var amounts = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayerId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-14) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= today)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
@@ -88,7 +89,14 @@ namespace Hesabdar.Controllers
                  d.Date,
                  Amount = a?.Amount ?? 0
              });
+            
+            try
+            {
+                var tt = result.ToList();
+            } catch (Exception ex)
+            {
 
+            }
             return Ok(result);
         }
 
@@ -100,17 +108,18 @@ namespace Hesabdar.Controllers
             {
                 id = 1;
             }
-            var startDate = DateTime.Now.AddDays(-13);
+            var startDate = DateTime.Now.AddDays(-14);
             var endDate = DateTime.Now;
+            var today = DateTime.Today;
 
-            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
-                                  .Select(x => startDate.AddDays(x))
+            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays)
+                                  .Select(x => startDate.AddDays(x + 1))
                                   .ToList();
 
             var amounts = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayeeId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-14) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= today)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
@@ -138,17 +147,18 @@ namespace Hesabdar.Controllers
             {
                 id = 1;
             }
-            var startDate = DateTime.Now.AddDays(-6);
+            var startDate = DateTime.Now.AddDays(-7);
             var endDate = DateTime.Now;
+            var today = DateTime.Today;
 
-            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
-                                  .Select(x => startDate.AddDays(x))
+            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays)
+                                  .Select(x => startDate.AddDays(x + 1))
                                   .ToList();
 
             var purchasesAmount = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayeeId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-7) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= today)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
@@ -159,7 +169,7 @@ namespace Hesabdar.Controllers
             var salesAmount = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayerId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-7) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= endDate.Date)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
@@ -190,17 +200,18 @@ namespace Hesabdar.Controllers
             {
                 id = 1;
             }
-            var startDate = DateTime.Now.AddDays(-29);
+            var startDate = DateTime.Now.AddDays(-30);
             var endDate = DateTime.Now;
+            var today = DateTime.Today;
 
-            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
-                                  .Select(x => startDate.AddDays(x))
+            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays)
+                                  .Select(x => startDate.AddDays(x + 1))
                                   .ToList();
 
             var purchasesAmount = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayeeId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-30) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= today)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
@@ -211,7 +222,7 @@ namespace Hesabdar.Controllers
             var salesAmount = _context.Payment
                 .Where(u => u.Method == Models.Enums.PaymentMethod.DealPrice)
                 .Where(u => u.PayerId == id)
-                .Where(u => u.PayDate.Date > DateTime.Now.AddDays(-30) && u.PayDate.Date <= DateTime.Now)
+                .Where(u => u.PayDate.Date > startDate.Date && u.PayDate.Date <= today)
                 .GroupBy(u => u.PayDate.Date)
                 .Select(u => new
                 {
