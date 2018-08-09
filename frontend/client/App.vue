@@ -62,7 +62,7 @@ export default {
 @import '~bulma';
 @import '~wysiwyg.css/wysiwyg.sass';
 
-$fa-font-path: "fonts" !default;
+$fa-font-path: "assets/fonts" !default;
 @import '~font-awesome/scss/font-awesome';
 
 html {

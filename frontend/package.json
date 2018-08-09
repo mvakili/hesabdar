@@ -91,6 +91,8 @@
     "wysiwyg.css": "0.0.2"
   },
   "devDependencies": {
+    "electron": "^2.0.7",
+    "electron-packager": "^12.1.0",
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
