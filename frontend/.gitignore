@@ -2,10 +2,10 @@
 node_modules/
 dist/
 .idea
-npm-debug.log
+npm-debug.*
 yarn-error.log
 selenium-debug.log
 test/unit/coverage
 test/e2e/reports
-vue-admin-win32-x64/*
+hesabdar-win32-x64/*
 yarn.lock

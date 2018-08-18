@@ -1,7 +1,7 @@
 {
-  "name": "vue-admin",
+  "name": "Hesabdar",
   "version": "0.1.12",
-  "description": "Vue Admin Panel Framework",
+  "description": "A small accounting software",
   "repository": "vue-bulma/vue-admin",
   "homepage": "https://admin.vuebulma.com",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "email": "cfddream@gmail.com",
     "url": "fundon.me"
   },
+  "main": "electronIndex.js",
   "keywords": [
     "admin",
     "bulma",
@@ -23,10 +24,12 @@
     "npm": ">=3"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=production node build/build.js",
-    "clean": "rm -rf dist",
+    "build": "cross-env NODE_ENV=production node build/build.js && npm run copy-index",
     "dev": "cross-env NODE_ENV=development node build/dev-server.js",
-    "electron": "electron electronIndex.js",
+    "back-publish": "dotnet publish -c release -r win10-x64 ../backend/Hesabdar",
+    "back-copy":"xcopy /E \"../backend/Hesabdar/bin/release/netcoreapp2.1\" \"./Hesabdar-win32-x64\" /y",
+    "copy-index":"copy \"./electronindex.js\" \"./dist/index.js\" && copy \"./electronPackage.json\" \"./dist/package.json\"",
+    "package": "npm run back-publish && npm run copy-index && cross-env NODE_ENV=production NODE_ELECTRON=true electron-packager ./dist --platform=win32 --arch=x64 --asar --overwrite && npm run back-copy",
     "gh": "npm run build && gh-pages -d dist",
     "lint": "eslint --ext .js .vue client/*",
     "lint:fix": "eslint --fix --ext .js .vue electron.js client/* build/* config/*",
@@ -41,8 +44,8 @@
     "babel-runtime": "^6.26.0",
     "buefy": "^0.6.5",
     "bulma": "^0.3.2",
+    "child_process": "^1.0.2",
     "css-loader": "^0.27.1",
-    "electron": "^1.7.9",
     "font-awesome": "4.7.0",
     "iransans-fontface": "^0.1.1",
     "mdi": "^1.8.36",
@@ -91,8 +94,6 @@
     "wysiwyg.css": "0.0.2"
   },
   "devDependencies": {
-    "electron": "^2.0.7",
-    "electron-packager": "^12.1.0",
     "autoprefixer": "^6.7.7",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
@@ -102,7 +103,9 @@
     "babel-preset-stage-2": "^6.24.1",
     "connect-history-api-fallback": "^1.3.0",
     "cross-env": "^3.1.3",
+    "electron": "^2.0.7",
     "electron-devtools-installer": "^2.0.1",
+    "electron-packager": "^12.1.0",
     "eslint": "^3.17.1",
     "eslint-config-standard": "^7.0.1",
     "eslint-friendly-formatter": "^2.0.7",

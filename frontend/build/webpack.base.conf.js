@@ -4,6 +4,8 @@ const path = require('path')
 const config = require('../config')
 const utils = require('./utils')
 const projectRoot = path.resolve(__dirname, '../')
+console.log("Environment::::")
+console.log(process.env.NODE_ENV);
 
 module.exports = {
   entry: {
@@ -86,7 +88,7 @@ module.exports = {
         loader: 'url-loader',
         query: {
           limit: 10000,
-          name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
+          name: utils.assetsPath('fonts/[name].[hash:7].[ext]'),
         }
       }
     ]

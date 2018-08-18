@@ -1,0 +1,7 @@
+{
+    "name": "Hesabdar",
+    "version": "1.0.0",
+    "description": "A small accounting software",
+    "main": "index.js",
+    "author": "mvakili"
+  }

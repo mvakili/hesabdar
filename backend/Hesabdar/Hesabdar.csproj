@@ -36,5 +36,13 @@
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.DirectoryServices.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.xml" DestinationFolder="$(PublishDir)" />
+    <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.db" DestinationFolder="$(PublishDir)" />
+    <Copy SourceFiles="bin\Debug\netcoreapp2.1\User.db" DestinationFolder="$(PublishDir)" />
+      <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.xml" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.db" DestinationFolder="$(OutDir)" />
+    <Copy SourceFiles="bin\Debug\netcoreapp2.1\User.db" DestinationFolder="$(OutDir)" />
 
+  </Target>
 </Project>

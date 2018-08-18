@@ -54,6 +54,7 @@ export default {
 
 <style lang="scss">
 @import '~animate.css';
+$iransans-font-path: 'assets/fonts';
 @import '~iransans-fontface/css/iransans/sass/iransans-fontface-regular';
 .animated {
   animation-duration: .377s;
