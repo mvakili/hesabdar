@@ -11,12 +11,12 @@
           <material-select v-model="props.row.material" :id.sync="props.row.materialId"></material-select>
       </b-table-column>
       <b-table-column field="quantity" label="تعداد" >
-          <input class="input" v-model="props.row.quantity" />
+          <input class="input" v-model="props.row.quantity" style="height:30px"/>
       </b-table-column>
       <b-table-column field="pricePerOne" label="فی" >
-         <input class="input" v-model="props.row.pricePerOne" />
+         <input class="input" v-model="props.row.pricePerOne" style="height:30px" />
       </b-table-column>
-      <b-table-column field="pricePerOne*quantity" label="قیمت" >
+      <b-table-column field="pricePerOne*quantity" label="قیمت" style="height:30px">
           {{ props.row.pricePerOne * props.row.quantity | currency('', 0) }}
       </b-table-column>
       <b-table-column  label="" width="100">
@@ -47,7 +47,7 @@
           <material-select ref="newMaterial" v-model="newRow.material"  @changed="newRowMaterialChanged"></material-select>
       </th>
       <th>
-          <input class="input" ref="newQuantity" @keypress.enter="newRowQuantityUpdated" v-model="newRow.quantity" />
+          <input class="input" ref="newQuantity" @keypress.enter="newRowQuantityUpdated" v-model="newRow.quantity" style="height:30px" />
       </th>
       <th>
         <p class="control has-addons is-expanded" style="direction:ltr">
@@ -58,7 +58,7 @@
               </span>
             </button>
           </tooltip>
-            <input style="direction:rtl" class="input is-expanded"  ref="newPricePerOne" @keypress.enter="newRowPricePerOneUpdated" v-model="newRow.pricePerOne" />  
+            <input style="direction:rtl; height: 30px" class="input is-expanded"  ref="newPricePerOne" @keypress.enter="newRowPricePerOneUpdated" v-model="newRow.pricePerOne"  />  
         </p>
       </th>
       <th>

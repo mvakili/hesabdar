@@ -4,7 +4,7 @@
         @click.native.stop=""
         ref="input"
         v-model="newValue"
-        :min-height="25"
+        :min-height="30"
         :important="false"
         @keyup.native.esc.prevent="isActive = false"
         @keydown.native.tab="tabPressed"

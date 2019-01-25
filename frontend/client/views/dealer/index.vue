@@ -9,7 +9,27 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
-      <deals-list :dealerId="props.row.id"></deals-list>
+      <b-tabs type="is-boxed">
+        <b-tab-item>
+            <template slot="header">
+                <span> خرید و فروش </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              <deal-list :dealerId="props.row.id"></deal-list>
+            </template>
+        </b-tab-item>
+        <b-tab-item>
+            <template slot="header">
+                <span> دریافت و پرداخت </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              <deal-list :dealerId="props.row.id"></deal-list>
+            </template>
+        </b-tab-item>
+      </b-tabs>
+      
     </template>
     <template slot="table-template" slot-scope="props">
       <b-table-column field="id" label="#" width="100" sortable numeric>
@@ -117,7 +137,7 @@
   import List from './../../templates/List'
   import Dealer from './../../services/dealer'
   import New from './New'
-  import DealsList from './DealsList'
+  import DealList from './DealList'
   
   import Edit from './Edit'
   import DealItemList from './../deal/dealItem/List'
@@ -132,7 +152,7 @@
       Modal,
       DealItemList,
       DealPayment,
-      DealsList
+      DealList
     },
     data () {
       return {

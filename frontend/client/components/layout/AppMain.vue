@@ -23,7 +23,7 @@ export default {
       sidebar: 'sidebar'
     }),
     hiddenSidebarStyle () {
-      return this.sidebar.hidden ? { 'margin-left': 0 } : null
+      return this.sidebar.hidden ? { 'margin-left': 0, 'height': 'fill-available' } : { 'height': 'fill-available' }
     }
   },
 
