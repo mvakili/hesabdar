@@ -17,7 +17,7 @@ namespace Hesabdar.Models
         public int PayeeId { get; set; }
         public PaymentMethod Method { get; set; }
         public DateTime PayDate { get; set; }
-        public Boolean Payed { get; set; }
+        public Boolean Paid { get; set; }
         public DateTime DueDate { get; set; }
     }
 }

@@ -62,7 +62,6 @@ namespace Hesabdar
                 // Set the comments path for the Swagger JSON and UI.
                 var basePath = AppContext.BaseDirectory;
                 var xmlPath = Path.Combine(basePath, "Hesabdar.xml");
-                c.IncludeXmlComments(xmlPath);
             });
 
             var hessabdarConnectionString = "DataSource=" + $"{Path.Combine(AppContext.BaseDirectory, "Hesabdar.db")}";

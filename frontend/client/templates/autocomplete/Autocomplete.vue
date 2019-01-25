@@ -1,6 +1,22 @@
 <template>
     <div class="autocomplete control" :class="{'is-expanded': expanded}">
-        <b-input
+      <textarea-autosize
+        @click.native.stop=""
+        ref="input"
+        v-model="newValue"
+        :min-height="25"
+        :important="false"
+        @keyup.native.esc.prevent="isActive = false"
+        @keydown.native.tab="tabPressed"
+        @keydown.native.enter.prevent="enterPressed"
+        @keydown.native.up.prevent="keyArrows('up')"
+        @keydown.native.down.prevent="keyArrows('down')"
+        v-bind="$attrs"
+        class="input"
+        @focus.native="focused"
+        @blur.native="onBlur"
+      ></textarea-autosize>
+        <!-- <b-input
             v-model="newValue"
             ref="input"
             :size="size"
@@ -8,17 +24,17 @@
             :rounded="rounded"
             :icon="icon"
             :icon-pack="iconPack"
-            :maxlength="maxlength"
             autocomplete="off"
             v-bind="$attrs"
             @focus="focused"
             @blur="onBlur"
+            type="textarea"
             @keyup.native.esc.prevent="isActive = false"
             @keydown.native.tab="tabPressed"
             @keydown.native.enter.prevent="enterPressed"
             @keydown.native.up.prevent="keyArrows('up')"
             @keydown.native.down.prevent="keyArrows('down')"
-        />
+        /> -->
 
         <transition name="fade">
             <div
@@ -51,12 +67,14 @@
         </transition>
     </div>
 </template>
-
 <script>
 import FormElementMixin from './FormElementMixin'
-
+import TextareaAutosize from './../TextareaAutosize'
 export default {
   mixins: [FormElementMixin],
+  components: {
+    TextareaAutosize
+  },
   inheritAttrs: false,
   props: {
     value: [Number, String],
@@ -70,7 +88,10 @@ export default {
     },
     keepFirst: Boolean,
     clearOnSelect: Boolean,
-    openOnFocus: Boolean
+    openOnFocus: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {
@@ -91,7 +112,7 @@ export default {
      */
     whiteList () {
       const whiteList = []
-      whiteList.push(this.$refs.input.$el.querySelector('input'))
+      whiteList.push(this.$refs.input.$el.querySelector('textarea'))
       whiteList.push(this.$refs.dropdown)
       // Add all chidren from dropdown
       if (this.$refs.dropdown !== undefined) {
@@ -150,6 +171,7 @@ export default {
       }
       // Close dropdown if input is clear or else open it
       if (this.hasFocus && (!this.openOnFocus || value)) {
+        console.log(1)
         this.isActive = !!value
       }
     },
@@ -205,6 +227,7 @@ export default {
       }
       closeDropdown &&
         this.$nextTick(() => {
+          console.log(2)
           this.isActive = false
         })
     },
@@ -244,6 +267,7 @@ export default {
      */
     tabPressed () {
       if (this.hovered === null) {
+        console.log(3)
         this.isActive = false
         return
       }
@@ -254,7 +278,9 @@ export default {
      * Close dropdown if clicked outside.
      */
     clickedOutside (event) {
-      if (this.whiteList.indexOf(event.target) < 0) this.isActive = false
+      if (this.$el !== event.target) {
+        this.isActive = false
+      }
     },
 
     /**
@@ -335,7 +361,7 @@ export default {
      */
     focused (event) {
       if (this.getValue(this.selected) === this.newValue) {
-        this.$el.querySelector('input').select()
+        this.$el.querySelector('textarea').select()
       }
       if (this.openOnFocus) {
         this.isActive = true
@@ -369,3 +395,19 @@ export default {
   }
 }
 </script>
+
+<style>
+  .input {
+    width:100% !important;
+    direction:rtl;
+    display:block;
+    max-width:100%;
+    line-height:1.5;
+    padding-top: -5px;
+    min-height: 15px !important;
+    height:100%;
+    resize: none;
+	  overflow: hidden;
+	  box-sizing: border-box;
+  }
+</style>

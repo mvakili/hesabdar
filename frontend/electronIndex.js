@@ -7,8 +7,12 @@ const app = electron.app
 
 const exec = require('child_process').execFile;
 
+function runServer() {
+  exec('./win10-x64/Hesabdar.exe', runServer)
+}
 
-exec('./win10-x64/Hesabdar.exe');
+
+runServer()
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 //Adds the main Menu to our app

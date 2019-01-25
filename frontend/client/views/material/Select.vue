@@ -17,7 +17,7 @@
     :open-on-focus="true"
     @select="option => selected = option || {}">
     <template slot="empty">
-      </template>     
+    </template>     
   </autocomplete>
   </p>
   <modal :visible="priceHistoryModalVisible" @close="priceHistoryModalVisible = false">

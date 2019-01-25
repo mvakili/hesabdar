@@ -61,7 +61,6 @@ $iransans-font-path: 'assets/fonts';
 }
 
 @import '~bulma';
-@import '~wysiwyg.css/wysiwyg.sass';
 
 $fa-font-path: "assets/fonts" !default;
 @import '~font-awesome/scss/font-awesome';

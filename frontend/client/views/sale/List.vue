@@ -2,7 +2,7 @@
   <list @load-data="loadAsyncData" :detailed="true" detailKey="id">
     <template slot="table-detail" slot-scope="props">
       <div class="tile is-ancestor">
-        <div class=" column is-three-quarters-mobile is-two-thirds-tablet is-two-thirds-desktop is-two-third-widescreen is-half-fullhd">
+        <div class=" column">
           <article class="tile is-child box">
             <h4 class="title">کالا</h4>
             <deal-item-list :deal="props.row" saleOrPurchase="sale" :dealId="props.row.id" ref="deal-item-list"></deal-item-list>

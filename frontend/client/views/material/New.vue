@@ -1,8 +1,6 @@
 <template>
   <div>
     <div class="tile is-ancestor">
-
-
       <div class="tile is-parent">
         <article class="tile is-child box">
           <h1 class="title">ثبت کالا جدید</h1>

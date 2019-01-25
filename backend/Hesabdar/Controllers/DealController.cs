@@ -221,7 +221,7 @@ namespace Hesabdar.Controllers
             deal.DealPrice.DueDate = deal.DealTime;
             deal.DealPrice.PayDate = deal.DealTime;
             deal.DealPrice.Method = Models.Enums.PaymentMethod.DealPrice;
-            deal.DealPrice.Payed = true;
+            deal.DealPrice.Paid = true;
 
 
 

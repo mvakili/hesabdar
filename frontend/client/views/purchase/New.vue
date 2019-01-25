@@ -97,7 +97,7 @@ export default {
       this.newDeal = {
         dealPayment: {
           method: 'Cash',
-          payed: true,
+          paid: true,
           amount: 0
         },
         items: [],

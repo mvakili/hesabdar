@@ -19,6 +19,10 @@ namespace Hesabdar
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseWebRoot(Path.Combine(Directory.GetCurrentDirectory(), "public"))
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseUrls("http://localhost:5000")
                 .Build();

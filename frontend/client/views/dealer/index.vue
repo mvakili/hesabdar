@@ -9,28 +9,7 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
-
-      <b-tabs type="is-boxed">
-        <b-tab-item>
-            <template slot="header">
-                <span> خرید و فروش </span>
-                <b-icon icon="list" />
-            </template>
-            <template>
-              <deals-list :dealerId="props.row.id"></deals-list>
-            </template>
-        </b-tab-item>
-        <b-tab-item>
-            <template slot="header">
-                <span> دریافت و پرداخت </span>
-                <b-icon icon="list" />
-            </template>
-            <template>
-              
-            </template>
-        </b-tab-item>
-      </b-tabs>
-      
+      <deals-list :dealerId="props.row.id"></deals-list>
     </template>
     <template slot="table-template" slot-scope="props">
       <b-table-column field="id" label="#" width="100" sortable numeric>

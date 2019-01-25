@@ -22,8 +22,8 @@
             </p>
             <p class="control">
               <label class="radio">
-                <vb-switch v-model="deal.dealPayment.payed" type="primary" ></vb-switch> &nbsp;
-                <span v-if="deal.dealPayment.payed">
+                <vb-switch v-model="deal.dealPayment.paid" type="primary" ></vb-switch> &nbsp;
+                <span v-if="deal.dealPayment.paid">
                   پرداخت شده
                 </span>
                 <span v-else>

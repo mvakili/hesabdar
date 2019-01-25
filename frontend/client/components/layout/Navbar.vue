@@ -12,7 +12,6 @@
               <div>
                 <span class="vue"><i class="fa fa-cloud fa-lg"></i> حسابدار</span>
               </div>
-            </tooltip>
           </a>
         </div>
         <div class="nav-right is-flex">
