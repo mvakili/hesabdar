@@ -29,17 +29,24 @@ namespace Hesabdar.Controllers
             return Ok(materials);
         }
 
-        [HttpGet("Dealer/Incomes/{id}")]
-        public IActionResult GetIncomesOfDealer([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        [HttpGet("Dealer/{id}")]
+        public IActionResult GetPaymentsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var incomes = _context.Dealer.Include(u => u.Incomes).Select(u => u.Incomes);
+            var payments = _context.Payment.Where(u => u.PayeeId == id || u.PayerId == id);
+            return Ok(payments);
+        }
+
+        [HttpGet("Dealer/Incomes/{id}")]
+        public IActionResult GetIncomesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        {
+            var incomes = _context.Dealer.Where(u => u.Id == id).Include(u => u.Incomes).Select(u => u.Incomes);
             return Ok(incomes);
         }
 
         [HttpGet("Dealer/Expenses/{id}")]
-        public IActionResult GetExpensesOfDealer([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        public IActionResult GetExpensesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var expenses = _context.Dealer.Include(u => u.Expenses).Select(u => u.Expenses);
+            var expenses = _context.Dealer.Where(u => u.Id == id).Include(u => u.Expenses).Select(u => u.Expenses);
             return Ok(expenses);
         }
 
