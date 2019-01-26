@@ -116,7 +116,6 @@ export default {
 
       this.$el.style.setProperty('height', 1, 'important')
       let contentHeight = this.$el.scrollHeight + 1
-      console.log(contentHeight)
 
       if (this.minHeight) {
         contentHeight = contentHeight < this.minHeight ? this.minHeight : contentHeight

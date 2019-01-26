@@ -171,7 +171,6 @@ export default {
       }
       // Close dropdown if input is clear or else open it
       if (this.hasFocus && (!this.openOnFocus || value)) {
-        console.log(1)
         this.isActive = !!value
       }
     },
@@ -227,7 +226,6 @@ export default {
       }
       closeDropdown &&
         this.$nextTick(() => {
-          console.log(2)
           this.isActive = false
         })
     },

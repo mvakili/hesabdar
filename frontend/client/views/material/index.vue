@@ -47,6 +47,14 @@
             <b-icon icon="menu-down"></b-icon>
           </button>
           <div class="box"> 
+            <b-dropdown-item :value="true" class="" @click="oprnPriceHistoryModal(props.row.id)">
+              <div class="media">
+                <div class="media-content has-text-success">
+                  <span>آمار</span>
+                </div>
+              </div>
+            </b-dropdown-item>
+            <b-dropdown-item :separator="true" />
             <b-dropdown-item :value="true" class="" @click="openEditModal(props.row.id)">
               <div class="media">
                 <div class="media-content has-text-success">
@@ -63,6 +71,7 @@
                 </div>
               </div>
             </b-dropdown-item>
+            
           </div>
         </b-dropdown>
       </b-table-column>
@@ -84,6 +93,12 @@
           <new></new>
         </div>
       </modal>
+
+      <modal :visible="priceHistoryModalVisible" @close="priceHistoryModalVisible = false">
+        <div class="modal-card-body">
+          <price-history :materialId="priceHistoryId"></price-history>
+        </div>
+      </modal>
     </template>
   </list>
 </template>
@@ -95,6 +110,7 @@
   import Material from './../../services/material'
   import New from './New'
   import Edit from './Edit'
+  import PriceHistory from './../dealItem/PriceHistory'
 
   export default {
     components: {
@@ -103,13 +119,16 @@
       New,
       Edit,
       Modal,
-      Barcode
+      Barcode,
+      PriceHistory
     },
     data () {
       return {
         newModalVisible: false,
         deleteModalVisible: false,
         editModalVisible: false,
+        priceHistoryModalVisible: false,
+        priceHistoryId: null,
         isPublic: true,
         editId: null
       }
@@ -133,6 +152,10 @@
       openEditModal (id) {
         this.editId = id
         this.editModalVisible = true
+      },
+      oprnPriceHistoryModal (id) {
+        this.priceHistoryId = id
+        this.priceHistoryModalVisible = true
       },
       edited (material) {
         this.editModalVisible = false
