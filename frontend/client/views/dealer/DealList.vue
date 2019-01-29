@@ -31,7 +31,7 @@
         </span>
       </b-table-column>
       <b-table-column field="dealTime" label="زمان خرید / فروش" sortable>
-        <date-picker :class="{'disable-event': !table.openedDetailed.includes(detailProps.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="detailProps.row.dealTime" disabled></date-picker>
+        <date-picker :class="{'disable-event': !table.openedDetailed.includes(detailProps.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="detailProps.row.dealTime"></date-picker>
       </b-table-column>
       <b-table-column field="dealPrice.amount" label="قیمت خرید / فروش" sortable>
         <input class="input" v-if="table.openedDetailed.includes(detailProps.row.id)" type="text" placeholder="قیمت خرید" v-model="detailProps.row.dealPrice.amount" />        

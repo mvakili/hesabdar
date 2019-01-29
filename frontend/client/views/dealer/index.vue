@@ -46,7 +46,8 @@
           {{ props.row.address || ' ... ' }}
       </b-table-column>
       <b-table-column field="balance" label="بدهی/طلب" sortable>
-          {{ props.row.balance}}
+          {{ props.row.balance || 0 | abs |currency('', 0) }}
+          {{ props.row.balance || 0 | balance }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" class="control" position="is-bottom-left">
