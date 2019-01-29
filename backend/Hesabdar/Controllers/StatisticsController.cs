@@ -244,5 +244,61 @@ namespace Hesabdar.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("Material/OverTime/{materialId}")]
+        [HttpGet("Material/OverTime/{materialId}/{dealerId}")]
+        public async Task<IActionResult> GetMaterialAmountOverTime([FromRoute] int materialId, [FromRoute] int? dealerId = null,[FromQuery] DateTime? start = null, [FromQuery] DateTime? end = null) {
+            var startDate = start ?? DateTime.Now.Date;
+            var endDate = end ?? DateTime.Now.Date;
+            dealerId = dealerId ?? 1;
+            var beforeAmount = (
+                from DealItem in _context.DealItem
+                join Deal in _context.Deal on DealItem.DealId equals Deal.Id
+                where DealItem.MaterialId == materialId
+                where Deal.DealTime.Date < startDate.Date
+                where Deal.SellerId == dealerId || Deal.BuyerId == dealerId
+                let coef = Deal.SellerId == dealerId ? -1 : 1
+                select DealItem.Quantity * coef
+            ).DefaultIfEmpty(0).Sum();
+
+            var amounts = (
+                from DealItem in _context.DealItem
+                join Deal in _context.Deal on DealItem.DealId equals Deal.Id
+                where DealItem.MaterialId == materialId
+                where Deal.DealTime.Date >= startDate.Date && Deal.DealTime.Date <= endDate
+                where Deal.SellerId == dealerId || Deal.BuyerId == dealerId
+                let coef = Deal.SellerId == dealerId ? -1 : 1
+                group new { Deal= Deal, DealItem = DealItem, coef= coef} by Deal.DealTime.Date into gg 
+                select new AmountOverDate{
+                    Date = gg.Key.Date,
+                    Amount = gg.Select(u => new {u.DealItem, u.coef}).Select(u => u.DealItem.Quantity * u.coef).DefaultIfEmpty(0).Sum()
+                }
+            ).ToList();
+
+            var dates = Enumerable.Range(0, (int)(endDate - startDate).TotalDays + 1)
+                                  .Select(x => startDate.AddDays(x))
+                                  .ToList();
+
+            amounts = (from date in dates
+            join a in amounts on date.Date equals a.Date into iAmount
+            from Amount in iAmount.DefaultIfEmpty()
+            select new AmountOverDate {
+                Date = date.Date,
+                Amount = Amount?.Amount ?? 0
+            }).OrderBy(u => u.Date).ToList();
+
+            amounts.ForEach(u => {
+                u.Amount += beforeAmount;
+                beforeAmount = u.Amount;
+            });
+
+            return Ok(amounts);
+        }
+
+        private class AmountOverDate
+        {
+            public DateTime Date {get; set;}
+            public decimal Amount { get; set; }
+        }
     }
 }

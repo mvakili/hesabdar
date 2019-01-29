@@ -25,28 +25,28 @@ namespace Hesabdar.Controllers
         [HttpGet]
         public IActionResult GetPayments([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var materials = _context.Payment.OrderBy(sort).PageResult(page, perPage);
+            var materials = _context.Payment.Where(u => u.Amount > 0).OrderBy(sort).PageResult(page, perPage);
             return Ok(materials);
         }
 
         [HttpGet("Dealer/{id}")]
         public IActionResult GetPaymentsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var payments = _context.Payment.Where(u => u.PayeeId == id || u.PayerId == id);
+            var payments = _context.Payment.Where(u => u.Amount > 0).Where(u => u.PayeeId == id || u.PayerId == id);
             return Ok(payments);
         }
 
         [HttpGet("Dealer/Incomes/{id}")]
         public IActionResult GetIncomesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var incomes = _context.Dealer.Where(u => u.Id == id).Include(u => u.Incomes).Select(u => u.Incomes);
+            var incomes = _context.Dealer.Where(u => u.Id == id).Include(u => u.Incomes.Where(i => i.Amount > 0)).Select(u => u.Incomes);
             return Ok(incomes);
         }
 
         [HttpGet("Dealer/Expenses/{id}")]
         public IActionResult GetExpensesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var expenses = _context.Dealer.Where(u => u.Id == id).Include(u => u.Expenses).Select(u => u.Expenses);
+            var expenses = _context.Dealer.Where(u => u.Id == id).Include(u => u.Expenses.Where(e => e.Amount > 0)).Select(u => u.Expenses);
             return Ok(expenses);
         }
 

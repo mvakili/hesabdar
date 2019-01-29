@@ -26,7 +26,7 @@
         <dealer-select v-model="props.row.seller" :id.sync="props.row.sellerId" :disabled="!table.openedDetailed.includes(props.row.id)"></dealer-select>
       </b-table-column>
       <b-table-column field="dealTime" label="زمان فروش" sortable>
-        <date-picker :class="{'disable-event': !table.openedDetailed.includes(props.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
+        <date-picker :class="{'disable-event': !table.openedDetailed.includes(props.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime"></date-picker>
       </b-table-column>
       <b-table-column field="dealPrice.amount" label="قیمت فروش" sortable>
           <input class="input" v-if="table.openedDetailed.includes(props.row.id)" type="text" placeholder="قیمت فروش" v-model="props.row.dealPrice.amount" />        

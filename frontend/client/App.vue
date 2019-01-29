@@ -132,4 +132,10 @@ tr.is-empty>td>section.section {
 .p-datetime-picker-time .p-datetime-picker-time-h, .p-datetime-picker-time .p-datetime-picker-time-m {
   font-family: inherit !important;
 }
+.vpd-weekday {
+  float:  left !important;
+}
+.vpd-day {
+  float:  left !important;
+}
 </style>

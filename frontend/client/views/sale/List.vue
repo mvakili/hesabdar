@@ -10,7 +10,7 @@
         </div>
         <div class=" column ">
           <article class="tile is-child box">
-            <h4 class="title">پرداخت</h4>
+            <h4 class="title">دریافت</h4>
             <deal-payment :deal="props.row" :paymentId="props.row.dealPaymentId || null" ref="deal-payment"></deal-payment>
           </article>
         </div>
@@ -26,7 +26,7 @@
         <dealer-select v-model="props.row.buyer" :id.sync="props.row.buyerId" :disabled="!table.openedDetailed.includes(props.row.id)"></dealer-select>
       </b-table-column>
       <b-table-column field="dealTime" label="زمان فروش" sortable>
-        <date-picker :class="{'disable-event': !table.openedDetailed.includes(props.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
+        <date-picker :class="{'disable-event': !table.openedDetailed.includes(props.row.id)}" type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime"></date-picker>
       </b-table-column>
       <b-table-column field="dealPrice.amount" label="قیمت فروش" sortable>
           <input class="input" v-if="table.openedDetailed.includes(props.row.id)" type="text" placeholder="قیمت فروش" v-model="props.row.dealPrice.amount" />        

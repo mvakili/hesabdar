@@ -118,6 +118,10 @@ namespace Hesabdar.Controllers
             #endregion
 
             #region Payments Modify
+            if(deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
+            {
+                deal.DealPayment.Amount = 0;
+            }
             deal.DealPayment.PayerId = deal.BuyerId;
             deal.DealPayment.PayeeId = deal.SellerId;
             deal.DealPrice.PayerId = deal.SellerId;
@@ -217,6 +221,10 @@ namespace Hesabdar.Controllers
             if (deal.DealTime == DateTime.MinValue)
             {
                 deal.DealTime = DateTime.Now;
+            }
+            if(deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
+            {
+                deal.DealPayment.Amount = 0;
             }
             deal.DealPrice.DueDate = deal.DealTime;
             deal.DealPrice.PayDate = deal.DealTime;

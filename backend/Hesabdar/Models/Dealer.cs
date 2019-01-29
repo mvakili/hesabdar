@@ -16,6 +16,15 @@ namespace Hesabdar.Models
         [ForeignKey("Payer")]
         public virtual ICollection<Payment> Expenses { get; set; }
 
+        [NotMapped]
+        public decimal? Balance {get; set;} = null;
+
+        public Dealer () {
+            this.Expenses = new HashSet<Payment>();
+            this.Incomes = new HashSet<Payment>();
+
+        }
+
 
     }
 }

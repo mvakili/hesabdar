@@ -9,7 +9,26 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
-      <deal-list :dealerId="props.row.id"></deal-list>
+      <b-tabs type="is-boxed">
+        <b-tab-item>
+            <template slot="header">
+                <span> خرید و فروش </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              <deal-list :dealerId="props.row.id"></deal-list>
+            </template>
+        </b-tab-item>
+        <b-tab-item>
+            <template slot="header">
+                <span> دریافت و پرداخت </span>
+                <b-icon icon="list" />
+            </template>
+            <template>
+              
+            </template>
+        </b-tab-item>
+      </b-tabs>
       
     </template>
     <template slot="table-template" slot-scope="props">
@@ -25,6 +44,9 @@
       </b-table-column>
       <b-table-column field="address" label="آدرس" sortable>
           {{ props.row.address || ' ... ' }}
+      </b-table-column>
+      <b-table-column field="balance" label="بدهی/طلب" sortable>
+          {{ props.row.balance}}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" class="control" position="is-bottom-left">

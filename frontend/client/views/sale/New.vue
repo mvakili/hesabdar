@@ -7,7 +7,7 @@
             <dealer-select v-model="props.row.buyer" :id.sync="props.row.buyerId" ></dealer-select>
           </b-table-column>
           <b-table-column field="dealTime" label="زمان فروش" >
-            <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
+            <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime"></date-picker>
           </b-table-column>
           <b-table-column field="dealPrice" label="قیمت فروش" >
               <input class="input" type="text" placeholder="قیمت فروش" v-model="props.row.dealPrice.amount" />        
@@ -32,7 +32,7 @@
             </div>
             <div class=" column ">
               <article class="tile is-child box">
-                <h4 class="title">پرداخت</h4>
+                <h4 class="title">دریافت</h4>
                 <deal-payment :deal="newDeal" :paymentId="null" :newPayment="true" ref="deal-payment"></deal-payment>
               </article>
             </div>
@@ -71,9 +71,7 @@ export default {
     add () {
       console.log(this.newDeal.items.length)
       console.log(this.newDeal.buyerId)
-      if (this.newDeal.items.length === 0) {
-        this.$openNotification('عملیات ناموفق', 'کالایی وارد نشده است', 'danger')
-      } else if (!this.newDeal.buyerId) {
+      if (!this.newDeal.buyerId) {
         this.$openNotification('عملیات ناموفق', 'خریدار انتخاب نشده است', 'danger')
       } else {
         Deal.addNewSale(this.newDeal).then(res => {

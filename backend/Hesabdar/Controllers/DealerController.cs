@@ -25,7 +25,26 @@ namespace Hesabdar.Controllers
         [HttpGet]
         public IActionResult Dealers([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var dealers = _context.Dealer.Where(u => u.Id != 1).OrderBy(sort).PageResult(page, perPage);
+            
+            var incomes = _context.Payment.Where(u => u.Paid).Where(u => u.PayerId == 1).GroupBy(u => u.PayeeId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
+            var expenses = _context.Payment.Where(u => u.Paid).Where(u => u.PayeeId == 1).GroupBy(u => u.PayerId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
+            
+            var dealers = (
+                from d in _context.Dealer
+                join i in incomes on d.Id equals i.DealerId into iIncome
+                from income in iIncome.DefaultIfEmpty()
+                join e in expenses on d.Id equals e.DealerId into iExpenses
+                from expense in iExpenses.DefaultIfEmpty()
+                where d.Id != 1
+                select new Dealer {
+                    Address = d.Address,
+                    Id = d.Id,
+                    Name = d.Name,
+                    PhoneNumber = d.PhoneNumber,
+                    Timestamp = d.Timestamp,
+                    Balance =  (expense.Amount) - (income.Amount),
+                }
+            ).OrderBy(sort).PageResult(page, perPage);
             return Ok(dealers);
         }
 
@@ -50,7 +69,26 @@ namespace Hesabdar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var dealer = await _context.Dealer.SingleOrDefaultAsync(m => m.Id == id);
+            var incomes = _context.Payment.Where(u => u.Paid).Where(u => u.PayerId == 1).GroupBy(u => u.PayeeId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
+            var expenses = _context.Payment.Where(u => u.Paid).Where(u => u.PayeeId == 1).GroupBy(u => u.PayerId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
+            
+            var dealers = (
+                from d in _context.Dealer
+                join i in incomes on d.Id equals i.DealerId into iIncome
+                from income in iIncome.DefaultIfEmpty()
+                join e in expenses on d.Id equals e.DealerId into iExpenses
+                from expense in iExpenses.DefaultIfEmpty()
+                select new Dealer {
+                    Address = d.Address,
+                    Id = d.Id,
+                    Name = d.Name,
+                    PhoneNumber = d.PhoneNumber,
+                    Timestamp = d.Timestamp,
+                    Balance =  (expense.Amount) - (income.Amount),
+                }
+            );
+            
+            var dealer = await dealers.SingleOrDefaultAsync(m => m.Id == id);
 
             if (dealer == null)
             {

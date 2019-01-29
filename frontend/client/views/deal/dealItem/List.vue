@@ -19,7 +19,7 @@
       <b-table-column field="pricePerOne*quantity" label="قیمت" style="height:30px">
           {{ props.row.pricePerOne * props.row.quantity | currency('', 0) }}
       </b-table-column>
-      <b-table-column  label="" width="100">
+      <b-table-column  label="" width="20">
         <b-dropdown class="control" position="is-bottom-left">
           <button class="button is-link" type="button" slot="trigger">
             <template>
@@ -52,19 +52,19 @@
       <th>
         <p class="control has-addons is-expanded" style="direction:ltr">
           <tooltip :label="'بصورت پیشفرض قیمت آخرین '+ (saleOrPurchase == 'sale' ? 'فروش' : 'خرید') +' نمایش داده می شود'" type="primary">
-            <button class="button is-primary">
+            <button class="button is-primary" tabindex="-1">
               <span>
                 ؟
               </span>
             </button>
           </tooltip>
-            <input style="direction:rtl; height: 30px" class="input is-expanded"  ref="newPricePerOne" @keypress.enter="newRowPricePerOneUpdated" v-model="newRow.pricePerOne"  />  
+            <input style="direction:rtl; height: 30px" class="input"  ref="newPricePerOne" @keypress.enter="newRowPricePerOneUpdated" v-model="newRow.pricePerOne"  />  
         </p>
       </th>
       <th>
         {{newRow.pricePerOne * newRow.quantity || 0 | currency('', 0) }}
       </th>
-      <th width="100">
+      <th width="50">
           <button  class="button is-primary is-fullwidth" v-on:click="add(newRow)" ><i class="fa fa-plus"></i></button>
       </th>
     </template>

@@ -7,7 +7,7 @@
             <dealer-select v-model="props.row.seller" :id.sync="props.row.sellerId" ></dealer-select>
           </b-table-column>
           <b-table-column field="dealTime" label="زمان خرید" >
-            <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime" disabled></date-picker>
+            <date-picker  type="datetime" :auto-submit="true"  format="YYYY-MM-DD HH:mm" placeholder="اکنون" display-format="HH:mm jYYYY/jMM/jDD" v-model="props.row.dealTime"></date-picker>
           </b-table-column>
           <b-table-column field="dealPrice" label="قیمت خرید" >
               <input class="input" type="text" placeholder="قیمت خرید" v-model="props.row.dealPrice.amount" />        
@@ -71,9 +71,7 @@ export default {
     add () {
       console.log(this.newDeal.items.length)
       console.log(this.newDeal.sellerId)
-      if (this.newDeal.items.length === 0) {
-        this.$openNotification('عملیات ناموفق', 'کالایی وارد نشده است', 'danger')
-      } else if (!this.newDeal.sellerId) {
+      if (!this.newDeal.sellerId) {
         this.$openNotification('عملیات ناموفق', 'خریدار انتخاب نشده است', 'danger')
       } else {
         Deal.addNewPurchase(this.newDeal).then(res => {

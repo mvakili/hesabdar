@@ -44,26 +44,28 @@
             </div>
           </div>
           <p>&nbsp;</p>
-          <div class="control">
-            <div class="columns">
-              <div  class="column">
-                مقدار پرداخت : 
-              </div>
-              <div class="control column is-two-thirds">
-                <input class="input" placeholder="مقدار پرداخت" v-model="deal.dealPayment.amount">
-              </div>
-            </div>
-          </div>
-          <div class="contol">
-            <div class="columns">
-              <div  class="column">
-                تاریخ پرداخت: 
-              </div>
-              <div class="control column is-two-thirds">
-                <date-picker type="datetime" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" :placeholder="newPayment ? 'اکنون' : ''" v-model="deal.dealPayment.payDate"></date-picker>
+          <template v-if="deal.dealPayment.method == 'Cheque' || (deal.dealPayment.method == 'Cash' && deal.dealPayment.paid)">
+            <div class="control">
+              <div class="columns">
+                <div  class="column">
+                  مقدار پرداخت : 
+                </div>
+                <div class="control column is-two-thirds">
+                  <input class="input" placeholder="مقدار پرداخت" v-model="deal.dealPayment.amount">
+                </div>
               </div>
             </div>
-          </div>
+            <div class="contol">
+              <div class="columns">
+                <div  class="column">
+                  تاریخ پرداخت: 
+                </div>
+                <div class="control column is-two-thirds">
+                  <date-picker type="datetime" :auto-submit="true" :editable="true" format="YYYY-MM-DD HH:mm" display-format="HH:mm jYYYY/jMM/jDD" :placeholder="newPayment ? 'اکنون' : ''" v-model="deal.dealPayment.payDate"></date-picker>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </form>
     </section>
