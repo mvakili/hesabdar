@@ -42,7 +42,7 @@ namespace Hesabdar.Controllers
                     Name = d.Name,
                     PhoneNumber = d.PhoneNumber,
                     Timestamp = d.Timestamp,
-                    Balance =  (expense.Amount) - (income.Amount),
+                    Balance =  (expense != null ? expense.Amount : 0) - (income != null ? income.Amount : 0),
                 }
             ).OrderBy(sort).PageResult(page, perPage);
             return Ok(dealers);
@@ -84,7 +84,7 @@ namespace Hesabdar.Controllers
                     Name = d.Name,
                     PhoneNumber = d.PhoneNumber,
                     Timestamp = d.Timestamp,
-                    Balance =  (expense.Amount) - (income.Amount),
+                    Balance =  (expense != null ? expense.Amount : 0) - (income != null ? income.Amount : 0),
                 }
             );
             
