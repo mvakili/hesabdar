@@ -9,7 +9,7 @@
     </div>
     <div class="tile is-ancestor">
       <div class="tile is-parent" >
-        <weekly-purchase-and-sale-distance-chart></weekly-purchase-and-sale-distance-chart>
+        <purchase-and-sale-distance-chart></purchase-and-sale-distance-chart>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@ import Chart from 'vue-bulma-chartjs'
 import DashboardNav from './DashboardNav'
 import WeeklySaleChart from './WeeklySaleChart'
 import WeeklyPurchaseChart from './WeeklyPurchaseChart'
-import WeeklyPurchaseAndSaleDistanceChart from './WeeklyPurchaseAndSaleDistanceChart'
+import PurchaseAndSaleDistanceChart from './PurchaseAndSaleDistanceChart'
 
 export default {
   components: {
@@ -28,7 +28,7 @@ export default {
     DashboardNav,
     WeeklySaleChart,
     WeeklyPurchaseChart,
-    WeeklyPurchaseAndSaleDistanceChart
+    PurchaseAndSaleDistanceChart
   }
 }
 </script>

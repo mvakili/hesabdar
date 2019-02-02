@@ -39,6 +39,11 @@
           {{ detailProps.row.dealPrice.amount || 0 | currency('', 0) }}
         </span>
       </b-table-column>
+      <b-table-column field="dealPayment.amount" label="پرداخت">
+        <span>
+          {{ (detailProps.row.dealPayment.paid ? detailProps.row.dealPayment.amount : 0) || 0 | currency('', 0) }}
+        </span>
+      </b-table-column>
       <b-table-column field="dealPaymentId" label="DealPaymentId" :visible="false">
         {{detailProps.row.dealPaymentId}}          
       </b-table-column>
@@ -63,13 +68,13 @@
             <b-icon icon="menu-down"></b-icon>
           </button>
           <div class="box"> 
-            <b-dropdown-item :value="false" disabled>
+            <!-- <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
                 </div>
               </div>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
           </div>
         </b-dropdown>
       </b-table-column>

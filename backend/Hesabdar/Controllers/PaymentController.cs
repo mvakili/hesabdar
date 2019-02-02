@@ -32,7 +32,7 @@ namespace Hesabdar.Controllers
         [HttpGet("Dealer/{id}")]
         public IActionResult GetPaymentsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var payments = _context.Payment.Where(u => u.Amount > 0).Where(u => u.PayeeId == id || u.PayerId == id);
+            var payments = _context.Payment.Where(u => u.Amount > 0).Where(u => u.PayeeId == id || u.PayerId == id).OrderBy(u => u.PayDate).PageResult(page, perPage);
             return Ok(payments);
         }
 

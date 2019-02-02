@@ -62,15 +62,15 @@
                 </div>
               </div>
             </b-dropdown-item>
-            <b-dropdown-item :separator="true" />
+            <!-- <b-dropdown-item :separator="true" /> -->
             
-            <b-dropdown-item :value="false" disabled>
+            <!-- <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
                 </div>
               </div>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
             
           </div>
         </b-dropdown>

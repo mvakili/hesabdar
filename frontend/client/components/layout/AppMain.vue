@@ -41,7 +41,6 @@ export default {
   padding-top: 50px;
   margin-right: 180px;
   transform: translate3d(0, 0, 0);
-  height: fill-available;
 
   @include mobile() {
     margin-right: 0;

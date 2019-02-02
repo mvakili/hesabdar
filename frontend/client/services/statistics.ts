@@ -16,6 +16,9 @@ export default  {
     getWeeklyPurchaseAndSalePrice() : Promise<any> {
         return Base.get('statistics', 'purchaseAndSale/price/weekly');
     },
+    getPurchaseAndSalePrice( start: Date, end: Date) : Promise<any> {
+        return Base.get('statistics', 'purchaseAndSale/price/overDate'+ "?start=" +start.toString() + "&end=" + end.toString());
+    },
     getMonthlyPurchaseAndSalePrice() : Promise<any> {
         return Base.get('statistics', 'purchaseAndSale/price/monthly');
     },

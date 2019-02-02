@@ -9,14 +9,15 @@
     </template>
 
     <template slot="table-detail" slot-scope="props">
-      <b-tabs type="is-boxed">
+      <deal-list :dealerId="props.row.id"></deal-list>
+      <!-- <b-tabs type="is-boxed">
         <b-tab-item>
             <template slot="header">
                 <span> خرید و فروش </span>
                 <b-icon icon="list" />
             </template>
             <template>
-              <deal-list :dealerId="props.row.id"></deal-list>
+              
             </template>
         </b-tab-item>
         <b-tab-item>
@@ -28,7 +29,7 @@
               
             </template>
         </b-tab-item>
-      </b-tabs>
+      </b-tabs> -->
       
     </template>
     <template slot="table-template" slot-scope="props">
@@ -74,8 +75,8 @@
                 </div>
               </div>
             </b-dropdown-item>
-            <b-dropdown-item :separator="true" />
-            <b-dropdown-item :value="false" disabled>
+            <!-- <b-dropdown-item :separator="true" /> -->
+            <!-- <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>دریافت</span>
@@ -89,14 +90,14 @@
                 </div>
               </div>
             </b-dropdown-item>
-            <b-dropdown-item :separator="true" />            
-            <b-dropdown-item :value="false" disabled>
+            <b-dropdown-item :separator="true" />             -->
+            <!-- <b-dropdown-item :value="false" disabled>
               <div class="media">
                 <div class="media-content has-text-success">
                   <span>حذف</span>
                 </div>
               </div>
-            </b-dropdown-item>
+            </b-dropdown-item> -->
           </div>
         </b-dropdown>
       </b-table-column>

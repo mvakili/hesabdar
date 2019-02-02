@@ -1,18 +1,27 @@
 <template>
   <article class="tile is-child box">
-    <h4 class="title">فاصله خرید و فروش هفتگی</h4>
-    <div class="content">
+    <h4 class="title">فاصله خرید و فروش</h4>
+    <div class="tile is-ancestor">
+      <div class="tile is-parent" >
+        <date-range :fromDate.sync="fromDate" :toDate.sync="toDate"></date-range>
+      </div>
+    </div>
+    <div class="tile is-ancestor">
+      <div class="tile is-parent" >
         <chart :type="'line'" :data="data" :options="options" ref="chart"></chart>
+      </div>
     </div>
   </article>
 </template>
 <script>
 import Vue from 'vue'
 import Statistics from './../../services/statistics'
+import DateRange from './../../templates/DateRange'
 import Chart from 'vue-bulma-chartjs'
 export default {
   components: {
-    Chart
+    Chart,
+    DateRange
   },
   data () {
     return {
@@ -21,6 +30,8 @@ export default {
           mode: 'label'
         }
       },
+      fromDate: new Date().toString(),
+      toDate: new Date().toString(),
       series: ['خرید', 'فروش'],
       datas: [[], []],
       labels: [],
@@ -32,11 +43,14 @@ export default {
   },
   methods: {
     loadAsyncData () {
-      Statistics.getWeeklyPurchaseAndSalePrice().then(response => {
+      Statistics.getPurchaseAndSalePrice(this.fromDate, this.toDate).then(response => {
+        this.datas[0] = []
+        this.datas[1] = []
+        this.labels = []
         response.forEach(element => {
           this.datas[0].push(element.purchasesAmount)
           this.datas[1].push(element.salesAmount)
-          this.labels.push(Vue.moment(element.date).locale('fa').format('dddd'))
+          this.labels.push(Vue.moment(element.date).locale('fa').format('jYYYY/jMM/jDD'))
         })
         this.options = this.options
       })
@@ -63,6 +77,12 @@ export default {
   watch: {
     data: function () {
       this.$nextTick(() => this.$refs['chart'].resetChart())
+    },
+    fromDate: function () {
+      this.loadAsyncData()
+    },
+    toDate: function () {
+      this.loadAsyncData()
     }
   },
   mounted: function () {
