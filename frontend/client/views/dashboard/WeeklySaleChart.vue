@@ -22,7 +22,7 @@ export default {
           mode: 'label'
         }
       },
-      series: ['هفته قبل', 'هفته فعلی'],
+      series: ['هفته قبل', 'هفته جاری'],
       datas: [[], []],
       backgroundColors: [
         'rgba(120, 200, 219, 1)',
