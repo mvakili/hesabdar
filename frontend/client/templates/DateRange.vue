@@ -46,7 +46,7 @@ export default {
       this.$emit('update:fromDate', this.from)
     },
     to () {
-      this.$emit('update:toDate', this.from)
+      this.$emit('update:toDate', this.to)
     }
   }
 }

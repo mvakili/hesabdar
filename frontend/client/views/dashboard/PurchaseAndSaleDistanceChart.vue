@@ -8,7 +8,7 @@
     </div>
     <div class="tile is-ancestor">
       <div class="tile is-parent" >
-        <chart :type="'line'" :data="data" :options="options" ref="chart"></chart>
+        <chart :type="'bar'" :data="data" :options="options" ref="chart"></chart>
       </div>
     </div>
   </article>
