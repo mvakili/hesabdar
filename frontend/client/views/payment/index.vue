@@ -8,26 +8,13 @@
       </a>
     </template>
 
-    <template slot="table-detail" slot-scope="props">
-      
-    </template>
     <template slot="table-template" slot-scope="props">
       <b-table-column field="id" label="#" width="100" sortable numeric>
           {{ props.row.id }}
       </b-table-column>
 
-      <b-table-column field="name" label="نام" sortable>
-          {{ props.row.name }}
-      </b-table-column>
-      <b-table-column field="barcode" label="بارکد">
-        <barcode v-if="props.row.barcode" :value="props.row.barcode"
-          :options="{ height: 20,
-                      width: 1.3,
-                      fontSize: 12,
-                      textMargin: 0,
-                      font: 'tahoma',
-                      margin: 0
-                    }" />
+      <b-table-column field="amount" label="مقدار" sortable>
+          {{ props.row.amount | currency('', 0) }}
       </b-table-column>
       <b-table-column  label="" width="100">
         <b-dropdown :mobile-modal="false" v-model="isPublic" class="control" position="is-bottom-left">
@@ -93,24 +80,16 @@
           <new></new>
         </div>
       </modal>
-
-      <modal :visible="priceHistoryModalVisible" @close="priceHistoryModalVisible = false">
-        <div class="modal-card-body">
-          <price-history :materialId="priceHistoryId"></price-history>
-        </div>
-      </modal>
     </template>
   </list>
 </template>
 
 <script>
   import { CardModal, Modal } from 'vue-bulma-modal'
-  import Barcode from '@xkeshi/vue-barcode'
   import List from './../../templates/List'
-  import Material from './../../services/material'
+  import Payment from './../../services/payment'
   import New from './New'
   import Edit from './Edit'
-  import PriceHistory from './../dealItem/PriceHistory'
 
   export default {
     components: {
@@ -118,9 +97,7 @@
       CardModal,
       New,
       Edit,
-      Modal,
-      Barcode,
-      PriceHistory
+      Modal
     },
     data () {
       return {
@@ -136,7 +113,7 @@
     methods: {
       loadAsyncData (table) {
         table.loading = true
-        Material.gets(
+        Payment.getPaymentsOfMainDealer(
           table.currentPage,
           table.perPage,
           table.sortField,

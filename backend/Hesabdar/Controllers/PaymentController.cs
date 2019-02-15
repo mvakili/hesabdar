@@ -29,9 +29,11 @@ namespace Hesabdar.Controllers
             return Ok(materials);
         }
 
+        [HttpGet("Dealer")]
         [HttpGet("Dealer/{id}")]
-        public IActionResult GetPaymentsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        public IActionResult GetPaymentsOfDealer([FromRoute] int? id = null, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
+            id = id ?? 1;
             var payments = _context.Payment.Where(u => u.Amount > 0).Where(u => u.PayeeId == id || u.PayerId == id).OrderBy(u => u.PayDate).PageResult(page, perPage);
             return Ok(payments);
         }

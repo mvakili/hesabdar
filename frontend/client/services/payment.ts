@@ -26,6 +26,13 @@ export default  {
     {
         return Base.get('payment', 'Deal/' + dealId);
     },
+    getPaymentsOfDealer(dealerId: number, page: number, perPage: number, sortField: string, sortOrder: string): Promise<any> {
+        return Base.get('payment', '?id=' + dealerId + '&&page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''))
+    },
+    getPaymentsOfMainDealer( page: number, perPage: number, sortField: string, sortOrder: string): Promise<any> {
+        return Base.get('payment', '?page=' + page + '&&perPage=' + perPage + ((sortField) ? ('&&sort=' + sortField + ' ' + sortOrder) : ''))
+
+    },
     getPriceOfDeal(dealId: number) : Promise<any>
     {
         return Base.get('payment', 'Deal/Price/' + dealId);
