@@ -1,34 +1,30 @@
 <template>
   <div>
     <div class="tile is-ancestor">
-
-
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <h1 class="title">ثبت طرف‌حساب جدید</h1>
+          <h1 class="title">ویرایش کالا</h1>
           <h2 class="subtitle"></h2>
-          <form v-on:submit.prevent="add">
+          <form v-on:submit.prevent="edit">
             <div class="columns">
               <div class="column">
-                <label class="label">نام طرف‌حساب</label>
+                <label class="label">نام کالا</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.name" type="text" ref="nameInput" placeholder="نام طرف‌حساب" value="" autofocus>
+                  <input class="input" v-model="material.name" type="text" placeholder="نام کالا" value="" autofocus>
                 </p>
               </div>
             </div>
             <div class="columns">
               <div class="column">
-                <label class="label">تلفن</label>
+                <label class="label">بارکد</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.phoneNumber" type="text" ref="phoneNumberInput" placeholder="تلفن" value="" >
-                </p>
-              </div>
-            </div>
-            <div class="columns">
-              <div class="column">
-                <label class="label">آدرس</label>
-                <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.address" type="text" ref="addressInput" placeholder="آدرس" value="" >
+                   <barcode v-if="material.barcode" :value="material.barcode"
+                      :options="{ height: 20,
+                        width: 1.3,
+                        displayValue: false,
+                        margin: 0
+                    }" />
+                  <input class="input" v-model="material.barcode" type="text" placeholder="بارکد" value="" autofocus>
                 </p>
               </div>
             </div>
@@ -43,36 +39,35 @@
 </template>
 
 <script>
-import Dealer from './../../services/dealer'
+import Material from './../../services/material'
+import Barcode from '@xkeshi/vue-barcode'
 
 export default {
+  components: {
+    Barcode
+  },
   props: {
-    name: {
-      type: String,
-      default: ''
-    }
+    id: Number
   },
   data () {
     return {
-      dealer: {
-        name: '',
-        address: '',
-        phoneNumber: ''
+      material: {
       }
     }
   },
   methods: {
-    add () {
-      Dealer.add(this.dealer).then(res => {
-        this.$emit('onSuccess', res)
+    edit () {
+      Material.edit(this.id, this.material).then(res => {
+        this.$emit('onSuccess', this.material)
       }).catch(err => {
         this.$emit('onFail', err)
       })
     }
   },
   mounted () {
-    this.dealer.name = this.name
-    this.$refs.nameInput.focus()
+    Material.get(this.id).then(res => {
+      this.material = res
+    })
   }
 }
 </script>

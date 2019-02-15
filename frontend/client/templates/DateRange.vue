@@ -48,6 +48,10 @@ export default {
     to () {
       this.$emit('update:toDate', this.to)
     }
+  },
+  mounted: function () {
+    this.from = this.fromDate
+    this.to = this.toDate
   }
 }
 </script>

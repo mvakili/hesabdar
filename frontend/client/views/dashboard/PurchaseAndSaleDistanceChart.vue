@@ -30,8 +30,8 @@ export default {
           mode: 'label'
         }
       },
-      fromDate: new Date().toString(),
-      toDate: new Date().toString(),
+      fromDate: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString(),
+      toDate: new Date().toISOString(),
       series: ['خرید', 'فروش'],
       datas: [[], []],
       labels: [],

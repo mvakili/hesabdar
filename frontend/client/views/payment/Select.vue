@@ -1,12 +1,15 @@
 <template>
   <div>
-  <p class="control  is-expanded" :class="{'has-addons': isNew}" style="direction:ltr">
-    <button class="button is-warning" v-if="isNew" @click="newDealerModalVisible = true"><i class="fa fa-plus"></i></button>    
-  <autocomplete style="direction:rtl" class="is-expanded" ref="autoComplete"
+  <p class="control  is-expanded" :class="{'has-addons': isCompleted || isNew}" style="direction:ltr">
+    <button v-if="isCompleted" class="button is-primary" @click="priceHistoryModalVisible = true">
+      <i class="fa fa-line-chart"></i>
+    </button>
+    <button class="button is-warning" v-if="isNew" @click="newMaterialModalVisible = true"><i class="fa fa-plus"></i></button>    
+  <autocomplete style="direction:rtl"  class="is-expanded" ref="autoComplete"
     rounded
     v-model="modelName"
     :data="data"
-    placeholder="طرف‌حساب"
+    placeholder="کالا"
     :keep-first="true"
     field="name"
     @focus="focused($event.target)"
@@ -14,10 +17,15 @@
     :open-on-focus="true"
     @select="option => selected = option || {}">
     <template slot="empty">
-      </template>     
+    </template>     
   </autocomplete>
   </p>
-  <modal :visible="newDealerModalVisible" @close="newDealerModalVisible = false">
+  <modal :visible="priceHistoryModalVisible" @close="priceHistoryModalVisible = false">
+    <div class="modal-card-body">
+      <price-history :materialId="selected.id"></price-history>
+    </div>
+  </modal>
+  <modal :visible="newMaterialModalVisible" @close="newMaterialModalVisible = false">
     <div class="content has-text-centered">
       <new :name="modelName" @onSuccess="added"></new>
     </div>
@@ -28,13 +36,15 @@
 
 <script>
 import { Modal } from 'vue-bulma-modal'
-import Dealer from './../../services/dealer'
+import Material from './../../services/material'
+import PriceHistory from './../dealItem/PriceHistory'
 import New from './New'
 import Autocomplete from './../../templates/autocomplete'
 
 export default {
   components: {
     Modal,
+    PriceHistory,
     New,
     Autocomplete
   },
@@ -46,7 +56,7 @@ export default {
       loadData: true,
       selected: {},
       priceHistoryModalVisible: false,
-      newDealerModalVisible: false
+      newMaterialModalVisible: false
     }
   },
   methods: {
@@ -56,7 +66,7 @@ export default {
     },
     loadAsyncData: function (name) {
       if (this.loadData) {
-        Dealer.suggest(name || '').then(response => {
+        Material.suggest(name || '').then(response => {
           this.data.splice(0, this.data.length)
           for (let index = 0; index < response.length; index++) {
             const element = response[index]
@@ -69,10 +79,10 @@ export default {
     focus: function () {
       this.$refs.autoComplete.focus()
     },
-    added: function (dealer) {
-      this.modelName = dealer.name
-      this.selected = dealer
-      this.newDealerModalVisible = false
+    added: function (material) {
+      this.modelName = material.name
+      this.selected = material
+      this.newMaterialModalVisible = false
     }
   },
   watch: {
@@ -97,6 +107,9 @@ export default {
   computed: {
     isNew: function () {
       return (this.modelName.length > 0 && this.modelName !== (this.selected ? this.selected.name : ''))
+    },
+    isCompleted: function () {
+      return (this.selected != null && this.selected.id && this.modelName === this.selected.name)
     },
     modelName: {
       get: function () {

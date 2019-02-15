@@ -3,14 +3,14 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <article class="tile is-child box">
-          <h1 class="title">ویرایش طرف حساب</h1>
+          <h1 class="title">ویرایش طرف‌حساب</h1>
           <h2 class="subtitle"></h2>
           <form v-on:submit.prevent="edit">
             <div class="columns">
               <div class="column">
-                <label class="label">نام طرف حساب</label>
+                <label class="label">نام طرف‌حساب</label>
                 <p class="control has-icon has-icon-right">
-                  <input class="input" v-model="dealer.name" type="text" placeholder="نام طرف حساب" value="" autofocus>
+                  <input class="input" v-model="dealer.name" type="text" placeholder="نام طرف‌حساب" value="" autofocus>
                 </p>
               </div>
             </div>

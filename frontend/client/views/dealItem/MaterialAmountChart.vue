@@ -44,8 +44,8 @@ export default {
         'rgba(240, 230, 30, 1)',
         'rgba(120, 120, 10, 1)'
       ],
-      fromDate: new Date().toString(),
-      toDate: new Date().toString()
+      fromDate: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString(),
+      toDate: new Date().toISOString()
     }
   },
   methods: {
