@@ -3,6 +3,7 @@
     @focus="resize"
     v-model="val"
     :style="computedStyles"
+    rows="1"
   ></textarea>
 </template>
 <script>
@@ -114,7 +115,7 @@ export default {
     resize: function () {
       const important = this.isHeightImportant ? 'important' : undefined
 
-      this.$el.style.setProperty('height', 1, 'important')
+      this.$el.style.setProperty('height', 1 + 'px', 'important')
       let contentHeight = this.$el.scrollHeight + 1
 
       if (this.minHeight) {
