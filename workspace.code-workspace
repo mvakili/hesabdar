@@ -1,10 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "frontend"
+			"path": "backend\\Hesabdar"
 		},
 		{
-			"path": "backend\\Hesabdar"
+			"path": "backend\\HesabdarTest"
+		},
+		{
+			"path": "frontend"
 		}
 	],
 	"settings": {}
