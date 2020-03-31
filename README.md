@@ -1,3 +1,5 @@
+<div dir="rtl">
+
 # حسابدار
 
 <p>
@@ -44,7 +46,9 @@
 
 ### پیش نیاز ها
 
-Frontend:
+<div dir="ltr">
+
+**Frontend**:
 
 - Node >= v5
 - NPM >= v3
@@ -55,14 +59,18 @@ Frontend:
 - Electron v1
 - Buefy v0.5.6
 
-Backend:
+**Backend**:
 
 - dotnetcore v2
 - Microsoft.EntityFrameworkCore.SqlServer v2
 - Microsoft.AspNetCore.All v2
 - Swashbuckle.AspNetCore (Swagger UI) v1.1.0
 
+<div dir="rtl">
+
 ### شروع استفاده - Backend
+
+<div dir="ltr">
 
 ```bash
 > cd backend/Hesabdar
@@ -70,7 +78,11 @@ Backend:
 > dotnet run
 ```
 
+<div dir="rtl">
+
 ### شروع استفاده - Frontend
+
+<div dir="ltr">
 
 ```bash
 > cd frontend/
@@ -81,7 +93,10 @@ Backend:
 // or > npm run dev
 ```
 
+<div dir="rtl">
+
 ## لایسنس
 
+<div dir="ltr">
 
 [MIT](https://github.com/mvakili/hesabdar/blob/dev/LICENSE)
