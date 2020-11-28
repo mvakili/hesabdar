@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hesabdar.Models
 {
@@ -17,9 +14,10 @@ namespace Hesabdar.Models
         public virtual ICollection<Payment> Expenses { get; set; }
 
         [NotMapped]
-        public decimal? Balance {get; set;} = null;
+        public decimal? Balance { get; set; } = null;
 
-        public Dealer () {
+        public Dealer()
+        {
             this.Expenses = new HashSet<Payment>();
             this.Incomes = new HashSet<Payment>();
 

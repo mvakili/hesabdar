@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Dynamic.Core;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Hesabdar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace Hesabdar.Controllers
 {
     [Produces("application/json")]
     [Route("api/Deal")]
-    public class DealController : Controller
+    public partial class DealController : Controller
     {
         private readonly HesabdarContext _context;
 
@@ -21,66 +20,8 @@ namespace Hesabdar.Controllers
             _context = context;
         }
 
-        // GET: api/Deal
-        [HttpGet]
-        public IActionResult Deals([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).OrderBy(sort).PageResult(page, perPage);
-            return Ok(deals);
-        }
-
-        [HttpGet("Dealer/{id}")]
-        public IActionResult GetDealsOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            var dealerExists = _context.Dealer.Any(u => u.Id == id);
-
-            if (!dealerExists)
-            {
-                return BadRequest();
-            }
-
-
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => ((u.Buyer != null && u.Buyer.Id == id) || (u.Seller != null && u.Seller.Id == id)) && (u.Seller != null || u.Buyer != null)).OrderBy(sort).PageResult(page, perPage);
-            return Ok(deals);
-        }
-        [HttpGet("Dealer/Sales")]
-
-        [HttpGet("Dealer/Sales/{id}")]
-        public IActionResult GetSalesOfDealer([FromRoute] int? id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            if (id == null)
-            {
-                id = 1;
-            }
-            var dealerExists = _context.Dealer.Any(u => u.Id == id);
-
-            if (!dealerExists)
-            {
-                return BadRequest();
-            }
-
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => u.Seller != null && u.Seller.Id == id).OrderBy(sort).PageResult(page, perPage);
-            return Ok(deals);
-        }
-        [HttpGet("Dealer/Purchases")]
-        [HttpGet("Dealer/Purchases/{id}")]
-        public IActionResult GetPurchasesOfDealer([FromRoute] int? id = null, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            if (id == null)
-            {
-                id = 1;
-            }
-            var dealerExists = _context.Dealer.Any(u => u.Id == id);
-
-            if (!dealerExists)
-            {
-                return BadRequest();
-            }
-            var deals = _context.Deal.Include("Seller").Include("Buyer").Include(i => i.DealPrice).Include(i => i.DealPayment).Where(u => u.Buyer != null && u.Buyer.Id == id).OrderBy(sort).PageResult(page, perPage);
-            return Ok(deals);
-        }
-
         // GET: api/Deal/5
+        [ExcludeFromCodeCoverage]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDeal([FromRoute] int id)
         {
@@ -100,6 +41,7 @@ namespace Hesabdar.Controllers
         }
 
         // PUT: api/Deal/5
+        [ExcludeFromCodeCoverage]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDeal([FromRoute] int id, [FromBody] Deal deal)
         {
@@ -118,7 +60,7 @@ namespace Hesabdar.Controllers
             #endregion
 
             #region Payments Modify
-            if(deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
+            if (deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
             {
                 deal.DealPayment.Amount = 0;
             }
@@ -144,18 +86,16 @@ namespace Hesabdar.Controllers
 
             newItems.ForEach(i =>
             {
- 
+
                 if (i.Id != 0)
                 {
                     _context.Entry(i).State = EntityState.Modified;
-                } else
+                }
+                else
                 {
                     _context.Entry(i).State = EntityState.Added;
                 }
             });
-
-
-
 
 
             #endregion
@@ -180,6 +120,7 @@ namespace Hesabdar.Controllers
         }
 
         [HttpPost("Sale")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> PostSale([FromBody] Deal deal)
         {
             if (!ModelState.IsValid)
@@ -195,6 +136,7 @@ namespace Hesabdar.Controllers
             return await PostDeal(deal);
         }
         [HttpPost("Purchase")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> PostPurchase([FromBody] Deal deal)
         {
             if (!ModelState.IsValid)
@@ -208,9 +150,10 @@ namespace Hesabdar.Controllers
             deal.DealPayment.PayeeId = deal.SellerId;
             deal.DealPayment.PayerId = 1;
 
-            
+
             return await PostDeal(deal);
         }
+        [ExcludeFromCodeCoverage]
         private async Task<IActionResult> PostDeal([FromBody] Deal deal)
         {
             if (!ModelState.IsValid)
@@ -222,11 +165,11 @@ namespace Hesabdar.Controllers
             {
                 deal.DealTime = DateTime.Now;
             }
-            if(deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
+            if (deal.DealPayment.Method == Models.Enums.PaymentMethod.Cash && !deal.DealPayment.Paid)
             {
                 deal.DealPayment.Amount = 0;
             }
-            deal.DealPrice.DueDate = deal.DealTime;
+
             deal.DealPrice.PayDate = deal.DealTime;
             deal.DealPrice.Method = Models.Enums.PaymentMethod.DealPrice;
             deal.DealPrice.Paid = true;
@@ -238,10 +181,6 @@ namespace Hesabdar.Controllers
                 deal.DealPayment.PayDate = DateTime.Now;
             }
 
-            if (deal.DealPayment.DueDate == DateTime.MinValue)
-            {
-                deal.DealPayment.DueDate = DateTime.Now;
-            }
 
             _context.Entry(deal).State = EntityState.Added;
             deal.Items.ToList().ForEach(i =>
@@ -257,6 +196,7 @@ namespace Hesabdar.Controllers
         }
 
         // DELETE: api/Deal/5
+        [ExcludeFromCodeCoverage]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDeal([FromRoute] int id)
         {
@@ -276,7 +216,7 @@ namespace Hesabdar.Controllers
 
             return Ok(deal);
         }
-
+        [ExcludeFromCodeCoverage]
         private bool DealExists(int id)
         {
             return _context.Deal.Any(e => e.Id == id);

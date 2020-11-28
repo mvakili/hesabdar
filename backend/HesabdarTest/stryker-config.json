@@ -1,0 +1,9 @@
+{
+    "stryker-config":
+    {
+        "mutate": [
+            "**/*TestCovered.cs"
+        ],
+        "abort-test-on-fail": false
+    }
+}

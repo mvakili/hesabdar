@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Dynamic.Core;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Hesabdar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace Hesabdar.Controllers
 {
     [Produces("application/json")]
     [Route("api/Dealer")]
-    public class DealerController : Controller
+    public partial class DealerController : Controller
     {
         private readonly HesabdarContext _context;
 
@@ -21,84 +20,16 @@ namespace Hesabdar.Controllers
             _context = context;
         }
 
-        // GET: api/Dealer
-        [HttpGet]
-        public IActionResult Dealers([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+
+        [ExcludeFromCodeCoverage]
+        [HttpGet("Main")]
+        public async Task<IActionResult> GetMainDealer()
         {
-            
-            var incomes = _context.Payment.Where(u => u.Paid).Where(u => u.PayerId == 1).GroupBy(u => u.PayeeId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
-            var expenses = _context.Payment.Where(u => u.Paid).Where(u => u.PayeeId == 1).GroupBy(u => u.PayerId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
-            
-            var dealers = (
-                from d in _context.Dealer
-                join i in incomes on d.Id equals i.DealerId into iIncome
-                from income in iIncome.DefaultIfEmpty()
-                join e in expenses on d.Id equals e.DealerId into iExpenses
-                from expense in iExpenses.DefaultIfEmpty()
-                where d.Id != 1
-                select new Dealer {
-                    Address = d.Address,
-                    Id = d.Id,
-                    Name = d.Name,
-                    PhoneNumber = d.PhoneNumber,
-                    Timestamp = d.Timestamp,
-                    Balance =  (expense!= null ? expense.Amount : 0) - (income != null ? income.Amount : 0)
-                }
-            ).OrderBy(sort).PageResult(page, perPage);
-            return Ok(dealers);
-        }
-
-        [HttpGet("Suggest")]
-        [HttpGet("Suggest/{text}")]
-        public IActionResult GetSuggestedDealers([FromRoute] string text = "")
-        {
-            text = text.ToLower();
-            var dealers = _context.Dealer
-                .Where(u => u.Id != 1)
-                .Where(u => u.Name.ToLower().Contains(text))
-                .Take(10);
-            return Ok(dealers);
-        }
-
-        // GET: api/Dealer/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDealer([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var incomes = _context.Payment.Where(u => u.Paid).Where(u => u.PayerId == 1).GroupBy(u => u.PayeeId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
-            var expenses = _context.Payment.Where(u => u.Paid).Where(u => u.PayeeId == 1).GroupBy(u => u.PayerId).Select(u => new { DealerId = u.Key, Amount = u.Select(i => i.Amount).DefaultIfEmpty(0).Sum()});
-            
-            var dealers = (
-                from d in _context.Dealer
-                join i in incomes on d.Id equals i.DealerId into iIncome
-                from income in iIncome.DefaultIfEmpty()
-                join e in expenses on d.Id equals e.DealerId into iExpenses
-                from expense in iExpenses.DefaultIfEmpty()
-                select new Dealer {
-                    Address = d.Address,
-                    Id = d.Id,
-                    Name = d.Name,
-                    PhoneNumber = d.PhoneNumber,
-                    Timestamp = d.Timestamp,
-                    Balance =  (expense!= null ? expense.Amount : 0) - (income != null ? income.Amount : 0)                    
-                }
-            );
-            
-            var dealer = await dealers.SingleOrDefaultAsync(m => m.Id == id);
-
-            if (dealer == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(dealer);
+            return await GetDealer(id: 1);
         }
 
         // PUT: api/Dealer/5
+        [ExcludeFromCodeCoverage]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDealer([FromRoute] int id, [FromBody] Dealer dealer)
         {
@@ -132,8 +63,15 @@ namespace Hesabdar.Controllers
 
             return NoContent();
         }
+        [ExcludeFromCodeCoverage]
+        [HttpPut("Main")]
+        public async Task<IActionResult> PutMainDealer([FromBody] Dealer dealer)
+        {
+            return await PutDealer(1, dealer);
+        }
 
         // POST: api/Dealer
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         public async Task<IActionResult> PostDealer([FromBody] Dealer dealer)
         {
@@ -148,27 +86,7 @@ namespace Hesabdar.Controllers
             return CreatedAtAction("GetDealer", new { id = dealer.Id }, dealer);
         }
 
-        // DELETE: api/Dealer/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDealer([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var dealer = await _context.Dealer.SingleOrDefaultAsync(m => m.Id == id);
-            if (dealer == null)
-            {
-                return NotFound();
-            }
-
-            _context.Dealer.Remove(dealer);
-            await _context.SaveChangesAsync();
-
-            return Ok(dealer);
-        }
-
+        [ExcludeFromCodeCoverage]
         private bool DealerExists(int id)
         {
             return _context.Dealer.Any(e => e.Id == id);
