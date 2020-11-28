@@ -1,57 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Dynamic.Core;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Hesabdar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace Hesabdar.Controllers
 {
     [Produces("application/json")]
     [Route("api/Payment")]
-    public class PaymentController : Controller
+    public partial class PaymentController : Controller
     {
         private readonly HesabdarContext _context;
-
+        [ExcludeFromCodeCoverage]
         public PaymentController(HesabdarContext context)
         {
             _context = context;
         }
-
-        // GET: api/Payment
+        [ExcludeFromCodeCoverage]
         [HttpGet]
-        public IActionResult GetPayments([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            var materials = _context.Payment.Where(u => u.Amount > 0).OrderBy(sort).PageResult(page, perPage);
-            return Ok(materials);
-        }
-
-        [HttpGet("Dealer")]
         [HttpGet("Dealer/{id}")]
-        public IActionResult GetPaymentsOfDealer([FromRoute] int? id = null, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
+        [HttpGet("Dealer/{id}/SecondParty/{secondPartyId}")]
+        [HttpGet("SecondParty/{secondPartyId}")]
+        public IActionResult GetPaymentsOfDealer([FromRoute] int? id = null, [FromRoute] int? secondPartyId = null, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "payDate asc", [FromQuery] string filter = "")
         {
             id = id ?? 1;
-            var payments = _context.Payment.Where(u => u.Amount > 0).Where(u => u.PayeeId == id || u.PayerId == id).OrderBy(u => u.PayDate).PageResult(page, perPage);
+
+            var paymentsQuery = PaymentResult.Where(u => u.PayeeId == id || u.PayerId == id);
+            if (secondPartyId != null)
+            {
+                paymentsQuery = paymentsQuery.Where(u => u.PayeeId == secondPartyId || u.PayerId == secondPartyId);
+            }
+            var payments = paymentsQuery.OrderBy(sort).PageResult(page, perPage);
             return Ok(payments);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet("Dealer/Incomes/{id}")]
         public IActionResult GetIncomesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var incomes = _context.Dealer.Where(u => u.Id == id).Include(u => u.Incomes.Where(i => i.Amount > 0)).Select(u => u.Incomes);
-            return Ok(incomes);
+            var payments = PaymentResult.Where(u => u.PayeeId == id).OrderBy(u => u.PayDate).PageResult(page, perPage);
+            return Ok(payments);
         }
-
+        [ExcludeFromCodeCoverage]
         [HttpGet("Dealer/Expenses/{id}")]
         public IActionResult GetExpensesOfDealer([FromRoute] int id, [FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
         {
-            var expenses = _context.Dealer.Where(u => u.Id == id).Include(u => u.Expenses.Where(e => e.Amount > 0)).Select(u => u.Expenses);
-            return Ok(expenses);
-        }
 
+
+            var payments = PaymentResult.Where(u => u.PayerId == id).OrderBy(u => u.PayDate).PageResult(page, perPage);
+            return Ok(payments);
+        }
+        [ExcludeFromCodeCoverage]
         [HttpGet("Deal/Price/{id}")]
         public async Task<IActionResult> GetPriceOfDeal([FromRoute] int id)
         {
@@ -62,7 +64,7 @@ namespace Hesabdar.Controllers
             }
             return Ok(payment);
         }
-
+        [ExcludeFromCodeCoverage]
         [HttpGet("Deal/{id}")]
         public async Task<IActionResult> GetPaymentOfDeal([FromRoute] int id)
         {
@@ -75,6 +77,7 @@ namespace Hesabdar.Controllers
         }
 
         // GET: api/Payment/5
+        [ExcludeFromCodeCoverage]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPayment([FromRoute] int id)
         {
@@ -83,7 +86,7 @@ namespace Hesabdar.Controllers
                 return BadRequest(ModelState);
             }
 
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
+            var payment = await PaymentResult.SingleOrDefaultAsync(m => m.Id == id);
 
             if (payment == null)
             {
@@ -94,6 +97,7 @@ namespace Hesabdar.Controllers
         }
 
         // PUT: api/Payment/5
+        [ExcludeFromCodeCoverage]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPayment([FromRoute] int id, [FromBody] Payment payment)
         {
@@ -129,6 +133,7 @@ namespace Hesabdar.Controllers
         }
 
         // POST: api/Payment
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         public async Task<IActionResult> PostPayment([FromBody] Payment payment)
         {
@@ -144,6 +149,7 @@ namespace Hesabdar.Controllers
         }
 
         // DELETE: api/Payment/5
+        [ExcludeFromCodeCoverage]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePayment([FromRoute] int id)
         {
@@ -163,10 +169,35 @@ namespace Hesabdar.Controllers
 
             return Ok(payment);
         }
-
+        [ExcludeFromCodeCoverage]
         private bool PaymentExists(int id)
         {
             return _context.Payment.Any(e => e.Id == id);
         }
+        [ExcludeFromCodeCoverage]
+        public IQueryable<PaymentModel> PaymentResult => (from p in _context.Payment
+                                                          join payer in _context.Dealer on p.PayerId equals payer.Id
+                                                          join payee in _context.Dealer on p.PayeeId equals payee.Id
+                                                          join dpayment in _context.Deal on p.Id equals dpayment.DealPaymentId into iDealPayment
+                                                          from dealPayment in iDealPayment.DefaultIfEmpty()
+                                                          join dprice in _context.Deal on p.Id equals dprice.DealPriceId into iDealPrice
+                                                          from dealPrice in iDealPrice.DefaultIfEmpty()
+                                                          select new PaymentModel
+                                                          {
+                                                              Amount = p.Amount,
+                                                              Id = p.Id,
+                                                              Method = p.Method,
+                                                              Paid = p.Paid,
+                                                              PayDate = p.PayDate,
+                                                              PayeeId = p.PayeeId,
+                                                              PayerId = p.PayerId,
+                                                              Timestamp = p.Timestamp,
+                                                              Payee = payee,
+                                                              Payer = payer,
+                                                              IsDealPrice = dealPrice != null,
+                                                              IsDealPayment = dealPayment != null,
+                                                              Deal = dealPrice ?? dealPayment
+                                                          }
+        );
     }
 }

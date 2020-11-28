@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq.Dynamic.Core;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Hesabdar.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Threading.Tasks;
 
 namespace Hesabdar.Controllers
 {
     [Produces("application/json")]
     [Route("api/Material")]
-    public class MaterialController : Controller
+    public partial class MaterialController : Controller
     {
         private readonly HesabdarContext _context;
 
@@ -20,14 +19,7 @@ namespace Hesabdar.Controllers
             _context = context;
         }
 
-        // GET: api/Material
-        [HttpGet]
-        public IActionResult GetMaterials([FromQuery] int page = 1, [FromQuery] int perPage = 10, [FromQuery] string sort = "id desc", [FromQuery] string filter = "")
-        {
-            var materials = _context.Material.OrderBy(sort).PageResult(page, perPage);
-            return Ok(materials);
-        }
-
+        [ExcludeFromCodeCoverage]
         [HttpGet("Suggest")]
         [HttpGet("Suggest/{text}")]
         public IActionResult GetSuggestedMaterials([FromRoute] string text = "")
@@ -41,6 +33,7 @@ namespace Hesabdar.Controllers
         }
 
         // GET: api/Material/5
+        [ExcludeFromCodeCoverage]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMaterial([FromRoute] int id)
         {
@@ -60,6 +53,7 @@ namespace Hesabdar.Controllers
         }
 
         // PUT: api/Material/5
+        [ExcludeFromCodeCoverage]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMaterial([FromRoute] int id, [FromBody] Material material)
         {
@@ -95,6 +89,7 @@ namespace Hesabdar.Controllers
         }
 
         // POST: api/Material
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         public async Task<IActionResult> PostMaterial([FromBody] Material material)
         {
@@ -110,6 +105,7 @@ namespace Hesabdar.Controllers
         }
 
         // DELETE: api/Material/5
+        [ExcludeFromCodeCoverage]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMaterial([FromRoute] int id)
         {

@@ -1,6 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+<DebugType>
+	Full
+</DebugType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RuntimeIdentifiers>win10-x64</RuntimeIdentifiers>
     <RuntimeIdentifiers>win7-x64</RuntimeIdentifiers>
@@ -40,10 +43,8 @@
   <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
     <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.xml" DestinationFolder="$(PublishDir)" />
     <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.db" DestinationFolder="$(PublishDir)" />
-    <Copy SourceFiles="bin\Debug\netcoreapp2.1\User.db" DestinationFolder="$(PublishDir)" />
       <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.xml" DestinationFolder="$(OutDir)" />
     <Copy SourceFiles="bin\Debug\netcoreapp2.1\Hesabdar.db" DestinationFolder="$(OutDir)" />
-    <Copy SourceFiles="bin\Debug\netcoreapp2.1\User.db" DestinationFolder="$(OutDir)" />
 
   </Target>
 </Project>

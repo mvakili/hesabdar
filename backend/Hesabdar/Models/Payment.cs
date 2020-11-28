@@ -1,9 +1,6 @@
 ﻿using Hesabdar.Models.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hesabdar.Models
 {
@@ -18,6 +15,5 @@ namespace Hesabdar.Models
         public PaymentMethod Method { get; set; }
         public DateTime PayDate { get; set; }
         public Boolean Paid { get; set; }
-        public DateTime DueDate { get; set; }
     }
 }

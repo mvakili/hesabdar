@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
 
 namespace Hesabdar.Models
 {
@@ -37,13 +33,12 @@ namespace Hesabdar.Models
 
 
         }
-        public DbSet<Hesabdar.Models.Activity> Activity { get; set; }
-        public DbSet<Hesabdar.Models.Material> Material { get; set; }
-        public DbSet<Hesabdar.Models.Dealer> Dealer { get; set; }
-        public DbSet<Hesabdar.Models.Deal> Deal { get; set; }
-        public DbSet<Hesabdar.Models.DealItem> DealItem { get; set; }
-        public DbSet<Hesabdar.Models.Payment> Payment { get; set; }
-
+        public DbSet<Activity> Activity { get; set; }
+        public DbSet<Material> Material { get; set; }
+        public DbSet<Dealer> Dealer { get; set; }
+        public DbSet<Deal> Deal { get; set; }
+        public DbSet<DealItem> DealItem { get; set; }
+        public DbSet<Payment> Payment { get; set; }
 
 
     }

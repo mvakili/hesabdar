@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FluentValidation.AspNetCore;
+using Hesabdar.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.EntityFrameworkCore;
-using Hesabdar.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Identity;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using FluentValidation.AspNetCore;
 namespace Hesabdar
 {
     public class Startup
@@ -73,7 +68,7 @@ namespace Hesabdar
             services.AddDbContext<UserDbContext>(options =>
                 options.UseSqlite(userDbConnectionString));
 
-            
+
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
 
@@ -135,7 +130,7 @@ namespace Hesabdar
                     c.DocExpansion(DocExpansion.None);
                 });
             }
-       
+
 
 
             app.UseCors("Cors");

@@ -1,6 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Hesabdar.Models.Enums;
-using Newtonsoft.Json;
 
 namespace Hesabdar.Models
 {
