@@ -40,7 +40,7 @@
     "@xkeshi/vue-barcode": "^0.2.0",
     "animate.css": "3.5.2",
     "animejs": "^2.0.1",
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "babel-runtime": "^6.26.0",
     "buefy": "^0.6.5",
     "bulma": "^0.3.2",
